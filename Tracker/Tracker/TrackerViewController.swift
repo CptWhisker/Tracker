@@ -42,12 +42,11 @@ final class TrackerViewController: UIViewController {
     
     private func configureNavigationItems() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "navBarAdd"),
+            image: UIImage(named: "navBarAddButton"),
             style: .plain,
             target: self,
             action: #selector(addHabitOrEvent)
         )
-        
         navigationItem.title = "Трекеры"
     }
     
