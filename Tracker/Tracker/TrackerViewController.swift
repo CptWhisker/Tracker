@@ -6,7 +6,7 @@ final class TrackerViewController: UIViewController {
     private var categories: [TrackerCategory]?
     private var completedTrackers: [TrackerRecord]?
     private lazy var stubImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "stubImage"))
+        let imageView = UIImageView(image: UIImage(named: "trackersStubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -38,11 +38,11 @@ final class TrackerViewController: UIViewController {
     private func configureInterface() {
         view.backgroundColor = .white
         
-        configureNavigationItems()
+        configureNavigationBar()
         configureTrackers()
     }
     
-    private func configureNavigationItems() {
+    private func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "navBarAddButton"),
             style: .plain,
@@ -53,7 +53,7 @@ final class TrackerViewController: UIViewController {
     }
     
     private func configureTrackers() {
-        guard let trackersToDisplay else {
+        guard trackersToDisplay != nil else {
             configureStubImageAndText()
             return
         }
