@@ -16,6 +16,9 @@
 		CE3063552C5BE9030013F319 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063542C5BE9030013F319 /* TabBarController.swift */; };
 		CE3063572C5C031F0013F319 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063562C5C031F0013F319 /* StatisticsViewController.swift */; };
 		CE3063592C5C08490013F319 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063582C5C08490013F319 /* NavigationController.swift */; };
+		CE3063C52C5F579C0013F319 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063C42C5F579C0013F319 /* Tracker.swift */; };
+		CE3063C72C5F585A0013F319 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063C62C5F585A0013F319 /* TrackerCategory.swift */; };
+		CE3063C92C5F591E0013F319 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063C82C5F591E0013F319 /* TrackerRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		CE3063542C5BE9030013F319 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CE3063562C5C031F0013F319 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		CE3063582C5C08490013F319 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		CE3063C42C5F579C0013F319 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		CE3063C62C5F585A0013F319 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
+		CE3063C82C5F591E0013F319 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,7 @@
 		CE30633C2C5BAEF40013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				CE3063C32C5F57870013F319 /* Models */,
 				CE30635C2C5C0F5C0013F319 /* Statistics */,
 				CE30635B2C5C0F510013F319 /* Tracker */,
 				CE30635A2C5C0F430013F319 /* Navigation */,
@@ -98,6 +105,16 @@
 				CE3063562C5C031F0013F319 /* StatisticsViewController.swift */,
 			);
 			path = Statistics;
+			sourceTree = "<group>";
+		};
+		CE3063C32C5F57870013F319 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063C42C5F579C0013F319 /* Tracker.swift */,
+				CE3063C62C5F585A0013F319 /* TrackerCategory.swift */,
+				CE3063C82C5F591E0013F319 /* TrackerRecord.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,10 +187,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3063C72C5F585A0013F319 /* TrackerCategory.swift in Sources */,
+				CE3063C92C5F591E0013F319 /* TrackerRecord.swift in Sources */,
 				CE3063482C5BAEF40013F319 /* Tracker.xcdatamodeld in Sources */,
 				CE3063422C5BAEF40013F319 /* TrackerViewController.swift in Sources */,
 				CE30633E2C5BAEF40013F319 /* AppDelegate.swift in Sources */,
 				CE3063572C5C031F0013F319 /* StatisticsViewController.swift in Sources */,
+				CE3063C52C5F579C0013F319 /* Tracker.swift in Sources */,
 				CE3063552C5BE9030013F319 /* TabBarController.swift in Sources */,
 				CE3063592C5C08490013F319 /* NavigationController.swift in Sources */,
 				CE3063402C5BAEF40013F319 /* SceneDelegate.swift in Sources */,

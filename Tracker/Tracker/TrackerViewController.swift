@@ -2,7 +2,9 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
-    private var trackersToDisplay: [AnyObject]?
+    private var trackersToDisplay: [Tracker]?
+    private var categories: [TrackerCategory]?
+    private var completedTrackers: [TrackerRecord]?
     private lazy var stubImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "stubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
