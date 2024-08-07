@@ -33,6 +33,7 @@
 		CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */; };
 		CE3063E92C6376C60013F319 /* EmojiCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */; };
 		CE3063EB2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */; };
+		CE3063EE2C63D5070013F319 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063ED2C63D5070013F319 /* UITableViewCellExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndCreateButtonsCellDelegate.swift; sourceTree = "<group>"; };
 		CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCellSupplementaryView.swift; sourceTree = "<group>"; };
 		CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCellSupplementaryView.swift; sourceTree = "<group>"; };
+		CE3063ED2C63D5070013F319 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +82,6 @@
 		CE3063312C5BAEF40013F319 = {
 			isa = PBXGroup;
 			children = (
-				CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */,
-				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
 				CE30633C2C5BAEF40013F319 /* Tracker */,
 				CE30633B2C5BAEF40013F319 /* Products */,
 			);
@@ -98,6 +98,9 @@
 		CE30633C2C5BAEF40013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				CE3063EC2C63D4E60013F319 /* Extensions */,
+				CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */,
+				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
 				CE3063C32C5F57870013F319 /* Models */,
 				CE30635C2C5C0F5C0013F319 /* Statistics */,
 				CE30635B2C5C0F510013F319 /* Tracker */,
@@ -189,6 +192,14 @@
 				CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */,
 			);
 			path = ColorSchemeCollectionView;
+			sourceTree = "<group>";
+		};
+		CE3063EC2C63D4E60013F319 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063ED2C63D5070013F319 /* UITableViewCellExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +294,7 @@
 				CE3063D72C6235970013F319 /* CategoryAndScheduleTableViewCell.swift in Sources */,
 				CE3063D02C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift in Sources */,
 				CE3063592C5C08490013F319 /* NavigationController.swift in Sources */,
+				CE3063EE2C63D5070013F319 /* UITableViewCellExtension.swift in Sources */,
 				CE3063CE2C60FA080013F319 /* TrackerCreationViewController.swift in Sources */,
 				CE3063402C5BAEF40013F319 /* SceneDelegate.swift in Sources */,
 			);

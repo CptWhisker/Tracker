@@ -47,14 +47,6 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
         ])
     }
     
-    private func configureSeparatorInsets(_ tableView: UITableView, forCell cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
-        } else {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        }
-    }
-    
     // MARK: - Public Methods
     func setInitializerTag(to initializerTag: InitializerTag) {
         self.initializerTag = initializerTag
@@ -83,6 +75,10 @@ extension CategoryAndScheduleTableViewCell: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        configureSeparatorInsets(tableView, forCell: cell, forRowAt: indexPath)
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            cell.removeSeparator()
+        } else {
+            cell.setLeftAndRightSeparatorInsets(to: 16)
+        }
     }
 }
