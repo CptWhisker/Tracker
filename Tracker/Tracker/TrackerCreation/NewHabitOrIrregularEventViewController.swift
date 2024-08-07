@@ -79,6 +79,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
             }
             
             cell.setInitializerTag(to: initializerTag)
+            cell.setDelegate(delegate: self)
             return cell
             
         case 2:
@@ -167,5 +168,18 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDelegateFlowLa
 extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDelegate {
     func didTapCancelButton() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - NewCategoryAndScheduleTableViewDelegate
+extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableViewDelegate {
+    func didTapCategoryButton() {
+        let newCategoryViewController = NewCategoryViewController()
+        let newCategoryNavigationController = UINavigationController(rootViewController: newCategoryViewController)
+        present(newCategoryNavigationController, animated: true, completion: nil)
+    }
+    
+    func didTapScheduleButton() {
+        // TODO: Go to schedule screen
     }
 }

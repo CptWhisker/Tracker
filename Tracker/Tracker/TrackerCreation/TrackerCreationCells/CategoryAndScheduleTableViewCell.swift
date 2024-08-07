@@ -3,6 +3,7 @@ import UIKit
 final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "CategoryAndScheduleTableViewCell"
+    private var delegate: NewCategoryAndScheduleTableViewDelegate?
     private var initializerTag: InitializerTag? {
         didSet {
             categoryAndScheduleTableView.reloadData()
@@ -51,6 +52,10 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
     func setInitializerTag(to initializerTag: InitializerTag) {
         self.initializerTag = initializerTag
     }
+    
+    func setDelegate(delegate: NewCategoryAndScheduleTableViewDelegate) {
+        self.delegate = delegate
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -79,6 +84,25 @@ extension CategoryAndScheduleTableViewCell: UITableViewDelegate {
             cell.removeSeparator()
         } else {
             cell.setLeftAndRightSeparatorInsets(to: 16)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableViewOptions[indexPath.row] {
+        case "Категория":
+            // TODO: Go to category screen
+            guard let delegate else {
+            print("[CategoryAndScheduleTableViewCell didSelectRowAt]: delegateError - Delegate is not set")
+            return
+        }
+        
+        delegate.didTapCategoryButton()
+            
+        case "Расписание":
+            // TODO: Go to shedule screen
+            print("Schedule screen")
+        default:
+            fatalError("Unexpected index path")
         }
     }
 }
