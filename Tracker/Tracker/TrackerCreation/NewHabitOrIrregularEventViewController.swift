@@ -169,6 +169,10 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
     func didTapCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func didTapCreateButton() {
+        // TODO: Implement logic and functionality
+    }
 }
 
 // MARK: - NewCategoryAndScheduleTableViewDelegate

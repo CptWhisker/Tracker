@@ -3,7 +3,7 @@ import UIKit
 final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "CategoryAndScheduleTableViewCell"
-    private var delegate: NewCategoryAndScheduleTableViewDelegate?
+    private weak var delegate: NewCategoryAndScheduleTableViewDelegate?
     private var initializerTag: InitializerTag? {
         didSet {
             categoryAndScheduleTableView.reloadData()
@@ -90,7 +90,6 @@ extension CategoryAndScheduleTableViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableViewOptions[indexPath.row] {
         case "Категория":
-            // TODO: Go to category screen
             guard let delegate else {
             print("[CategoryAndScheduleTableViewCell didSelectRowAt]: delegateError - Delegate is not set")
             return
