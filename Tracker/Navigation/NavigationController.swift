@@ -10,7 +10,7 @@ final class NavigationController: UINavigationController {
     
     // MARK: - Configuration
     private func configureNavigationBar() {
-        navigationBar.tintColor = .black
+        navigationBar.tintColor = .ypAccent
         navigationBar.prefersLargeTitles = true
     }
 }

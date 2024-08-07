@@ -19,6 +19,20 @@
 		CE3063C52C5F579C0013F319 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063C42C5F579C0013F319 /* Tracker.swift */; };
 		CE3063C72C5F585A0013F319 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063C62C5F585A0013F319 /* TrackerCategory.swift */; };
 		CE3063C92C5F591E0013F319 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063C82C5F591E0013F319 /* TrackerRecord.swift */; };
+		CE3063CE2C60FA080013F319 /* TrackerCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063CD2C60FA080013F319 /* TrackerCreationViewController.swift */; };
+		CE3063D02C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063CF2C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift */; };
+		CE3063D22C622EEC0013F319 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063D12C622EEC0013F319 /* Constants.swift */; };
+		CE3063D52C6235780013F319 /* NameTextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063D42C6235780013F319 /* NameTextfieldCell.swift */; };
+		CE3063D72C6235970013F319 /* CategoryAndScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063D62C6235970013F319 /* CategoryAndScheduleTableViewCell.swift */; };
+		CE3063D92C6235AE0013F319 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063D82C6235AE0013F319 /* EmojiCollectionViewCell.swift */; };
+		CE3063DB2C6235CC0013F319 /* ColorSchemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063DA2C6235CB0013F319 /* ColorSchemeCollectionViewCell.swift */; };
+		CE3063DD2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063DC2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift */; };
+		CE3063DF2C6245D20013F319 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063DE2C6245D20013F319 /* PaddedTextField.swift */; };
+		CE3063E22C6249910013F319 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E12C6249910013F319 /* EmojiCell.swift */; };
+		CE3063E52C6252940013F319 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E42C6252940013F319 /* ColorCell.swift */; };
+		CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */; };
+		CE3063E92C6376C60013F319 /* EmojiCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */; };
+		CE3063EB2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +50,20 @@
 		CE3063C42C5F579C0013F319 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		CE3063C62C5F585A0013F319 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		CE3063C82C5F591E0013F319 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		CE3063CD2C60FA080013F319 /* TrackerCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCreationViewController.swift; sourceTree = "<group>"; };
+		CE3063CF2C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitOrIrregularEventViewController.swift; sourceTree = "<group>"; };
+		CE3063D12C622EEC0013F319 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CE3063D42C6235780013F319 /* NameTextfieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextfieldCell.swift; sourceTree = "<group>"; };
+		CE3063D62C6235970013F319 /* CategoryAndScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		CE3063D82C6235AE0013F319 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE3063DA2C6235CB0013F319 /* ColorSchemeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE3063DC2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndCreateButtonsCell.swift; sourceTree = "<group>"; };
+		CE3063DE2C6245D20013F319 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		CE3063E12C6249910013F319 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
+		CE3063E42C6252940013F319 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndCreateButtonsCellDelegate.swift; sourceTree = "<group>"; };
+		CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCellSupplementaryView.swift; sourceTree = "<group>"; };
+		CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCellSupplementaryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +80,8 @@
 		CE3063312C5BAEF40013F319 = {
 			isa = PBXGroup;
 			children = (
+				CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */,
+				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
 				CE30633C2C5BAEF40013F319 /* Tracker */,
 				CE30633B2C5BAEF40013F319 /* Products */,
 			);
@@ -78,6 +108,7 @@
 				CE30634B2C5BAEFB0013F319 /* LaunchScreen.storyboard */,
 				CE30634E2C5BAEFB0013F319 /* Info.plist */,
 				CE3063462C5BAEF40013F319 /* Tracker.xcdatamodeld */,
+				CE3063D12C622EEC0013F319 /* Constants.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -94,6 +125,7 @@
 		CE30635B2C5C0F510013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				CE3063CC2C60F9D60013F319 /* TrackerCreation */,
 				CE3063412C5BAEF40013F319 /* TrackerViewController.swift */,
 			);
 			path = Tracker;
@@ -115,6 +147,48 @@
 				CE3063C82C5F591E0013F319 /* TrackerRecord.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CE3063CC2C60F9D60013F319 /* TrackerCreation */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063D32C62352F0013F319 /* TrackerCreationCells */,
+				CE3063CD2C60FA080013F319 /* TrackerCreationViewController.swift */,
+				CE3063CF2C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift */,
+			);
+			path = TrackerCreation;
+			sourceTree = "<group>";
+		};
+		CE3063D32C62352F0013F319 /* TrackerCreationCells */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063D42C6235780013F319 /* NameTextfieldCell.swift */,
+				CE3063D62C6235970013F319 /* CategoryAndScheduleTableViewCell.swift */,
+				CE3063E02C62496E0013F319 /* EmojiCollectionView */,
+				CE3063E32C62526E0013F319 /* ColorSchemeCollectionView */,
+				CE3063DC2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift */,
+			);
+			path = TrackerCreationCells;
+			sourceTree = "<group>";
+		};
+		CE3063E02C62496E0013F319 /* EmojiCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063D82C6235AE0013F319 /* EmojiCollectionViewCell.swift */,
+				CE3063E12C6249910013F319 /* EmojiCell.swift */,
+				CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */,
+			);
+			path = EmojiCollectionView;
+			sourceTree = "<group>";
+		};
+		CE3063E32C62526E0013F319 /* ColorSchemeCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063DA2C6235CB0013F319 /* ColorSchemeCollectionViewCell.swift */,
+				CE3063E42C6252940013F319 /* ColorCell.swift */,
+				CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */,
+			);
+			path = ColorSchemeCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,15 +261,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3063DD2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift in Sources */,
+				CE3063EB2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift in Sources */,
+				CE3063E92C6376C60013F319 /* EmojiCellSupplementaryView.swift in Sources */,
 				CE3063C72C5F585A0013F319 /* TrackerCategory.swift in Sources */,
+				CE3063E52C6252940013F319 /* ColorCell.swift in Sources */,
+				CE3063E22C6249910013F319 /* EmojiCell.swift in Sources */,
 				CE3063C92C5F591E0013F319 /* TrackerRecord.swift in Sources */,
 				CE3063482C5BAEF40013F319 /* Tracker.xcdatamodeld in Sources */,
+				CE3063DB2C6235CC0013F319 /* ColorSchemeCollectionViewCell.swift in Sources */,
+				CE3063D92C6235AE0013F319 /* EmojiCollectionViewCell.swift in Sources */,
 				CE3063422C5BAEF40013F319 /* TrackerViewController.swift in Sources */,
+				CE3063D52C6235780013F319 /* NameTextfieldCell.swift in Sources */,
+				CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */,
 				CE30633E2C5BAEF40013F319 /* AppDelegate.swift in Sources */,
+				CE3063DF2C6245D20013F319 /* PaddedTextField.swift in Sources */,
 				CE3063572C5C031F0013F319 /* StatisticsViewController.swift in Sources */,
 				CE3063C52C5F579C0013F319 /* Tracker.swift in Sources */,
+				CE3063D22C622EEC0013F319 /* Constants.swift in Sources */,
 				CE3063552C5BE9030013F319 /* TabBarController.swift in Sources */,
+				CE3063D72C6235970013F319 /* CategoryAndScheduleTableViewCell.swift in Sources */,
+				CE3063D02C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift in Sources */,
 				CE3063592C5C08490013F319 /* NavigationController.swift in Sources */,
+				CE3063CE2C60FA080013F319 /* TrackerCreationViewController.swift in Sources */,
 				CE3063402C5BAEF40013F319 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

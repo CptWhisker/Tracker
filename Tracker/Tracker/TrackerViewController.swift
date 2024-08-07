@@ -5,6 +5,12 @@ final class TrackerViewController: UIViewController {
     private var trackersToDisplay: [Tracker]?
     private var categories: [TrackerCategory]?
     private var completedTrackers: [TrackerRecord]?
+    private lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .compact
+        return datePicker
+    }()
     private lazy var stubImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "trackersStubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +42,7 @@ final class TrackerViewController: UIViewController {
     
     // MARK: - Interface Configuration
     private func configureInterface() {
-        view.backgroundColor = .white
+        view.backgroundColor = .ypMain
         
         configureNavigationBar()
         configureTrackers()
@@ -47,8 +53,15 @@ final class TrackerViewController: UIViewController {
             image: UIImage(named: "navBarAddButton"),
             style: .plain,
             target: self,
-            action: #selector(addHabitOrEvent)
+            action: #selector(addHabitOrIrregularEvent)
         )
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePicker)
+        
+        navigationItem.searchController = UISearchController()
+        navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
+        // TODO: Create custom SearchController
+        
         navigationItem.title = "Трекеры"
     }
     
@@ -71,8 +84,10 @@ final class TrackerViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc private func addHabitOrEvent() {
-        // Add habit or irregular event
+    @objc private func addHabitOrIrregularEvent() {
+        let trackerCreationViewController = TrackerCreationViewController()
+        let trackerCreationNavigationController = UINavigationController(rootViewController: trackerCreationViewController)
+        present(trackerCreationNavigationController, animated: true)
     }
 }
 
