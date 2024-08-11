@@ -185,5 +185,8 @@ extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableVie
     
     func didTapScheduleButton() {
         // TODO: Go to schedule screen
+        let scheduleViewController = ScheduleViewController()
+        let scheduleNavigationController = UINavigationController(rootViewController: scheduleViewController)
+        present(scheduleNavigationController, animated: true, completion: nil)
     }
 }

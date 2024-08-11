@@ -88,20 +88,22 @@ extension CategoryAndScheduleTableViewCell: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let delegate else {
+        print("[CategoryAndScheduleTableViewCell didSelectRowAt]: delegateError - Delegate is not set")
+        return
+    }
+        
         switch tableViewOptions[indexPath.row] {
         case "Категория":
-            guard let delegate else {
-            print("[CategoryAndScheduleTableViewCell didSelectRowAt]: delegateError - Delegate is not set")
-            return
-        }
-        
         delegate.didTapCategoryButton()
             
         case "Расписание":
-            // TODO: Go to shedule screen
-            print("Schedule screen")
+        delegate.didTapScheduleButton()
+            
         default:
             fatalError("Unexpected index path")
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
