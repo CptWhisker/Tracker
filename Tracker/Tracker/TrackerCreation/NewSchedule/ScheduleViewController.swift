@@ -8,9 +8,11 @@ final class ScheduleViewController: UIViewController {
     private lazy var scheduleTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.allowsSelection = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .red
+        tableView.tableHeaderView = UIView(frame: .zero)
         tableView.layer.cornerRadius = 16
         tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
         return tableView
