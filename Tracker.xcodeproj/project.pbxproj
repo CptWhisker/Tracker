@@ -41,6 +41,8 @@
 		CE3063FA2C6775380013F319 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F92C6775370013F319 /* ScheduleViewController.swift */; };
 		CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408542C68A41900E88229 /* ScheduleCell.swift */; };
 		CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */; };
+		CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */; };
+		CEF4085D2C6A915F00E88229 /* ScheduleViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4085C2C6A915E00E88229 /* ScheduleViewControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		CE3063F92C6775370013F319 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		CEF408542C68A41900E88229 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCreationDelegate.swift; sourceTree = "<group>"; };
+		CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndScheduleCell.swift; sourceTree = "<group>"; };
+		CEF4085C2C6A915E00E88229 /* ScheduleViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 				CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */,
 				CE3063F72C6417500013F319 /* CategoryCreationDelegate.swift */,
 				CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */,
+				CEF4085C2C6A915E00E88229 /* ScheduleViewControllerDelegate.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 				CE3063E02C62496E0013F319 /* EmojiCollectionView */,
 				CE3063E32C62526E0013F319 /* ColorSchemeCollectionView */,
 				CE3063DC2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift */,
+				CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */,
 			);
 			path = TrackerCreationCells;
 			sourceTree = "<group>";
@@ -322,6 +328,8 @@
 				CE3063D92C6235AE0013F319 /* EmojiCollectionViewCell.swift in Sources */,
 				CE3063422C5BAEF40013F319 /* TrackerViewController.swift in Sources */,
 				CE3063F82C6417500013F319 /* CategoryCreationDelegate.swift in Sources */,
+				CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */,
+				CEF4085D2C6A915F00E88229 /* ScheduleViewControllerDelegate.swift in Sources */,
 				CE3063D52C6235780013F319 /* NameTextfieldCell.swift in Sources */,
 				CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */,
 				CE3063FA2C6775380013F319 /* ScheduleViewController.swift in Sources */,

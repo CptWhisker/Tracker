@@ -1,10 +1,12 @@
 import UIKit
 
 final class ScheduleViewController: UIViewController {
+    // MARK: - Properties
     private let weekDays: [WeekDays] = [
         .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
     ]
     private var selectedWeekDays: [WeekDays] = []
+    private var delegate: ScheduleViewControllerDelegate?
     private lazy var scheduleTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,12 +32,14 @@ final class ScheduleViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureInterface()
     }
     
+    // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .ypMain
         title = "Расписание"
@@ -68,13 +72,21 @@ final class ScheduleViewController: UIViewController {
         ])
     }
     
+    // MARK: - Public Methods
+    func setDelegate(delegate: ScheduleViewControllerDelegate) {
+        self.delegate = delegate
+    }
+    
+    // MARK: - Actions
     @objc private func complete() {
         // Do something
         print(selectedWeekDays)
+        delegate?.didSelectWeekDays(weekdays: selectedWeekDays)
         dismiss(animated: true, completion: nil)
     }
 }
 
+// MARK: - UITableViewDataSource
 extension ScheduleViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return weekDays.count
@@ -88,6 +100,7 @@ extension ScheduleViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ScheduleViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.frame.height / CGFloat(weekDays.count)
@@ -102,6 +115,7 @@ extension ScheduleViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - ScheduleCreationDelegate
 extension ScheduleViewController: ScheduleCreationDelegate {
     func addWeekDay(_ weekday: String) {
         guard let weekDay = WeekDays(rawValue: weekday) else {

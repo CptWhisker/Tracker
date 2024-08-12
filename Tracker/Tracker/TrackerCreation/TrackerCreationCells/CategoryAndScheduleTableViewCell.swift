@@ -56,6 +56,17 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
     func setDelegate(delegate: NewCategoryAndScheduleTableViewDelegate) {
         self.delegate = delegate
     }
+    
+    func setSelectedWeekDaysLabel(weekdays: [WeekDays]) {
+        let weekdayString = weekdays.map { $0.abbreviation }.joined(separator: ", ")
+        
+        let indexPath = IndexPath(row: 1, section: 0)
+        
+        if let cell = categoryAndScheduleTableView.cellForRow(at: indexPath) as? CategoryAndScheduleCell {
+            cell.setSelectionLabel(to: weekdayString)
+            print(weekdayString)
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -65,10 +76,8 @@ extension CategoryAndScheduleTableViewCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = tableViewOptions[indexPath.row]
-        cell.backgroundColor = .ypBackground
-        cell.accessoryType = .disclosureIndicator
+        let cell = CategoryAndScheduleCell()
+        cell.setTitleLabel(to: tableViewOptions[indexPath.row])
         return cell
     }
 }

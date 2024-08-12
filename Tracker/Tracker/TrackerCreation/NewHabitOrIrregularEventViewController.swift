@@ -3,6 +3,13 @@ import UIKit
 final class NewHabitOrIrregularEventViewController: UIViewController {
     // MARK: - Properties
     var initializerTag: InitializerTag
+    
+    private var trackerTitle: String?
+    private var trackerCategory: TrackerCategory?
+    private var trackerWeekDays: [WeekDays]?
+    private var trackerEmoji: String?
+    private var trackerColor: UIColor?
+    
     private lazy var newHabitOrEventCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +41,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         configureInterface()
     }
     
-    // MARK: - Private Methods
+    // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .ypMain
         
@@ -53,6 +60,11 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         case .event:
             title = "Новое нерегулярное событие"
         }
+    }
+    
+    // MARK: - Private Methods
+    private func setTrackerWeekDays(with weekdays: [WeekDays]) {
+        trackerWeekDays = weekdays
     }
 }
 
@@ -146,12 +158,12 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDelegateFlowLa
         case 3:
             // TODO: Calculate height dynamically
             let cellHeight: CGFloat = 220
-
+            
             return CGSize(width: cellWidth, height: cellHeight)
             
         case 4:
             let cellHeight: CGFloat = 60
-
+            
             return CGSize(width: cellWidth, height: cellHeight)
             
         default:
@@ -184,9 +196,24 @@ extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableVie
     }
     
     func didTapScheduleButton() {
-        // TODO: Go to schedule screen
         let scheduleViewController = ScheduleViewController()
+        scheduleViewController.setDelegate(delegate: self)
         let scheduleNavigationController = UINavigationController(rootViewController: scheduleViewController)
         present(scheduleNavigationController, animated: true, completion: nil)
+    }
+}
+
+extension NewHabitOrIrregularEventViewController: ScheduleViewControllerDelegate {
+    func didSelectWeekDays(weekdays: [WeekDays]) {
+        let sortedWeekDays = weekdays.sorted {
+            WeekDays.allCases.firstIndex(of: $0)! < WeekDays.allCases.firstIndex(of: $1)!
+        }
+        setTrackerWeekDays(with: sortedWeekDays)
+        
+        let indexPath = IndexPath(item: 1, section: 0)
+        
+        if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
+            cell.setSelectedWeekDaysLabel(weekdays: sortedWeekDays)
+        }
     }
 }
