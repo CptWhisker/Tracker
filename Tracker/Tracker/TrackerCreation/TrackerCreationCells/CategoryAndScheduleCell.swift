@@ -13,7 +13,7 @@ final class CategoryAndScheduleCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .ypGray
         label.font = .systemFont(ofSize: 17)
-        label.text = "smth"
+        label.text = ""
         return label
     }()
     private let disclosureIndicator: UIImageView = {

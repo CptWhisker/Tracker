@@ -2,7 +2,12 @@ import UIKit
 
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
-    private var categories: [TrackerCategory]?
+    private var categories: [String] = []
+    private var selectedCategory: String? {
+        didSet {
+            categoriesTableView.reloadData()
+        }
+    }
     private lazy var stubImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "trackersStubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,8 +36,11 @@ final class NewCategoryViewController: UIViewController {
     private lazy var categoriesTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .ypMain
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.layer.cornerRadius = 16
+        tableView.separatorStyle = .none
+        tableView.register(NewCategoryTVCell.self, forCellReuseIdentifier: "NewCategoryCell")
         return tableView
     }()
     private lazy var newCategoryButton: UIButton = {
@@ -62,7 +70,7 @@ final class NewCategoryViewController: UIViewController {
         
         configureNewCategoryButton()
         
-        guard categories != nil else {
+        guard categories.isEmpty else {
             configureStubImageAndText()
             return
         }
@@ -112,8 +120,61 @@ final class NewCategoryViewController: UIViewController {
     }
 }
 
+extension NewCategoryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewCategoryCell", for: indexPath) as? NewCategoryTVCell else {
+            print("[NewCategoryViewController cellForRowAt]: typecastError - Unable to dequeue cell as NewCategoryTVCell")
+            return UITableViewCell()
+        }
+        
+        let category = categories[indexPath.row]
+        cell.setTitleLabel(to: category)
+        cell.setCheckmarkVisible(category == selectedCategory)
+        
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            cell.roundLowerCorners()
+        } else {
+            cell.removeCornerRadius()
+        }
+        
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+    
+    
+}
+
+extension NewCategoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let categoryCell = cell as? NewCategoryTVCell {
+            let isLastCell = indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1
+            categoryCell.hideSeparator(isLastCell)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let category = categories[indexPath.row]
+        
+        if category != selectedCategory {
+            selectedCategory = category
+        } else {
+            selectedCategory = nil
+        }
+    }
+}
+
 extension NewCategoryViewController: CategoryCreationDelegate {
-    func didCreateCategory() {
-        dismiss(animated: true, completion: nil)
+    func didCreateCategory(_ category: String) {
+        categories.append(category)
+        categoriesTableView.reloadData()
     }
 }

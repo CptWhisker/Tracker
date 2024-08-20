@@ -1,5 +1,5 @@
 import Foundation
 
 protocol CategoryCreationDelegate: AnyObject {
-    func didCreateCategory()
+    func didCreateCategory(_ category: String)
 }

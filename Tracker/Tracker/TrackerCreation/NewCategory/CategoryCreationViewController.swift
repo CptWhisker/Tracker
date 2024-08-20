@@ -9,17 +9,19 @@ final class CategoryCreationViewController: UIViewController {
         textfield.layer.cornerRadius = 16
         textfield.backgroundColor = .ypBackground
         textfield.placeholder = "Введите название категории"
+        textfield.addTarget(self, action: #selector(textTyped), for: .editingChanged)
         return textfield
     }()
     private lazy var completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.backgroundColor = .ypAccent
+        button.backgroundColor = .ypGray
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
         button.setTitle("Готово", for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
+        button.isEnabled = false
         button.addTarget(self, action: #selector(completeCreation), for: .touchUpInside)
         return button
     }()
@@ -42,7 +44,7 @@ final class CategoryCreationViewController: UIViewController {
     
     private func configureCategoryNameTextField() {
         view.addSubview(categoryNameTextField)
-
+        
         NSLayoutConstraint.activate([
             categoryNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             categoryNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -53,7 +55,7 @@ final class CategoryCreationViewController: UIViewController {
     
     private func configureCompleteButton() {
         view.addSubview(completeButton)
-
+        
         NSLayoutConstraint.activate([
             completeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             completeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -68,16 +70,20 @@ final class CategoryCreationViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc private func completeCreation() {
-        dismiss(animated: true, completion: nil)
+    @objc private func textTyped() {
+        let textFieldEmpty = categoryNameTextField.text?.isEmpty ?? true
+        completeButton.isEnabled = !textFieldEmpty
+        completeButton.backgroundColor = !textFieldEmpty ? .ypAccent : .ypGray
     }
     
-    deinit {
-        guard let delegate else {
-            print("[CategoryCreationViewController completeCreation]: delegateError - Delegate is not set")
-            return
+    @objc private func completeCreation() {
+        dismiss(animated: true) { [weak self, weak delegate] in
+            guard let self,
+                  let delegate,
+                  let category = self.categoryNameTextField.text
+            else { return }
+            
+            delegate.didCreateCategory(category)
         }
-        
-        delegate.didCreateCategory()
     }
 }
