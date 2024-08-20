@@ -64,7 +64,14 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
         
         if let cell = categoryAndScheduleTableView.cellForRow(at: indexPath) as? CategoryAndScheduleCell {
             cell.setSelectionLabel(to: weekdayString)
-            print(weekdayString)
+        }
+    }
+    
+    func setSelectedCategoryLabel(category: String) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        if let cell = categoryAndScheduleTableView.cellForRow(at: indexPath) as? CategoryAndScheduleCell {
+            cell.setSelectionLabel(to: category)
         }
     }
 }

@@ -2,6 +2,7 @@ import UIKit
 
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
+    private weak var delegate: CategorySelectionDelegate?
     private var categories: [String] = []
     private var selectedCategory: String? {
         didSet {
@@ -146,7 +147,10 @@ extension NewCategoryViewController: UITableViewDataSource {
         return cell
     }
     
-    
+    // MARK: - Public Methods
+    func setDelegate(delegate: CategorySelectionDelegate) {
+        self.delegate = delegate
+    }
 }
 
 extension NewCategoryViewController: UITableViewDelegate {
@@ -166,6 +170,7 @@ extension NewCategoryViewController: UITableViewDelegate {
         
         if category != selectedCategory {
             selectedCategory = category
+            delegate?.didSelectCategory(category)
         } else {
             selectedCategory = nil
         }

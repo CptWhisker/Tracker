@@ -5,7 +5,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     var initializerTag: InitializerTag
     
     private var trackerTitle: String?
-    private var trackerCategory: TrackerCategory?
+    private var trackerCategory: String?
     private var trackerWeekDays: [WeekDays]?
     private var trackerEmoji: String?
     private var trackerColor: UIColor?
@@ -63,8 +63,28 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func setTrackerWeekDays(with weekdays: [WeekDays]) {
+    private func setTrackerCategory(to category: String) {
+        trackerCategory = category
+    }
+    
+    private func setTrackerWeekDays(to weekdays: [WeekDays]) {
         trackerWeekDays = weekdays
+    }
+    
+    private func updateCategorySelectionLabel(with category: String) {
+        let indexPath = IndexPath(item: 1, section: 0)
+        
+        if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
+            cell.setSelectedCategoryLabel(category: category)
+        }
+    }
+    
+    private func updateSheduleSelectionLabel(with weekdays: [WeekDays]) {
+        let indexPath = IndexPath(item: 1, section: 0)
+        
+        if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
+            cell.setSelectedWeekDaysLabel(weekdays: weekdays)
+        }
     }
 }
 
@@ -191,6 +211,7 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
 extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableViewDelegate {
     func didTapCategoryButton() {
         let newCategoryViewController = NewCategoryViewController()
+        newCategoryViewController.setDelegate(delegate: self)
         let newCategoryNavigationController = UINavigationController(rootViewController: newCategoryViewController)
         present(newCategoryNavigationController, animated: true, completion: nil)
     }
@@ -206,14 +227,21 @@ extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableVie
 extension NewHabitOrIrregularEventViewController: ScheduleViewControllerDelegate {
     func didSelectWeekDays(weekdays: [WeekDays]) {
         let sortedWeekDays = weekdays.sorted {
-            WeekDays.allCases.firstIndex(of: $0)! < WeekDays.allCases.firstIndex(of: $1)!
+            if let index1 = WeekDays.allCases.firstIndex(of: $0),
+               let index2 = WeekDays.allCases.firstIndex(of: $1) {
+                return index1 < index2
+            }
+            return false
         }
-        setTrackerWeekDays(with: sortedWeekDays)
         
-        let indexPath = IndexPath(item: 1, section: 0)
-        
-        if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
-            cell.setSelectedWeekDaysLabel(weekdays: sortedWeekDays)
-        }
+        setTrackerWeekDays(to: sortedWeekDays)
+        updateSheduleSelectionLabel(with: sortedWeekDays)
+    }
+}
+
+extension NewHabitOrIrregularEventViewController: CategorySelectionDelegate {
+    func didSelectCategory(_ category: String) {
+        setTrackerCategory(to: category)
+        updateCategorySelectionLabel(with: category)
     }
 }
