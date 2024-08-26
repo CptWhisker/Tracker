@@ -70,13 +70,11 @@ final class NewCategoryViewController: UIViewController {
         view.backgroundColor = .ypMain
         
         configureNewCategoryButton()
-        
-        guard categories.isEmpty else {
-            configureStubImageAndText()
-            return
-        }
-        
         configureCategoryTableView()
+        
+        if categories.isEmpty {
+            configureStubImageAndText()
+        }
     }
     
     private func configureNewCategoryButton() {
@@ -98,6 +96,10 @@ final class NewCategoryViewController: UIViewController {
             stubStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             stubStackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
+    }
+    
+    private func removeStubImageAndText() {
+        stubStackView.removeFromSuperview()
     }
     
     private func configureCategoryTableView() {
@@ -177,9 +179,11 @@ extension NewCategoryViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - CategoryCreationDelegate
 extension NewCategoryViewController: CategoryCreationDelegate {
     func didCreateCategory(_ category: TrackerCategory) {
         categories.append(category)
         categoriesTableView.reloadData()
+        removeStubImageAndText()
     }
 }

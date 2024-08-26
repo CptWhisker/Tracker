@@ -77,15 +77,12 @@ final class CategoryCreationViewController: UIViewController {
     }
     
     @objc private func completeCreation() {
-        dismiss(animated: true) { [weak self, weak delegate] in
-            guard let self,
-                  let delegate,
-                  let categoryName = self.categoryNameTextField.text
-            else { return }
-            
-            let newCategory = TrackerCategory(categoryName: categoryName, trackersInCategory: [])
-            
-            delegate.didCreateCategory(newCategory)
-        }
+        guard let delegate,
+              let categoryName = categoryNameTextField.text else { return }
+        
+        let newCategory = TrackerCategory(categoryName: categoryName, trackersInCategory: [])
+        delegate.didCreateCategory(newCategory)
+        
+        dismiss(animated: true, completion: nil)
     }
 }
