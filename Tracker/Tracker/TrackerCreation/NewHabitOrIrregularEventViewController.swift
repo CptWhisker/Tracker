@@ -120,6 +120,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
+            cell.setDelegate(delegate: self)
             return cell
             
         case 3:
@@ -243,5 +244,11 @@ extension NewHabitOrIrregularEventViewController: CategorySelectionDelegate {
     func didSelectCategory(_ category: TrackerCategory) {
         setTrackerCategory(to: category)
         updateCategorySelectionLabel(with: category)
+    }
+}
+
+extension NewHabitOrIrregularEventViewController: EmojiCollectionViewCellDelegate {
+    func didSelectEmoji(_ emoji: String) {
+        trackerEmoji = emoji
     }
 }

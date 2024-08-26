@@ -3,6 +3,7 @@ import UIKit
 final class EmojiCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "EmojiCollectionViewCell"
+    private weak var delegate: EmojiCollectionViewCellDelegate?
     private var emojis = [
         "🙂", "😻", "🌺", "🐶", "❤️", "😱",
         "😇", "😡", "🥶", "🤔", "🙌", "🍔",
@@ -49,6 +50,11 @@ final class EmojiCollectionViewCell: UICollectionViewCell {
             emojiCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             emojiCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+    
+    // MARK: - Public Methods
+    func setDelegate(delegate: EmojiCollectionViewCellDelegate) {
+        self.delegate = delegate
     }
 }
 
@@ -124,6 +130,9 @@ extension EmojiCollectionViewCell: UICollectionViewDelegate {
             print("[EmojiCollectionViewCell didSelectItemAt]: typecastError - Unable to typecast cell as EmojiCell")
             return
         }
+        
+        let selectedEmoji = emojis[indexPath.item]
+        delegate?.didSelectEmoji(selectedEmoji)
         
         cell.selectEmoji()
     }
