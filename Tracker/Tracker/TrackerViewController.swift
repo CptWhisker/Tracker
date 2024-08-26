@@ -32,6 +32,17 @@ final class TrackerViewController: UIViewController {
         stackView.spacing = 8
         return stackView
     }()
+    private lazy var trackerCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(
+            TrackerCell.self,
+            forCellWithReuseIdentifier: TrackerCell.identifier
+        )
+        return collectionView
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -66,11 +77,19 @@ final class TrackerViewController: UIViewController {
     }
     
     private func configureTrackers() {
-        guard trackersToDisplay != nil else {
-            configureStubImageAndText()
-            return
-        }
+//        guard trackersToDisplay != nil else {
+//            configureStubImageAndText()
+//            return
+//        }
         
+        view.addSubview(trackerCollectionView)
+        
+        NSLayoutConstraint.activate([
+            trackerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            trackerCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            trackerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
         // Show trackers
     }
     
@@ -91,3 +110,38 @@ final class TrackerViewController: UIViewController {
     }
 }
 
+extension TrackerViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell else {
+            print("[TrackerViewController cellForItemAt]: typecastError - Unable to dequeue cell as TrackerCell")
+            return UICollectionViewCell()
+        }
+        
+        return cell
+    }
+}
+
+extension TrackerViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (collectionView.frame.width - 40) / CGFloat(2)
+        let cellHeight = CGFloat(148)
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+}

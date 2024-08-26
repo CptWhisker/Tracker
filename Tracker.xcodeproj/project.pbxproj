@@ -33,7 +33,7 @@
 		CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */; };
 		CE3063E92C6376C60013F319 /* EmojiCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */; };
 		CE3063EB2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */; };
-		CE3063EE2C63D5070013F319 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063ED2C63D5070013F319 /* UITableViewCellExtension.swift */; };
+		CE3063EE2C63D5070013F319 /* UITableViewCell +Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */; };
 		CE3063F02C63DE810013F319 /* NewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063EF2C63DE800013F319 /* NewCategoryViewController.swift */; };
 		CE3063F22C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */; };
 		CE3063F62C640D390013F319 /* CategoryCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F52C640D390013F319 /* CategoryCreationViewController.swift */; };
@@ -44,6 +44,7 @@
 		CEA24D222C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */; };
 		CEA24D242C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */; };
 		CEA24D272C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */; };
+		CEA24D2A2C7D019300A37D35 /* TrackerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D292C7D019300A37D35 /* TrackerCell.swift */; };
 		CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408542C68A41900E88229 /* ScheduleCell.swift */; };
 		CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */; };
 		CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */; };
@@ -79,7 +80,7 @@
 		CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndCreateButtonsCellDelegate.swift; sourceTree = "<group>"; };
 		CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCellSupplementaryView.swift; sourceTree = "<group>"; };
 		CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCellSupplementaryView.swift; sourceTree = "<group>"; };
-		CE3063ED2C63D5070013F319 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
+		CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell +Extension.swift"; sourceTree = "<group>"; };
 		CE3063EF2C63DE800013F319 /* NewCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryViewController.swift; sourceTree = "<group>"; };
 		CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryAndScheduleTableViewDelegate.swift; sourceTree = "<group>"; };
 		CE3063F52C640D390013F319 /* CategoryCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCreationViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextfieldCellDelegate.swift; sourceTree = "<group>"; };
+		CEA24D292C7D019300A37D35 /* TrackerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCell.swift; sourceTree = "<group>"; };
 		CEF408542C68A41900E88229 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCreationDelegate.swift; sourceTree = "<group>"; };
 		CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndScheduleCell.swift; sourceTree = "<group>"; };
@@ -126,9 +128,8 @@
 		CE30633C2C5BAEF40013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				CE3063EC2C63D4E60013F319 /* Extensions */,
-				CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */,
-				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
+				CEA24D282C7D006200A37D35 /* DelegateProtocols */,
+				CE3063EC2C63D4E60013F319 /* Extensions&Helpers */,
 				CE3063C32C5F57870013F319 /* Models */,
 				CE30635C2C5C0F5C0013F319 /* Statistics */,
 				CE30635B2C5C0F510013F319 /* Tracker */,
@@ -139,15 +140,6 @@
 				CE30634B2C5BAEFB0013F319 /* LaunchScreen.storyboard */,
 				CE30634E2C5BAEFB0013F319 /* Info.plist */,
 				CE3063462C5BAEF40013F319 /* Tracker.xcdatamodeld */,
-				CE3063D12C622EEC0013F319 /* Constants.swift */,
-				CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */,
-				CE3063F72C6417500013F319 /* CategoryCreationDelegate.swift */,
-				CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */,
-				CEF4085C2C6A915E00E88229 /* ScheduleViewControllerDelegate.swift */,
-				CE9122172C753F8C005B6FB1 /* CategorySelectionDelegate.swift */,
-				CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */,
-				CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */,
-				CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -165,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				CE3063412C5BAEF40013F319 /* TrackerViewController.swift */,
+				CEA24D292C7D019300A37D35 /* TrackerCell.swift */,
 				CE3063CC2C60F9D60013F319 /* TrackerCreation */,
 			);
 			path = Tracker;
@@ -232,12 +225,14 @@
 			path = ColorSchemeCollectionView;
 			sourceTree = "<group>";
 		};
-		CE3063EC2C63D4E60013F319 /* Extensions */ = {
+		CE3063EC2C63D4E60013F319 /* Extensions&Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				CE3063ED2C63D5070013F319 /* UITableViewCellExtension.swift */,
+				CE3063D12C622EEC0013F319 /* Constants.swift */,
+				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
+				CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */,
 			);
-			path = Extensions;
+			path = "Extensions&Helpers";
 			sourceTree = "<group>";
 		};
 		CEA24D252C7CECC300A37D35 /* CategoryAndSchedule */ = {
@@ -247,6 +242,22 @@
 				CE3063D62C6235970013F319 /* CategoryAndScheduleTableViewCell.swift */,
 			);
 			path = CategoryAndSchedule;
+			sourceTree = "<group>";
+		};
+		CEA24D282C7D006200A37D35 /* DelegateProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */,
+				CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */,
+				CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */,
+				CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */,
+				CE9122172C753F8C005B6FB1 /* CategorySelectionDelegate.swift */,
+				CEF4085C2C6A915E00E88229 /* ScheduleViewControllerDelegate.swift */,
+				CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */,
+				CE3063F72C6417500013F319 /* CategoryCreationDelegate.swift */,
+				CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */,
+			);
+			path = DelegateProtocols;
 			sourceTree = "<group>";
 		};
 		CEF408582C68C1A500E88229 /* NewCategory */ = {
@@ -338,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA24D2A2C7D019300A37D35 /* TrackerCell.swift in Sources */,
 				CE3063DD2C6235EA0013F319 /* CancelAndCreateButtonsCell.swift in Sources */,
 				CE9122162C75197B005B6FB1 /* NewCategoryTVCell.swift in Sources */,
 				CE3063EB2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift in Sources */,
@@ -373,7 +385,7 @@
 				CE3063D02C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift in Sources */,
 				CE3063592C5C08490013F319 /* NavigationController.swift in Sources */,
 				CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */,
-				CE3063EE2C63D5070013F319 /* UITableViewCellExtension.swift in Sources */,
+				CE3063EE2C63D5070013F319 /* UITableViewCell +Extension.swift in Sources */,
 				CE3063F22C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift in Sources */,
 				CE3063CE2C60FA080013F319 /* TrackerCreationViewController.swift in Sources */,
 				CE3063402C5BAEF40013F319 /* SceneDelegate.swift in Sources */,
