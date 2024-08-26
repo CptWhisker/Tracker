@@ -80,10 +80,12 @@ final class CategoryCreationViewController: UIViewController {
         dismiss(animated: true) { [weak self, weak delegate] in
             guard let self,
                   let delegate,
-                  let category = self.categoryNameTextField.text
+                  let categoryName = self.categoryNameTextField.text
             else { return }
             
-            delegate.didCreateCategory(category)
+            let newCategory = TrackerCategory(categoryName: categoryName, trackersInCategory: [])
+            
+            delegate.didCreateCategory(newCategory)
         }
     }
 }

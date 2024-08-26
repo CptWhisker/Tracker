@@ -61,7 +61,6 @@ final class TrackerCreationViewController: UIViewController {
     }
     
     @objc private func createNewHabit() {
-        // TODO: Implement new habit creation logic
         let newHabitCreationViewController = NewHabitOrIrregularEventViewController(initializerTag: .habit)
         let newHabitCreationNavigationController = UINavigationController(rootViewController: newHabitCreationViewController)
         
@@ -69,7 +68,6 @@ final class TrackerCreationViewController: UIViewController {
     }
     
     @objc private func createNewIrregularEvent() {
-        // TODO: Implement new irregular event creation logic
         let newIrregularEventCreationViewController = NewHabitOrIrregularEventViewController(initializerTag: .event)
         let newIrregularEventCreationNavigationController = UINavigationController(rootViewController: newIrregularEventCreationViewController)
         

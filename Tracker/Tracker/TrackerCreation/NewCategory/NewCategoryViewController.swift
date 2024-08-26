@@ -3,8 +3,8 @@ import UIKit
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
     private weak var delegate: CategorySelectionDelegate?
-    private var categories: [String] = []
-    private var selectedCategory: String? {
+    private var categories: [TrackerCategory] = []
+    private var selectedCategory: TrackerCategory? {
         didSet {
             categoriesTableView.reloadData()
         }
@@ -133,8 +133,8 @@ extension NewCategoryViewController: UITableViewDataSource {
         }
         
         let category = categories[indexPath.row]
-        cell.setTitleLabel(to: category)
-        cell.setCheckmarkVisible(category == selectedCategory)
+        cell.setTitleLabel(to: category.categoryName)
+        cell.setCheckmarkVisible(category.categoryName == selectedCategory?.categoryName)
         
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
             cell.roundLowerCorners()
@@ -168,7 +168,7 @@ extension NewCategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
         
-        if category != selectedCategory {
+        if category.categoryName != selectedCategory?.categoryName {
             selectedCategory = category
             delegate?.didSelectCategory(category)
         } else {
@@ -178,7 +178,7 @@ extension NewCategoryViewController: UITableViewDelegate {
 }
 
 extension NewCategoryViewController: CategoryCreationDelegate {
-    func didCreateCategory(_ category: String) {
+    func didCreateCategory(_ category: TrackerCategory) {
         categories.append(category)
         categoriesTableView.reloadData()
     }

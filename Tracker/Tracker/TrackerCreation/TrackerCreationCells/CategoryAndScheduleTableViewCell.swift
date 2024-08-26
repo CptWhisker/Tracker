@@ -67,11 +67,11 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
         }
     }
     
-    func setSelectedCategoryLabel(category: String) {
+    func setSelectedCategoryLabel(category: TrackerCategory) {
         let indexPath = IndexPath(row: 0, section: 0)
         
         if let cell = categoryAndScheduleTableView.cellForRow(at: indexPath) as? CategoryAndScheduleCell {
-            cell.setSelectionLabel(to: category)
+            cell.setSelectionLabel(to: category.categoryName)
         }
     }
 }

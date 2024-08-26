@@ -5,7 +5,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     var initializerTag: InitializerTag
     
     private var trackerTitle: String?
-    private var trackerCategory: String?
+    private var trackerCategory: TrackerCategory?
     private var trackerWeekDays: [WeekDays]?
     private var trackerEmoji: String?
     private var trackerColor: UIColor?
@@ -63,7 +63,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func setTrackerCategory(to category: String) {
+    private func setTrackerCategory(to category: TrackerCategory) {
         trackerCategory = category
     }
     
@@ -71,7 +71,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         trackerWeekDays = weekdays
     }
     
-    private func updateCategorySelectionLabel(with category: String) {
+    private func updateCategorySelectionLabel(with category: TrackerCategory) {
         let indexPath = IndexPath(item: 1, section: 0)
         
         if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
@@ -240,7 +240,7 @@ extension NewHabitOrIrregularEventViewController: ScheduleViewControllerDelegate
 }
 
 extension NewHabitOrIrregularEventViewController: CategorySelectionDelegate {
-    func didSelectCategory(_ category: String) {
+    func didSelectCategory(_ category: TrackerCategory) {
         setTrackerCategory(to: category)
         updateCategorySelectionLabel(with: category)
     }
