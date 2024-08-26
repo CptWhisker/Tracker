@@ -102,6 +102,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
+            cell.setDelegate(delegate: self)
             return cell
             
         case 1:
@@ -129,6 +130,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
+            cell.setDelegate(delegate: self)
             return cell
             
         case 4:
@@ -197,6 +199,13 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDelegateFlowLa
     }
 }
 
+// MARK: - NameTextfieldCellDelegate
+extension NewHabitOrIrregularEventViewController: NameTextfieldCellDelegate {
+    func didTypeText(_ text: String) {
+        trackerTitle = text
+    }
+}
+
 // MARK: - CancelAndCreateButtonsCellDelegate
 extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDelegate {
     func didTapCancelButton() {
@@ -205,6 +214,19 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
     
     func didTapCreateButton() {
         // TODO: Implement logic and functionality
+        guard let title = trackerTitle,
+              let schedule = trackerWeekDays,
+              let emoji = trackerEmoji,
+              let color = trackerColor,
+              var category = trackerCategory else {
+            print("ERROR")
+            return
+        }
+        
+        let id = UUID.init()
+        let tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule)
+        
+        category.trackersInCategory.append(tracker)
     }
 }
 
@@ -225,6 +247,7 @@ extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableVie
     }
 }
 
+// MARK: - ScheduleViewControllerDelegate
 extension NewHabitOrIrregularEventViewController: ScheduleViewControllerDelegate {
     func didSelectWeekDays(weekdays: [WeekDays]) {
         let sortedWeekDays = weekdays.sorted {
@@ -240,6 +263,7 @@ extension NewHabitOrIrregularEventViewController: ScheduleViewControllerDelegate
     }
 }
 
+// MARK: - CategorySelectionDelegate
 extension NewHabitOrIrregularEventViewController: CategorySelectionDelegate {
     func didSelectCategory(_ category: TrackerCategory) {
         setTrackerCategory(to: category)
@@ -247,8 +271,16 @@ extension NewHabitOrIrregularEventViewController: CategorySelectionDelegate {
     }
 }
 
+// MARK: - EmojiCollectionViewCellDelegate
 extension NewHabitOrIrregularEventViewController: EmojiCollectionViewCellDelegate {
     func didSelectEmoji(_ emoji: String) {
         trackerEmoji = emoji
+    }
+}
+
+// MARK: - ColorSchemeCollectionViewDelegate
+extension NewHabitOrIrregularEventViewController: ColorSchemeCollectionViewCellDelegate {
+    func didSelectColor(_ color: UIColor) {
+        trackerColor = color
     }
 }

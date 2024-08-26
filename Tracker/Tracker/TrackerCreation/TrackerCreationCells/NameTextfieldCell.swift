@@ -3,12 +3,14 @@ import UIKit
 final class NameTextfieldCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "NameTextfieldCell"
+    private weak var delegate: NameTextfieldCellDelegate?
     private lazy var nameTextfield: UITextField = {
         let textfield = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         textfield.translatesAutoresizingMaskIntoConstraints = false
         textfield.layer.cornerRadius = 16
         textfield.backgroundColor = .ypBackground
         textfield.placeholder = "Введите название трекера"
+        textfield.addTarget(self, action: #selector(textTyped), for: .editingChanged)
         return textfield
     }()
     
@@ -35,6 +37,14 @@ final class NameTextfieldCell: UICollectionViewCell {
         ])
     }
     
-    // MARK: - Public Methods
+    @objc private func textTyped() {
+        guard let text = nameTextfield.text else { return }
+        
+        delegate?.didTypeText(text)
+    }
     
+    // MARK: - Public Methods
+    func setDelegate(delegate: NameTextfieldCellDelegate) {
+        self.delegate = delegate
+    }
 }

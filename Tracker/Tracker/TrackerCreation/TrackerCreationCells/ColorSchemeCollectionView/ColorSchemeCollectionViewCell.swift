@@ -3,6 +3,7 @@ import UIKit
 final class ColorSchemeCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "ColorSchemeCollectionViewCell"
+    private weak var delegate: ColorSchemeCollectionViewCellDelegate?
     private var colors: [UIColor] = [
         .tracker1, .tracker2, .tracker3, .tracker4, .tracker5, .tracker6,
         .tracker7, .tracker8, .tracker9, .tracker10, .tracker11, .tracker12,
@@ -47,6 +48,11 @@ final class ColorSchemeCollectionViewCell: UICollectionViewCell {
             colorCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             colorCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+    
+    // MARK: - Public Methods
+    func setDelegate(delegate: ColorSchemeCollectionViewCellDelegate) {
+        self.delegate = delegate
     }
 }
 
@@ -122,6 +128,9 @@ extension ColorSchemeCollectionViewCell: UICollectionViewDelegate {
             print("[ColorSchemeCollectionViewCell didSelectItemAt]: typecastError - Unable to typecast cell as ColorCell")
             return
         }
+        
+        let selectedColor = colors[indexPath.item]
+        delegate?.didSelectColor(selectedColor)
         
         cell.selectColor(colors[indexPath.item])
     }

@@ -82,6 +82,11 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
     }
     
     @objc private func createAction() {
+        guard let delegate else {
+            print("[CancelAndCreateButtonsCell cancelAction]: delegateError - Delegate is not set")
+            return
+        }
         
+        delegate.didTapCreateButton()
     }
 }
