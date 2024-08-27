@@ -15,12 +15,18 @@ final class TrackerCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    private lazy var emojiBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 12
+        view.backgroundColor = .white.withAlphaComponent(0.3)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private lazy var emojiLabel: UILabel = {
         let label = UILabel()
         label.text = "❤️"
-        label.font = .systemFont(ofSize: 16)
-        label.backgroundColor = .white.withAlphaComponent(0.3)
-        label.layer.cornerRadius = 16
+        label.font = .systemFont(ofSize: 13)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,8 +50,8 @@ final class TrackerCell: UICollectionViewCell {
     private lazy var plusButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 16
-        button.backgroundColor = .tracker12
-        button.setImage(UIImage(named: "plusButton"), for: .normal)
+        button.setImage(UIImage(named: "Plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .tracker12
         button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -84,14 +90,19 @@ final class TrackerCell: UICollectionViewCell {
     }
     
     private func configureTopView() {
-        topView.addSubview(emojiLabel)
+        topView.addSubview(emojiBackgroundView)
         topView.addSubview(titleLabel)
+        emojiBackgroundView.addSubview(emojiLabel)
+
         
         NSLayoutConstraint.activate([
-            emojiLabel.topAnchor.constraint(equalTo: topView.topAnchor, constant: 12),
-            emojiLabel.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 12),
-            emojiLabel.widthAnchor.constraint(equalToConstant: 24),
-            emojiLabel.heightAnchor.constraint(equalToConstant: 24),
+            emojiBackgroundView.topAnchor.constraint(equalTo: topView.topAnchor, constant: 12),
+            emojiBackgroundView.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 12),
+            emojiBackgroundView.widthAnchor.constraint(equalToConstant: 24),
+            emojiBackgroundView.heightAnchor.constraint(equalToConstant: 24),
+            
+            emojiLabel.centerYAnchor.constraint(equalTo: emojiBackgroundView.centerYAnchor),
+            emojiLabel.centerXAnchor.constraint(equalTo: emojiBackgroundView.centerXAnchor),
             
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: emojiLabel.bottomAnchor, constant: 8),
             titleLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -12),
