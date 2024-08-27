@@ -23,6 +23,7 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypGray
+        button.isEnabled = false
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
         button.setTitle("Создать", for: .normal)
@@ -69,6 +70,11 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
     // MARK: - Public Methods
     func setDelegate(delegate: CancelAndCreateButtonsCellDelegate) {
         self.delegate = delegate
+    }
+    
+    func setCreateButtonState(isEnabled: Bool) {
+        createButton.backgroundColor = isEnabled ? .ypAccent : .ypGray
+        createButton.isEnabled = isEnabled
     }
     
     // MARK: - Actions

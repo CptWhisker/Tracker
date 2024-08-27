@@ -4,11 +4,21 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     // MARK: - Properties
     var initializerTag: InitializerTag
     private weak var delegate: NewHabitOrIrregularEventDelegate?
-    private var trackerTitle: String?
-    private var trackerCategory: TrackerCategory?
-    private var trackerWeekDays: [WeekDays]?
-    private var trackerEmoji: String?
-    private var trackerColor: UIColor?
+    private var trackerTitle: String? {
+        didSet { updateCreateButtonState() }
+    }
+    private var trackerCategory: TrackerCategory? {
+        didSet { updateCreateButtonState() }
+    }
+    private var trackerWeekDays: [WeekDays]? {
+        didSet { updateCreateButtonState() }
+    }
+    private var trackerEmoji: String? {
+        didSet { updateCreateButtonState() }
+    }
+    private var trackerColor: UIColor? {
+        didSet { updateCreateButtonState() }
+    }
     
     private lazy var newHabitOrEventCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -84,6 +94,23 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         
         if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
             cell.setSelectedWeekDaysLabel(weekdays: weekdays)
+        }
+    }
+    
+    private func updateCreateButtonState() {
+        let allFieldsFilled: Bool
+        
+        switch initializerTag {
+        case .habit:
+            allFieldsFilled = (trackerTitle != nil) && (trackerCategory != nil) && (trackerEmoji != nil) && (trackerColor != nil) && (trackerWeekDays != nil)
+        case .event:
+            allFieldsFilled = (trackerTitle != nil) && (trackerCategory != nil) && (trackerEmoji != nil) && (trackerColor != nil)
+        }
+        
+        let indexPath = IndexPath(item: 4, section: 0)
+        
+        if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CancelAndCreateButtonsCell {
+            cell.setCreateButtonState(isEnabled: allFieldsFilled)
         }
     }
     
@@ -218,22 +245,6 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
     }
     
     func didTapCreateButton() {
-//        guard let title = trackerTitle,
-//              let schedule = trackerWeekDays,
-//              let emoji = trackerEmoji,
-//              let color = trackerColor else {
-//            print("[NewHabitOrIrregularEventViewController didTapCreateButton]: trackerError - Missong required properties")
-//            return
-//        }
-//        
-//        let id = UUID.init()
-//        let tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule)
-//                
-//        dismiss(animated: true) { [weak delegate] in
-//            guard let delegate else { return }
-//            
-//            delegate.didCreateTracker(tracker)
-//        }
         let id = UUID.init()
         let tracker: Tracker
         
