@@ -1,6 +1,8 @@
 import UIKit
 
 final class TrackerCreationViewController: UIViewController {
+    // MARK: - Properties
+    private weak var delegate: NewHabitOrIrregularEventDelegate?
     private lazy var newHabitButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -40,12 +42,14 @@ final class TrackerCreationViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureInterface()
     }
     
+    // MARK: - Interface Configuration
     private func configureInterface() {
         view.backgroundColor = .ypMain
         
@@ -60,8 +64,10 @@ final class TrackerCreationViewController: UIViewController {
         ])
     }
     
+    // MARK: - Actions
     @objc private func createNewHabit() {
         let newHabitCreationViewController = NewHabitOrIrregularEventViewController(initializerTag: .habit)
+        newHabitCreationViewController.setDelegate(delegate: self)
         let newHabitCreationNavigationController = UINavigationController(rootViewController: newHabitCreationViewController)
         
         present(newHabitCreationNavigationController, animated: true)
@@ -69,8 +75,22 @@ final class TrackerCreationViewController: UIViewController {
     
     @objc private func createNewIrregularEvent() {
         let newIrregularEventCreationViewController = NewHabitOrIrregularEventViewController(initializerTag: .event)
+        newIrregularEventCreationViewController.setDelegate(delegate: self)
         let newIrregularEventCreationNavigationController = UINavigationController(rootViewController: newIrregularEventCreationViewController)
         
         present(newIrregularEventCreationNavigationController, animated: true)
+    }
+    
+    // MARK: - Public Actions
+    func setDelegate(delegate: NewHabitOrIrregularEventDelegate) {
+        self.delegate = delegate
+    }
+}
+
+extension TrackerCreationViewController: NewHabitOrIrregularEventDelegate {
+    func didCreateTracker(_ tracker: Tracker) {
+        delegate?.didCreateTracker(tracker)
+        
+        dismiss(animated: true, completion: nil)
     }
 }

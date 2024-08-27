@@ -3,7 +3,7 @@ import UIKit
 final class NewHabitOrIrregularEventViewController: UIViewController {
     // MARK: - Properties
     var initializerTag: InitializerTag
-    
+    private weak var delegate: NewHabitOrIrregularEventDelegate?
     private var trackerTitle: String?
     private var trackerCategory: TrackerCategory?
     private var trackerWeekDays: [WeekDays]?
@@ -85,6 +85,11 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
             cell.setSelectedWeekDaysLabel(weekdays: weekdays)
         }
+    }
+    
+    // MARK: - Public Methods
+    func setDelegate(delegate: NewHabitOrIrregularEventDelegate) {
+        self.delegate = delegate
     }
 }
 
@@ -213,20 +218,48 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
     }
     
     func didTapCreateButton() {
-        // TODO: Implement logic and functionality
+//        guard let title = trackerTitle,
+//              let schedule = trackerWeekDays,
+//              let emoji = trackerEmoji,
+//              let color = trackerColor else {
+//            print("[NewHabitOrIrregularEventViewController didTapCreateButton]: trackerError - Missong required properties")
+//            return
+//        }
+//        
+//        let id = UUID.init()
+//        let tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule)
+//                
+//        dismiss(animated: true) { [weak delegate] in
+//            guard let delegate else { return }
+//            
+//            delegate.didCreateTracker(tracker)
+//        }
+        let id = UUID.init()
+        let tracker: Tracker
+        
         guard let title = trackerTitle,
-              let schedule = trackerWeekDays,
               let emoji = trackerEmoji,
-              let color = trackerColor,
-              var category = trackerCategory else {
-            print("ERROR")
+              let color = trackerColor else {
+            print("[NewHabitOrIrregularEventViewController didTapCreateButton]: trackerError - Missong required properties")
             return
         }
         
-        let id = UUID.init()
-        let tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule)
+        if initializerTag == .habit {
+            guard let schedule = trackerWeekDays else {
+                print("[NewHabitOrIrregularEventViewController didTapCreateButton]: trackerError - Missong required properties")
+                return
+            }
+            
+            tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule)
+        } else {
+            tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: nil)
+        }
         
-        category.trackersInCategory.append(tracker)
+        dismiss(animated: true) { [weak delegate] in
+            guard let delegate else { return }
+            
+            delegate.didCreateTracker(tracker)
+        }
     }
 }
 

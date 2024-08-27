@@ -5,5 +5,5 @@ struct Tracker {
     let habitName: String
     let habitColor: UIColor
     let habitEmoji: String
-    let habitSchedule: [WeekDays]
+    let habitSchedule: [WeekDays]?
 }

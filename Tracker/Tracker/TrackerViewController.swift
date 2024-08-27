@@ -2,9 +2,15 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
-    private var trackersToDisplay: [Tracker]?
-    private var categories: [TrackerCategory]?
-    private var completedTrackers: [TrackerRecord]?
+    private var mockTrackers: [Tracker] = [
+        Tracker(habitID: UUID.init(), habitName: "One", habitColor: .tracker1, habitEmoji: "😱", habitSchedule: [.friday]),
+        Tracker(habitID: UUID.init(), habitName: "Two", habitColor: .tracker3, habitEmoji: "🥶", habitSchedule: [.friday]),
+        Tracker(habitID: UUID.init(), habitName: "Three", habitColor: .tracker5, habitEmoji: "😳", habitSchedule: [.friday]),
+        Tracker(habitID: UUID.init(), habitName: "Four", habitColor: .tracker7, habitEmoji: "🫢", habitSchedule: [.friday])
+    ]
+    private var trackersToDisplay: [Tracker?] = []
+    private var categories: [TrackerCategory?] = []
+    private var completedTrackers: [TrackerRecord?] = []
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -105,6 +111,7 @@ final class TrackerViewController: UIViewController {
     // MARK: - Actions
     @objc private func addHabitOrIrregularEvent() {
         let trackerCreationViewController = TrackerCreationViewController()
+        trackerCreationViewController.setDelegate(delegate: self)
         let trackerCreationNavigationController = UINavigationController(rootViewController: trackerCreationViewController)
         present(trackerCreationNavigationController, animated: true)
     }
@@ -112,15 +119,17 @@ final class TrackerViewController: UIViewController {
 
 extension TrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return trackersToDisplay.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
+              let tracker = trackersToDisplay[indexPath.item] else {
             print("[TrackerViewController cellForItemAt]: typecastError - Unable to dequeue cell as TrackerCell")
             return UICollectionViewCell()
         }
         
+        cell.configure(with: tracker)
         return cell
     }
 }
@@ -143,5 +152,12 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+}
+
+extension TrackerViewController: NewHabitOrIrregularEventDelegate {
+    func didCreateTracker(_ tracker: Tracker) {
+        trackersToDisplay.append(tracker)
+        trackerCollectionView.reloadData()
     }
 }
