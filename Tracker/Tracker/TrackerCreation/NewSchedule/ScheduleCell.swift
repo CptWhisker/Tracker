@@ -1,8 +1,11 @@
 import UIKit
 
 final class ScheduleCell: UITableViewCell {
+    // MARK: - Properties
     static let identifier = "ScheduleCell"
     private var delegate: ScheduleCreationDelegate?
+    
+    // MARK: - UI Elements
     private var accessory: UISwitch = {
         let accessory = UISwitch()
         accessory.translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +20,7 @@ final class ScheduleCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -27,6 +31,7 @@ final class ScheduleCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Interface Configuration
     private func configureCell() {
         contentView.backgroundColor = .ypBackground
         
@@ -53,14 +58,7 @@ final class ScheduleCell: UITableViewCell {
         ])
     }
     
-    func setTitle(to title: WeekDays) {
-        weekdayLabel.text = title.rawValue
-    }
-    
-    func setDelegate(delegate: ScheduleCreationDelegate) {
-        self.delegate = delegate
-    }
-    
+    // MARK: - Actions
     @objc private func switchToggled(_ sender: UISwitch) {
         guard let delegate else {
             print("[ScheduleCell switchToggled]: delegateError - Delegate is not set")
@@ -76,5 +74,14 @@ final class ScheduleCell: UITableViewCell {
         } else {
             delegate.removeWeekDay(weekday)
         }
+    }
+    
+    // MARK: - Public Methods
+    func setTitle(to title: WeekDays) {
+        weekdayLabel.text = title.rawValue
+    }
+    
+    func setDelegate(delegate: ScheduleCreationDelegate) {
+        self.delegate = delegate
     }
 }

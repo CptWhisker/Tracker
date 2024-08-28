@@ -20,6 +20,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         didSet { updateCreateButtonState() }
     }
     
+    // MARK: - UI Elements
     private lazy var newHabitOrEventCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false

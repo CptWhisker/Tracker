@@ -7,6 +7,8 @@ final class ScheduleViewController: UIViewController {
     ]
     private var selectedWeekDays: [WeekDays] = []
     private var delegate: ScheduleViewControllerDelegate?
+    
+    // MARK: - UI Elements
     private lazy var scheduleTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false

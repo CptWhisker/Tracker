@@ -96,6 +96,7 @@ final class TrackerViewController: UIViewController {
             configureStubImageAndText()
         }
     }
+    
     private func configureTrackers() {
         view.addSubview(trackerCollectionView)
         

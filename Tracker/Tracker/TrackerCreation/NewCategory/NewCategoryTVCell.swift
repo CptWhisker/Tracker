@@ -1,6 +1,7 @@
 import UIKit
 
 final class NewCategoryTVCell: UITableViewCell {
+    // MARK: - UI Elements
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +25,7 @@ final class NewCategoryTVCell: UITableViewCell {
         return view
     }()
     
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -34,6 +36,7 @@ final class NewCategoryTVCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Interface Configuration
     private func configureCell() {
         contentView.backgroundColor = .ypBackground
         
@@ -74,6 +77,7 @@ final class NewCategoryTVCell: UITableViewCell {
         ])
     }
     
+    // MARK: - Public Methods
     func setTitleLabel(to string: String) {
         titleLabel.text = string
     }

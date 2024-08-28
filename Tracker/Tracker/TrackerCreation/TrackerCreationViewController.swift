@@ -3,6 +3,8 @@ import UIKit
 final class TrackerCreationViewController: UIViewController {
     // MARK: - Properties
     private weak var delegate: NewHabitOrIrregularEventDelegate?
+    
+    // MARK: - UI Elements
     private lazy var newHabitButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +89,7 @@ final class TrackerCreationViewController: UIViewController {
     }
 }
 
+// MARK: - NewHabitOrIrregularEventDelegate
 extension TrackerCreationViewController: NewHabitOrIrregularEventDelegate {
     func didCreateTracker(_ tracker: Tracker) {
         delegate?.didCreateTracker(tracker)

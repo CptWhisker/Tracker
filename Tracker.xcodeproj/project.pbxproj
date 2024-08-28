@@ -33,7 +33,7 @@
 		CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */; };
 		CE3063E92C6376C60013F319 /* EmojiCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */; };
 		CE3063EB2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */; };
-		CE3063EE2C63D5070013F319 /* UITableViewCell +Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */; };
+		CE3063EE2C63D5070013F319 /* UITableViewCell +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063ED2C63D5070013F319 /* UITableViewCell +Extensions.swift */; };
 		CE3063F02C63DE810013F319 /* NewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063EF2C63DE800013F319 /* NewCategoryViewController.swift */; };
 		CE3063F22C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */; };
 		CE3063F62C640D390013F319 /* CategoryCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F52C640D390013F319 /* CategoryCreationViewController.swift */; };
@@ -84,7 +84,7 @@
 		CE3063E62C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndCreateButtonsCellDelegate.swift; sourceTree = "<group>"; };
 		CE3063E82C6376C60013F319 /* EmojiCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCellSupplementaryView.swift; sourceTree = "<group>"; };
 		CE3063EA2C637CE40013F319 /* ColorSchemeCellSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCellSupplementaryView.swift; sourceTree = "<group>"; };
-		CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell +Extension.swift"; sourceTree = "<group>"; };
+		CE3063ED2C63D5070013F319 /* UITableViewCell +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell +Extensions.swift"; sourceTree = "<group>"; };
 		CE3063EF2C63DE800013F319 /* NewCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryViewController.swift; sourceTree = "<group>"; };
 		CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryAndScheduleTableViewDelegate.swift; sourceTree = "<group>"; };
 		CE3063F52C640D390013F319 /* CategoryCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCreationViewController.swift; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 			children = (
 				CE3063D12C622EEC0013F319 /* Constants.swift */,
 				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
-				CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */,
+				CE3063ED2C63D5070013F319 /* UITableViewCell +Extensions.swift */,
 				CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */,
 			);
 			path = "Extensions&Helpers";
@@ -401,7 +401,7 @@
 				CE3063592C5C08490013F319 /* NavigationController.swift in Sources */,
 				CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */,
 				CEA24D322C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift in Sources */,
-				CE3063EE2C63D5070013F319 /* UITableViewCell +Extension.swift in Sources */,
+				CE3063EE2C63D5070013F319 /* UITableViewCell +Extensions.swift in Sources */,
 				CE3063F22C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift in Sources */,
 				CE3063CE2C60FA080013F319 /* TrackerCreationViewController.swift in Sources */,
 				CE3063402C5BAEF40013F319 /* SceneDelegate.swift in Sources */,
