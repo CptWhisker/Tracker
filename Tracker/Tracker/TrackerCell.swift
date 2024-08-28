@@ -47,6 +47,7 @@ final class TrackerCell: UICollectionViewCell {
     private lazy var plusButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 16
+        button.tintColor = .white
         button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -130,9 +131,11 @@ final class TrackerCell: UICollectionViewCell {
     
     private func updateButtonImage(isCompleted: Bool) {
         if isCompleted {
-            plusButton.setImage(UIImage(named: "trackerDone")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            plusButton.setImage(UIImage(named: "trackerDone"), for: .normal)
+            plusButton.alpha = 0.3
         } else {
             plusButton.setImage(UIImage(named: "trackerPlus")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            plusButton.alpha = 1
         }
     }
     
@@ -150,7 +153,7 @@ final class TrackerCell: UICollectionViewCell {
         titleLabel.text = tracker.habitName
         emojiLabel.text = tracker.habitEmoji
         topView.backgroundColor = tracker.habitColor
-        plusButton.tintColor = tracker.habitColor
+        plusButton.backgroundColor = tracker.habitColor
         
         updateRecordLabel(with: count)
         updateButtonImage(isCompleted: isCompleted)

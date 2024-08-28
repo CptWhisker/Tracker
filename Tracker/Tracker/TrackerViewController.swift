@@ -161,6 +161,7 @@ final class TrackerViewController: UIViewController {
     
     @objc private func dateChanged(_ datePicker: UIDatePicker) {
         selectedDate = datePicker.date.dateWithoutTime
+        
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: selectedDate)
         
