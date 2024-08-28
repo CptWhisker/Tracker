@@ -10,8 +10,8 @@ final class TrackerViewController: UIViewController {
     }
     private var filteredTrackers: [Tracker?] = []
     private var categories: [TrackerCategory?] = []
-    private var completedTrackers: [TrackerRecord?] = []
-    private var selectedDate: Date = Date()
+    private var completedTrackers = Set<TrackerRecord>()
+    private var selectedDate: Date = Date().dateWithoutTime
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -150,7 +150,6 @@ final class TrackerViewController: UIViewController {
         
         trackerCollectionView.reloadData()
     }
-
     
     // MARK: - Actions
     @objc private func addHabitOrIrregularEvent() {
@@ -161,7 +160,7 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func dateChanged(_ datePicker: UIDatePicker) {
-        selectedDate = datePicker.date
+        selectedDate = datePicker.date.dateWithoutTime
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: selectedDate)
         
@@ -182,7 +181,11 @@ extension TrackerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configure(with: tracker)
+        let count = completedTrackers.filter { $0.trackerID == tracker.habitID }.count
+        let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
+        
+        cell.configure(with: tracker, completed: count, isCompleted: isCompleted)
+        cell.setDelegate(delegate: self)
         return cell
     }
 }
@@ -213,5 +216,29 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
 extension TrackerViewController: NewHabitOrIrregularEventDelegate {
     func didCreateTracker(_ tracker: Tracker) {
         trackersToDisplay.append(tracker)
+    }
+}
+
+// MARK: - TrackerCellDelegate
+extension TrackerViewController: TrackerCellDelegate {
+    func didTapPlusButton(in cell: TrackerCell) {
+        guard let indexPath = trackerCollectionView.indexPath(for: cell),
+              let tracker = filteredTrackers[indexPath.item] else { return }
+        
+        let day = selectedDate
+        let record = TrackerRecord(trackerID: tracker.habitID, completionDate: day)
+        
+        if completedTrackers.contains(record) {
+            completedTrackers.remove(record)
+        } else {
+            completedTrackers.insert(record)
+        }
+        
+        let count = completedTrackers.filter { $0.trackerID == tracker.habitID}.count
+        let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
+        
+        if let updatedCell = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
+            updatedCell.configure(completed: count, isCompleted: isCompleted)
+        }
     }
 }

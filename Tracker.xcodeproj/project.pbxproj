@@ -46,6 +46,8 @@
 		CEA24D272C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */; };
 		CEA24D2A2C7D019300A37D35 /* TrackerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D292C7D019300A37D35 /* TrackerCell.swift */; };
 		CEA24D2C2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2B2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift */; };
+		CEA24D2E2C7FA6E900A37D35 /* TrackerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2D2C7FA6E900A37D35 /* TrackerCellDelegate.swift */; };
+		CEA24D302C7FC69E00A37D35 /* Date +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */; };
 		CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408542C68A41900E88229 /* ScheduleCell.swift */; };
 		CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */; };
 		CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */; };
@@ -94,6 +96,8 @@
 		CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextfieldCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D292C7D019300A37D35 /* TrackerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCell.swift; sourceTree = "<group>"; };
 		CEA24D2B2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitOrIrregularEventDelegate.swift; sourceTree = "<group>"; };
+		CEA24D2D2C7FA6E900A37D35 /* TrackerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCellDelegate.swift; sourceTree = "<group>"; };
+		CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +Extensions.swift"; sourceTree = "<group>"; };
 		CEF408542C68A41900E88229 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCreationDelegate.swift; sourceTree = "<group>"; };
 		CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndScheduleCell.swift; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 				CE3063D12C622EEC0013F319 /* Constants.swift */,
 				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
 				CE3063ED2C63D5070013F319 /* UITableViewCell +Extension.swift */,
+				CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */,
 			);
 			path = "Extensions&Helpers";
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				CE3063F72C6417500013F319 /* CategoryCreationDelegate.swift */,
 				CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */,
 				CEA24D2B2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift */,
+				CEA24D2D2C7FA6E900A37D35 /* TrackerCellDelegate.swift */,
 			);
 			path = DelegateProtocols;
 			sourceTree = "<group>";
@@ -371,6 +377,7 @@
 				CE3063422C5BAEF40013F319 /* TrackerViewController.swift in Sources */,
 				CE3063F82C6417500013F319 /* CategoryCreationDelegate.swift in Sources */,
 				CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */,
+				CEA24D2E2C7FA6E900A37D35 /* TrackerCellDelegate.swift in Sources */,
 				CEF4085D2C6A915F00E88229 /* ScheduleViewControllerDelegate.swift in Sources */,
 				CE3063D52C6235780013F319 /* NameTextfieldCell.swift in Sources */,
 				CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */,
@@ -383,6 +390,7 @@
 				CE3063C52C5F579C0013F319 /* Tracker.swift in Sources */,
 				CEA24D242C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift in Sources */,
 				CE3063D22C622EEC0013F319 /* Constants.swift in Sources */,
+				CEA24D302C7FC69E00A37D35 /* Date +Extensions.swift in Sources */,
 				CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */,
 				CE3063552C5BE9030013F319 /* TabBarController.swift in Sources */,
 				CE3063D72C6235970013F319 /* CategoryAndScheduleTableViewCell.swift in Sources */,

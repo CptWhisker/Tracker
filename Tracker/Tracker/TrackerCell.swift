@@ -2,6 +2,7 @@ import UIKit
 
 final class TrackerCell: UICollectionViewCell {
     static let identifier = "TrackerCell"
+    private weak var delegate: TrackerCellDelegate?
     private lazy var topView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
@@ -40,14 +41,12 @@ final class TrackerCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
         label.textColor = .black
-        label.text = "1 Day"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private lazy var plusButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 16
-        button.setImage(UIImage(named: "trackerPlus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -123,17 +122,46 @@ final class TrackerCell: UICollectionViewCell {
         ])
     }
     
-    // MARK: - Actions
-    @objc private func plusButtonTapped() {
-        let image = plusButton.currentImage == UIImage(named: "trackerPlus") ? "trackerDone" : "trackerPlus"
-        plusButton.setImage(UIImage(named: image), for: .normal)
+    private func updateRecordLabel(with count: Int?) {
+        let record = count ?? 0
+        
+        recordLabel.text = "\(record) days"
     }
     
+    private func updateButtonImage(isCompleted: Bool) {
+        if isCompleted {
+            plusButton.setImage(UIImage(named: "trackerDone")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        } else {
+            plusButton.setImage(UIImage(named: "trackerPlus")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
+    
+    // MARK: - Actions
+    @objc private func plusButtonTapped() {
+        guard let delegate else { return }
+                
+        delegate.didTapPlusButton(in: self)
+    }
+    
+    
+    
     // MARK: - Public Methods
-    func configure(with tracker: Tracker) {
+    func configure(with tracker: Tracker, completed count: Int?, isCompleted: Bool) {
         titleLabel.text = tracker.habitName
         emojiLabel.text = tracker.habitEmoji
         topView.backgroundColor = tracker.habitColor
         plusButton.tintColor = tracker.habitColor
+        
+        updateRecordLabel(with: count)
+        updateButtonImage(isCompleted: isCompleted)
+    }
+    
+    func configure(completed count: Int?, isCompleted: Bool) {
+        updateRecordLabel(with: count)
+        updateButtonImage(isCompleted: isCompleted)
+    }
+    
+    func setDelegate(delegate: TrackerCellDelegate) {
+        self.delegate = delegate
     }
 }
