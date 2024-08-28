@@ -2,19 +2,21 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
-    private var mockTrackers: [Tracker] = [
-        Tracker(habitID: UUID.init(), habitName: "One", habitColor: .tracker1, habitEmoji: "😱", habitSchedule: [.friday]),
-        Tracker(habitID: UUID.init(), habitName: "Two", habitColor: .tracker3, habitEmoji: "🥶", habitSchedule: [.friday]),
-        Tracker(habitID: UUID.init(), habitName: "Three", habitColor: .tracker5, habitEmoji: "😳", habitSchedule: [.friday]),
-        Tracker(habitID: UUID.init(), habitName: "Four", habitColor: .tracker7, habitEmoji: "🫢", habitSchedule: [.friday])
-    ]
-    private var trackersToDisplay: [Tracker?] = []
+    private var trackersToDisplay: [Tracker?] = [] {
+        didSet {
+            let weekday = Calendar.current.component(.weekday, from: selectedDate)
+            filterTrackersBy(weekday: weekday)
+        }
+    }
+    private var filteredTrackers: [Tracker?] = []
     private var categories: [TrackerCategory?] = []
     private var completedTrackers: [TrackerRecord?] = []
+    private var selectedDate: Date = Date()
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         return datePicker
     }()
     private lazy var stubImage: UIImageView = {
@@ -82,12 +84,14 @@ final class TrackerViewController: UIViewController {
         navigationItem.title = "Трекеры"
     }
     
+    private func checkTrackers() {
+        if !filteredTrackers.isEmpty {
+            removeStubImageAndText()
+        } else {
+            configureStubImageAndText()
+        }
+    }
     private func configureTrackers() {
-//        guard trackersToDisplay != nil else {
-//            configureStubImageAndText()
-//            return
-//        }
-        
         view.addSubview(trackerCollectionView)
         
         NSLayoutConstraint.activate([
@@ -96,7 +100,8 @@ final class TrackerViewController: UIViewController {
             trackerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
-        // Show trackers
+        
+        checkTrackers()
     }
     
     private func configureStubImageAndText() {
@@ -108,6 +113,45 @@ final class TrackerViewController: UIViewController {
         ])
     }
     
+    private func removeStubImageAndText() {
+        stubStackView.removeFromSuperview()
+    }
+    
+    // MARK: - Tracker Filtering
+    private func filterTrackersBy(weekday: Int) {
+        let weekDayEnum: WeekDays?
+        
+        switch weekday {
+        case 1: weekDayEnum = .sunday
+        case 2: weekDayEnum = .monday
+        case 3: weekDayEnum = .tuesday
+        case 4: weekDayEnum = .wednesday
+        case 5: weekDayEnum = .thursday
+        case 6: weekDayEnum = .friday
+        case 7: weekDayEnum = .saturday
+        default: weekDayEnum = nil
+        }
+        
+        guard let dayToFilter = weekDayEnum else { return }
+        
+        let filteredTrackers = trackersToDisplay.compactMap { tracker -> Tracker? in
+            guard let tracker = tracker else { return nil }
+            
+            if tracker.habitSchedule?.contains(dayToFilter) == true {
+                return tracker
+            } else {
+                return nil
+            }
+        }
+        
+        self.filteredTrackers = filteredTrackers
+        
+        checkTrackers()
+        
+        trackerCollectionView.reloadData()
+    }
+
+    
     // MARK: - Actions
     @objc private func addHabitOrIrregularEvent() {
         let trackerCreationViewController = TrackerCreationViewController()
@@ -115,16 +159,25 @@ final class TrackerViewController: UIViewController {
         let trackerCreationNavigationController = UINavigationController(rootViewController: trackerCreationViewController)
         present(trackerCreationNavigationController, animated: true)
     }
+    
+    @objc private func dateChanged(_ datePicker: UIDatePicker) {
+        selectedDate = datePicker.date
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: selectedDate)
+        
+        filterTrackersBy(weekday: weekday)
+    }
 }
 
+// MARK: - UICollectionViewDataSource
 extension TrackerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return trackersToDisplay.count
+        return filteredTrackers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
-              let tracker = trackersToDisplay[indexPath.item] else {
+              let tracker = filteredTrackers[indexPath.item] else {
             print("[TrackerViewController cellForItemAt]: typecastError - Unable to dequeue cell as TrackerCell")
             return UICollectionViewCell()
         }
@@ -134,6 +187,7 @@ extension TrackerViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension TrackerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (collectionView.frame.width - 40) / CGFloat(2)
@@ -155,9 +209,9 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - NewHabitOrIrregularEventDelegate
 extension TrackerViewController: NewHabitOrIrregularEventDelegate {
     func didCreateTracker(_ tracker: Tracker) {
         trackersToDisplay.append(tracker)
-        trackerCollectionView.reloadData()
     }
 }

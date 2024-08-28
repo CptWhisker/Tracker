@@ -5,7 +5,6 @@ final class TrackerCell: UICollectionViewCell {
     private lazy var topView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
-//        view.backgroundColor = .tracker12
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -24,7 +23,6 @@ final class TrackerCell: UICollectionViewCell {
     }()
     private lazy var emojiLabel: UILabel = {
         let label = UILabel()
-//        label.text = "❤️"
         label.font = .systemFont(ofSize: 13)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +32,6 @@ final class TrackerCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
         label.textColor = .white
-//        label.text = "Water plants"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -50,8 +47,7 @@ final class TrackerCell: UICollectionViewCell {
     private lazy var plusButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 16
-        button.setImage(UIImage(named: "Plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
-//        button.tintColor = .tracker12
+        button.setImage(UIImage(named: "trackerPlus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -129,7 +125,8 @@ final class TrackerCell: UICollectionViewCell {
     
     // MARK: - Actions
     @objc private func plusButtonTapped() {
-        print("Button tapped!")
+        let image = plusButton.currentImage == UIImage(named: "trackerPlus") ? "trackerDone" : "trackerPlus"
+        plusButton.setImage(UIImage(named: image), for: .normal)
     }
     
     // MARK: - Public Methods
