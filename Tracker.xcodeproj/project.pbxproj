@@ -48,6 +48,7 @@
 		CEA24D2C2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2B2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift */; };
 		CEA24D2E2C7FA6E900A37D35 /* TrackerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2D2C7FA6E900A37D35 /* TrackerCellDelegate.swift */; };
 		CEA24D302C7FC69E00A37D35 /* Date +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */; };
+		CEA24D322C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */; };
 		CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408542C68A41900E88229 /* ScheduleCell.swift */; };
 		CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */; };
 		CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */; };
@@ -98,6 +99,7 @@
 		CEA24D2B2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitOrIrregularEventDelegate.swift; sourceTree = "<group>"; };
 		CEA24D2D2C7FA6E900A37D35 /* TrackerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +Extensions.swift"; sourceTree = "<group>"; };
+		CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategorySupplementaryView.swift; sourceTree = "<group>"; };
 		CEF408542C68A41900E88229 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCreationDelegate.swift; sourceTree = "<group>"; };
 		CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndScheduleCell.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				CE3063412C5BAEF40013F319 /* TrackerViewController.swift */,
 				CEA24D292C7D019300A37D35 /* TrackerCell.swift */,
+				CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */,
 				CE3063CC2C60F9D60013F319 /* TrackerCreation */,
 			);
 			path = Tracker;
@@ -397,6 +400,7 @@
 				CE3063D02C622C4D0013F319 /* NewHabitOrIrregularEventViewController.swift in Sources */,
 				CE3063592C5C08490013F319 /* NavigationController.swift in Sources */,
 				CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */,
+				CEA24D322C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift in Sources */,
 				CE3063EE2C63D5070013F319 /* UITableViewCell +Extension.swift in Sources */,
 				CE3063F22C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift in Sources */,
 				CE3063CE2C60FA080013F319 /* TrackerCreationViewController.swift in Sources */,

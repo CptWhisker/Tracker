@@ -49,6 +49,11 @@ final class TrackerViewController: UIViewController {
             TrackerCell.self,
             forCellWithReuseIdentifier: TrackerCell.identifier
         )
+        collectionView.register(
+            TrackerCategorySupplementaryView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: TrackerCategorySupplementaryView.identifier
+        )
         return collectionView
     }()
     
@@ -189,6 +194,25 @@ extension TrackerViewController: UICollectionViewDataSource {
         cell.setDelegate(delegate: self)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard filteredTrackers.count > 0 else {
+            return UICollectionReusableView()
+        }
+        
+        guard let view = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: TrackerCategorySupplementaryView.identifier,
+            for: indexPath
+        ) as? TrackerCategorySupplementaryView else {
+            print("[TrackerViewCOntroller viewForSupplementaryElementOfKind]: typecastError - Unable to dequeue view as TrackerCategorySupplementaryView")
+            return UICollectionReusableView()
+        }
+        
+        view.setHeaderLabel(to: "Тестовая Категория")
+        
+        return view
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -210,6 +234,24 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard filteredTrackers.count > 0 else {
+            return CGSize.zero
+        }
+        
+        let indexPath = IndexPath(row: 0, section: section)
+        let headerView = self.collectionView(collectionView, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath)
+        
+        return headerView.systemLayoutSizeFitting(
+            CGSize(
+                width: collectionView.frame.width,
+                height: UIView.layoutFittingExpandedSize.height
+            ),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
     }
 }
 
