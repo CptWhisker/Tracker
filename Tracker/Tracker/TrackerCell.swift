@@ -69,7 +69,7 @@ final class TrackerCell: UICollectionViewCell {
         let record = count ?? 0
         let dayString = dayDeclension(for: record)
         
-        recordLabel.text = "\(record)" + dayString
+        recordLabel.text = "\(record) " + dayString
     }
     
     private func updateButtonImage(isCompleted: Bool) {
