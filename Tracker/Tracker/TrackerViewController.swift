@@ -106,20 +106,7 @@ final class TrackerViewController: UIViewController {
     
     // MARK: - Tracker Filtering
     private func filterTrackersBy(weekday: Int) {
-        let weekDayEnum: WeekDays?
-        
-        switch weekday {
-        case 1: weekDayEnum = .sunday
-        case 2: weekDayEnum = .monday
-        case 3: weekDayEnum = .tuesday
-        case 4: weekDayEnum = .wednesday
-        case 5: weekDayEnum = .thursday
-        case 6: weekDayEnum = .friday
-        case 7: weekDayEnum = .saturday
-        default: weekDayEnum = nil
-        }
-        
-        guard let dayToFilter = weekDayEnum else { return }
+        guard let dayToFilter = WeekDays.from(weekday: weekday) else { return }
         
         let filteredTrackers = trackersToDisplay.compactMap { tracker -> Tracker? in
             guard let tracker = tracker else { return nil }

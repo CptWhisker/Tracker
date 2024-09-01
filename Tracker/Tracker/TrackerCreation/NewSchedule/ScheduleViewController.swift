@@ -2,9 +2,7 @@ import UIKit
 
 final class ScheduleViewController: UIViewController {
     // MARK: - Properties
-    private let weekDays: [WeekDays] = [
-        .monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday
-    ]
+    private let weekDays: [WeekDays] = WeekDays.allCases
     private var selectedWeekDays: [WeekDays] = []
     private var delegate: ScheduleViewControllerDelegate?
     
@@ -48,7 +46,6 @@ final class ScheduleViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func complete() {
-        print(selectedWeekDays)
         delegate?.didSelectWeekDays(weekdays: selectedWeekDays)
         dismiss(animated: true, completion: nil)
     }
