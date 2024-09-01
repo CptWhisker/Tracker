@@ -1,0 +1,87 @@
+import UIKit
+
+final class CategoryCreationViewController: UIViewController {
+    // MARK: - Properties
+    private weak var delegate: CategoryCreationDelegate?
+    private lazy var categoryNameTextField: UITextField = {
+        let textfield = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.layer.cornerRadius = 16
+        textfield.backgroundColor = .ypBackground
+        textfield.placeholder = "Введите название категории"
+        textfield.addTarget(self, action: #selector(textTyped), for: .editingChanged)
+        return textfield
+    }()
+    private lazy var completeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.backgroundColor = .ypGray
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.layer.cornerRadius = 16
+        button.setTitle("Готово", for: .normal)
+        button.setTitleColor(.ypMain, for: .normal)
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(completeCreation), for: .touchUpInside)
+        return button
+    }()
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureUI()
+    }
+    
+    // MARK: - Public Methods
+    func setDelegate(delegate: CategoryCreationDelegate) {
+        self.delegate = delegate
+    }
+    
+    // MARK: - Actions
+    @objc private func textTyped() {
+        let textFieldEmpty = categoryNameTextField.text?.isEmpty ?? true
+        completeButton.isEnabled = !textFieldEmpty
+        completeButton.backgroundColor = !textFieldEmpty ? .ypAccent : .ypGray
+    }
+    
+    @objc private func completeCreation() {
+        guard let delegate,
+              let categoryName = categoryNameTextField.text else { return }
+        
+        let newCategory = TrackerCategory(categoryName: categoryName, trackersInCategory: [])
+        delegate.didCreateCategory(newCategory)
+        
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension CategoryCreationViewController: UIConfigurationProtocol {
+    func configureUI() {
+        title = "Новая категория"
+        view.backgroundColor = .ypMain
+        
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        view.addSubview(categoryNameTextField)
+        view.addSubview(completeButton)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            categoryNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            categoryNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            categoryNameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            categoryNameTextField.heightAnchor.constraint(equalToConstant: 75),
+            
+            completeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            completeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            completeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            completeButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
+    }
+}
