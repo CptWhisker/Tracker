@@ -31,24 +31,11 @@ final class ColorCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(colorBackgroundView)
-        
-        NSLayoutConstraint.activate([
-            colorBackgroundView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            colorBackgroundView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
-            colorBackgroundView.widthAnchor.constraint(equalToConstant: 52),
-            colorBackgroundView.heightAnchor.constraint(equalToConstant: 52)
-        ])
     }
     
     // MARK: - Public Methods
@@ -62,5 +49,26 @@ final class ColorCell: UICollectionViewCell {
     
     func deselectColor() {
         colorBackgroundView.layer.borderColor = UIColor.ypMain.cgColor
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension ColorCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(colorBackgroundView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            colorBackgroundView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            colorBackgroundView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            colorBackgroundView.widthAnchor.constraint(equalToConstant: 52),
+            colorBackgroundView.heightAnchor.constraint(equalToConstant: 52)
+        ])
     }
 }

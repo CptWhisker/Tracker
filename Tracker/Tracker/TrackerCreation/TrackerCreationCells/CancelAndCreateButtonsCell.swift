@@ -39,7 +39,7 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
         stackView.spacing = 8
         
         NSLayoutConstraint.activate([
-            cancelButton.widthAnchor.constraint(equalTo: createButton.widthAnchor)
+            
         ])
         return stackView
     }()
@@ -48,23 +48,11 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(buttonsStackView)
-        
-        NSLayoutConstraint.activate([
-            buttonsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            buttonsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-            buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
-        ])
     }
     
     // MARK: - Public Methods
@@ -95,4 +83,30 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
         
         delegate.didTapCreateButton()
     }
+}
+
+// MARK: - UIConfigurationProtocol
+extension CancelAndCreateButtonsCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(buttonsStackView)
+
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            cancelButton.widthAnchor.constraint(equalTo: createButton.widthAnchor),
+            
+            buttonsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            buttonsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
+        ])
+    }
+    
+    
 }

@@ -31,23 +31,11 @@ final class ColorSchemeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(colorCollectionView)
-        
-        NSLayoutConstraint.activate([
-            colorCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            colorCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            colorCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            colorCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
     }
     
     // MARK: - Public Methods
@@ -142,5 +130,26 @@ extension ColorSchemeCollectionViewCell: UICollectionViewDelegate {
         }
         
         cell.deselectColor()
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension ColorSchemeCollectionViewCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(colorCollectionView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            colorCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            colorCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            colorCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            colorCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
 }

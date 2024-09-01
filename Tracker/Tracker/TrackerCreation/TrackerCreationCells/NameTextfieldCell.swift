@@ -18,7 +18,7 @@ final class NameTextfieldCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -26,17 +26,6 @@ final class NameTextfieldCell: UICollectionViewCell {
     }
     
     // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(nameTextfield)
-        
-        NSLayoutConstraint.activate([
-            nameTextfield.topAnchor.constraint(equalTo: contentView.topAnchor),
-            nameTextfield.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            nameTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            nameTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-    }
-    
     @objc private func textTyped() {
         guard let text = nameTextfield.text else { return }
         
@@ -46,5 +35,26 @@ final class NameTextfieldCell: UICollectionViewCell {
     // MARK: - Public Methods
     func setDelegate(delegate: NameTextfieldCellDelegate) {
         self.delegate = delegate
+    }
+}
+
+//MARK: - UIConfigurationProtocol
+extension NameTextfieldCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(nameTextfield)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            nameTextfield.topAnchor.constraint(equalTo: contentView.topAnchor),
+            nameTextfield.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            nameTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            nameTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
 }

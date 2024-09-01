@@ -33,23 +33,11 @@ final class EmojiCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(emojiCollectionView)
-        
-        NSLayoutConstraint.activate([
-            emojiCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            emojiCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            emojiCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            emojiCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
     }
     
     // MARK: - Public Methods
@@ -144,5 +132,26 @@ extension EmojiCollectionViewCell: UICollectionViewDelegate {
         }
         
         cell.deselectEmoji()
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension EmojiCollectionViewCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(emojiCollectionView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            emojiCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            emojiCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            emojiCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            emojiCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
 }

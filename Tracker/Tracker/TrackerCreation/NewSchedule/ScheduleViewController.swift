@@ -38,40 +38,7 @@ final class ScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
-    }
-    
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        view.backgroundColor = .ypMain
-        title = "Расписание"
-        
-        configureScheduleTableView()
-        configureCompleteButton()
-    }
-    
-    private func configureScheduleTableView() {
-        view.addSubview(scheduleTableView)
-        
-        NSLayoutConstraint.activate([
-            scheduleTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            scheduleTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            scheduleTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            scheduleTableView.heightAnchor.constraint(equalToConstant: 525)
-        ])
-    }
-    
-    private func configureCompleteButton() {
-        view.addSubview(completeButton)
-        
-        NSLayoutConstraint.activate([
-            completeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            completeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            completeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            completeButton.heightAnchor.constraint(equalToConstant: 60)
-        ])
+        configureUI()
     }
     
     // MARK: - Public Methods
@@ -129,9 +96,39 @@ extension ScheduleViewController: ScheduleCreationDelegate {
     
     func removeWeekDay(_ weekday: String) {
         guard let weekDay = WeekDays(rawValue: weekday) else {
-            print("[ScheduleViewController addWeekDay]: weekdayError - Weekday is not found")
+            print("[ScheduleViewController removeWeekDay]: weekdayError - Weekday is not found")
             return
         }
         selectedWeekDays.removeAll(where: {$0 == weekDay})
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension ScheduleViewController: UIConfigurationProtocol {
+    func configureUI() {
+        view.backgroundColor = .ypMain
+        title = "Расписание"
+        
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        view.addSubview(scheduleTableView)
+        view.addSubview(completeButton)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            scheduleTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
+            scheduleTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            scheduleTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            scheduleTableView.heightAnchor.constraint(equalToConstant: 525),
+            
+            completeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            completeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            completeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            completeButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
 }

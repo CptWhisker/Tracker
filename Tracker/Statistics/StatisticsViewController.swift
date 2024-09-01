@@ -29,17 +29,10 @@ final class StatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
+        configureUI()
     }
     
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        view.backgroundColor = .white
-        
-        configureNavigationBar()
-        configureStatistics()
-    }
-    
+    // MARK: - Private Methods
     private func configureNavigationBar() {
         navigationItem.title = "Статистика"
     }
@@ -61,4 +54,20 @@ final class StatisticsViewController: UIViewController {
             stubStackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
+}
+
+//MARK: - UIConfigurationProtocol
+extension StatisticsViewController: UIConfigurationProtocol {
+    func configureUI() {
+        view.backgroundColor = .white
+        
+        configureNavigationBar()
+        configureStatistics()
+    }
+    
+    func addSubviews() {}
+    
+    func addConstraints() {}
+    
+    
 }

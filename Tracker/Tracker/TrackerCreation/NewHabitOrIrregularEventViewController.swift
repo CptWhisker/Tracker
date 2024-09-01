@@ -49,28 +49,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
-    }
-    
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        view.backgroundColor = .ypMain
-        
-        view.addSubview(newHabitOrEventCollectionView)
-        
-        NSLayoutConstraint.activate([
-            newHabitOrEventCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            newHabitOrEventCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            newHabitOrEventCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            newHabitOrEventCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-        
-        switch initializerTag {
-        case .habit:
-            title = "Новая привычка"
-        case .event:
-            title = "Новое нерегулярное событие"
-        }
+        configureUI()
     }
     
     // MARK: - Private Methods
@@ -327,5 +306,36 @@ extension NewHabitOrIrregularEventViewController: EmojiCollectionViewCellDelegat
 extension NewHabitOrIrregularEventViewController: ColorSchemeCollectionViewCellDelegate {
     func didSelectColor(_ color: UIColor) {
         trackerColor = color
+    }
+}
+
+
+// MARK: - UIConfigurationProtocol
+extension NewHabitOrIrregularEventViewController: UIConfigurationProtocol {
+    func configureUI() {
+        view.backgroundColor = .ypMain
+
+        switch initializerTag {
+        case .habit:
+            title = "Новая привычка"
+        case .event:
+            title = "Новое нерегулярное событие"
+        }
+        
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        view.addSubview(newHabitOrEventCollectionView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            newHabitOrEventCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            newHabitOrEventCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            newHabitOrEventCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            newHabitOrEventCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
     }
 }

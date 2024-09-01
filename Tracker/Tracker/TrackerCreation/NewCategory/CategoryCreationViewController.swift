@@ -30,38 +30,7 @@ final class CategoryCreationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
-    }
-    
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        title = "Новая категория"
-        view.backgroundColor = .ypMain
-        
-        configureCategoryNameTextField()
-        configureCompleteButton()
-    }
-    
-    private func configureCategoryNameTextField() {
-        view.addSubview(categoryNameTextField)
-        
-        NSLayoutConstraint.activate([
-            categoryNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            categoryNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            categoryNameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            categoryNameTextField.heightAnchor.constraint(equalToConstant: 75),
-        ])
-    }
-    
-    private func configureCompleteButton() {
-        view.addSubview(completeButton)
-        
-        NSLayoutConstraint.activate([
-            completeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            completeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            completeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            completeButton.heightAnchor.constraint(equalToConstant: 60)
-        ])
+        configureUI()
     }
     
     // MARK: - Public Methods
@@ -84,5 +53,35 @@ final class CategoryCreationViewController: UIViewController {
         delegate.didCreateCategory(newCategory)
         
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension CategoryCreationViewController: UIConfigurationProtocol {
+    func configureUI() {
+        title = "Новая категория"
+        view.backgroundColor = .ypMain
+        
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        view.addSubview(categoryNameTextField)
+        view.addSubview(completeButton)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            categoryNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            categoryNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            categoryNameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            categoryNameTextField.heightAnchor.constraint(equalToConstant: 75),
+            
+            completeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            completeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            completeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            completeButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
 }

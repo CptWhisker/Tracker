@@ -28,45 +28,14 @@ final class CategoryAndScheduleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureCell() {
-        contentView.backgroundColor = .ypBackground
-        
-        configureAccessory()
-        configureLabels()
-    }
-    
-    private func configureAccessory() {
-        contentView.addSubview(disclosureIndicator)
-        
-        NSLayoutConstraint.activate([
-            disclosureIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            disclosureIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            disclosureIndicator.widthAnchor.constraint(equalToConstant: 10),
-            disclosureIndicator.heightAnchor.constraint(equalToConstant: 16)
-        ])
-    }
-    private func configureLabels() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(selectionLabel)
-                
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: disclosureIndicator.leadingAnchor, constant: -16),
-            
-            selectionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            selectionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            selectionLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor)
-        ])
-    }
-    
+    // MARK: - Public Methods
     func setTitleLabel(to string: String) {
         titleLabel.text = string
     }
@@ -74,4 +43,41 @@ final class CategoryAndScheduleCell: UITableViewCell {
     func setSelectionLabel(to string: String) {
         selectionLabel.text = string
     }
+}
+
+// MARK: - UIConfigurationProtocol
+extension CategoryAndScheduleCell: UIConfigurationProtocol {
+    func configureUI() {
+        contentView.backgroundColor = .ypBackground
+
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(disclosureIndicator)
+
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(selectionLabel)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            // Accessory
+            disclosureIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            disclosureIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            disclosureIndicator.widthAnchor.constraint(equalToConstant: 10),
+            disclosureIndicator.heightAnchor.constraint(equalToConstant: 16),
+            
+            // Labels
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: disclosureIndicator.leadingAnchor, constant: -16),
+            selectionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            selectionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            selectionLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor)
+        ])
+    }
+    
+    
 }

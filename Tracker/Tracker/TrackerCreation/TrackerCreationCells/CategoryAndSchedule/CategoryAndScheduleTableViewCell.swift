@@ -29,23 +29,11 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(categoryAndScheduleTableView)
-        
-        NSLayoutConstraint.activate([
-            categoryAndScheduleTableView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            categoryAndScheduleTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            categoryAndScheduleTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            categoryAndScheduleTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
     }
     
     // MARK: - Public Methods
@@ -121,5 +109,26 @@ extension CategoryAndScheduleTableViewCell: UITableViewDelegate {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension CategoryAndScheduleTableViewCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(categoryAndScheduleTableView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            categoryAndScheduleTableView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            categoryAndScheduleTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            categoryAndScheduleTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            categoryAndScheduleTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
 }

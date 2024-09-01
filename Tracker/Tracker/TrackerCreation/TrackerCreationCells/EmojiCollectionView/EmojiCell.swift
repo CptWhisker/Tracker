@@ -28,24 +28,11 @@ final class EmojiCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Private Methods
-    private func configureCell() {
-        contentView.addSubview(emojiBackgroundView)
-        
-        NSLayoutConstraint.activate([
-            emojiBackgroundView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            emojiBackgroundView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
-            emojiBackgroundView.widthAnchor.constraint(equalToConstant: 46),
-            emojiBackgroundView.heightAnchor.constraint(equalToConstant: 46)
-        ])
     }
     
     // MARK: - Public Methods
@@ -59,5 +46,26 @@ final class EmojiCell: UICollectionViewCell {
     
     func deselectEmoji() {
         emojiBackgroundView.backgroundColor = .ypMain
+    }
+}
+
+// MARK: UIConfigurationProtocol
+extension EmojiCell: UIConfigurationProtocol {
+    func configureUI() {
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(emojiBackgroundView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            emojiBackgroundView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            emojiBackgroundView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            emojiBackgroundView.widthAnchor.constraint(equalToConstant: 46),
+            emojiBackgroundView.heightAnchor.constraint(equalToConstant: 46)
+        ])
     }
 }

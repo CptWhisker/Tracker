@@ -48,24 +48,9 @@ final class TrackerCreationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
+        configureUI()
     }
-    
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        view.backgroundColor = .ypMain
-        
-        title = "Создание трекера"
-        
-        view.addSubview(buttonsStackView)
-        
-        NSLayoutConstraint.activate([
-            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            buttonsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-    }
-    
+
     // MARK: - Actions
     @objc private func createNewHabit() {
         let newHabitCreationViewController = NewHabitOrIrregularEventViewController(initializerTag: .habit)
@@ -83,7 +68,7 @@ final class TrackerCreationViewController: UIViewController {
         present(newIrregularEventCreationNavigationController, animated: true)
     }
     
-    // MARK: - Public Actions
+    // MARK: - Public Methods
     func setDelegate(delegate: NewHabitOrIrregularEventDelegate) {
         self.delegate = delegate
     }
@@ -95,5 +80,28 @@ extension TrackerCreationViewController: NewHabitOrIrregularEventDelegate {
         delegate?.didCreateTracker(tracker)
         
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension TrackerCreationViewController: UIConfigurationProtocol {
+    func configureUI() {
+        view.backgroundColor = .ypMain
+        title = "Создание трекера"
+        
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        view.addSubview(buttonsStackView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            buttonsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            buttonsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }

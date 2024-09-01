@@ -61,17 +61,11 @@ final class TrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
+        configureUI()
+        checkTrackers()
     }
     
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        view.backgroundColor = .ypMain
-        
-        configureNavigationBar()
-        configureTrackers()
-    }
-    
+    // MARK: - UI Configuration
     private func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "navBarAddButton"),
@@ -96,20 +90,7 @@ final class TrackerViewController: UIViewController {
             configureStubImageAndText()
         }
     }
-    
-    private func configureTrackers() {
-        view.addSubview(trackerCollectionView)
-        
-        NSLayoutConstraint.activate([
-            trackerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            trackerCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            trackerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        
-        checkTrackers()
-    }
-    
+
     private func configureStubImageAndText() {
         view.addSubview(stubStackView)
         
@@ -284,5 +265,29 @@ extension TrackerViewController: TrackerCellDelegate {
         if let updatedCell = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
             updatedCell.configure(completed: count, isCompleted: isCompleted)
         }
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension TrackerViewController: UIConfigurationProtocol {
+    func configureUI() {
+        view.backgroundColor = .ypMain
+        
+        configureNavigationBar()
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        view.addSubview(trackerCollectionView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            trackerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            trackerCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            trackerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
     }
 }

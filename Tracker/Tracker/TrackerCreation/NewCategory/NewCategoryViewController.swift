@@ -61,34 +61,10 @@ final class NewCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureInterface()
+        configureUI()
     }
     
-    // MARK: - Interface Configuration
-    private func configureInterface() {
-        title = "Категория"
-        view.backgroundColor = .ypMain
-        
-        configureNewCategoryButton()
-        configureCategoryTableView()
-        
-        if categories.isEmpty {
-            configureStubImageAndText()
-        }
-    }
-    
-    private func configureNewCategoryButton() {
-        view.addSubview(newCategoryButton)
-        
-        NSLayoutConstraint.activate([
-            newCategoryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            newCategoryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            newCategoryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            newCategoryButton.heightAnchor.constraint(equalToConstant: 60)
-        ])
-    }
-    
+    // MARK: - Stub Image
     private func configureStubImageAndText() {
         view.addSubview(stubStackView)
         
@@ -100,17 +76,6 @@ final class NewCategoryViewController: UIViewController {
     
     private func removeStubImageAndText() {
         stubStackView.removeFromSuperview()
-    }
-    
-    private func configureCategoryTableView() {
-        view.addSubview(categoriesTableView)
-        
-        NSLayoutConstraint.activate([
-            categoriesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            categoriesTableView.bottomAnchor.constraint(equalTo: newCategoryButton.topAnchor, constant: -24),
-            categoriesTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            categoriesTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-        ])
     }
     
     // MARK: - Actions
@@ -185,5 +150,39 @@ extension NewCategoryViewController: CategoryCreationDelegate {
         categories.append(category)
         categoriesTableView.reloadData()
         removeStubImageAndText()
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension NewCategoryViewController: UIConfigurationProtocol {
+    func configureUI() {
+        title = "Категория"
+        view.backgroundColor = .ypMain
+        
+        addSubviews()
+        addConstraints()
+        
+        if categories.isEmpty {
+            configureStubImageAndText()
+        }
+    }
+    
+    func addSubviews() {
+        view.addSubview(newCategoryButton)
+        view.addSubview(categoriesTableView)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            newCategoryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            newCategoryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            newCategoryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            newCategoryButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            categoriesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            categoriesTableView.bottomAnchor.constraint(equalTo: newCategoryButton.topAnchor, constant: -24),
+            categoriesTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            categoriesTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+        ])
     }
 }
