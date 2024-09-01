@@ -48,7 +48,6 @@ final class ScheduleViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func complete() {
-        // Do something
         print(selectedWeekDays)
         delegate?.didSelectWeekDays(weekdays: selectedWeekDays)
         dismiss(animated: true, completion: nil)

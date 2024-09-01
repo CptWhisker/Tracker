@@ -29,52 +29,11 @@ final class NewCategoryTVCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        configureCell()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Interface Configuration
-    private func configureCell() {
-        contentView.backgroundColor = .ypBackground
-        
-        configureAccessory()
-        configureLabels()
-        configureSeparator()
-    }
-    
-    private func configureAccessory() {
-        contentView.addSubview(checkmarkIndicator)
-        
-        NSLayoutConstraint.activate([
-            checkmarkIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkmarkIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            checkmarkIndicator.heightAnchor.constraint(equalToConstant: 24),
-            checkmarkIndicator.widthAnchor.constraint(equalToConstant: 24)
-        ])
-    }
-    
-    private func configureLabels() {
-        contentView.addSubview(titleLabel)
-                
-        NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: checkmarkIndicator.leadingAnchor, constant: -16)
-        ])
-    }
-    
-    private func configureSeparator() {
-        contentView.addSubview(customSeparator)
-        
-        NSLayoutConstraint.activate([
-            customSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            customSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            customSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            customSeparator.heightAnchor.constraint(equalToConstant: 0.5)
-        ])
     }
     
     // MARK: - Public Methods
@@ -98,5 +57,43 @@ final class NewCategoryTVCell: UITableViewCell {
     
     func hideSeparator(_ hide: Bool) {
         customSeparator.isHidden = hide
+    }
+}
+
+// MARK: - UIConfigurationProtocol
+extension NewCategoryTVCell: UIConfigurationProtocol {
+    func configureUI() {
+        selectionStyle = .none
+        contentView.backgroundColor = .ypBackground
+        
+        addSubviews()
+        addConstraints()
+    }
+    
+    func addSubviews() {
+        contentView.addSubview(checkmarkIndicator)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(customSeparator)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            // Accessory
+            checkmarkIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkmarkIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            checkmarkIndicator.heightAnchor.constraint(equalToConstant: 24),
+            checkmarkIndicator.widthAnchor.constraint(equalToConstant: 24),
+            
+            // Label
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: checkmarkIndicator.leadingAnchor, constant: -16),
+            
+            // Separator
+            customSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            customSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            customSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            customSeparator.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
     }
 }
