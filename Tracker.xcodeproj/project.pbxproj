@@ -50,6 +50,7 @@
 		CEA24D302C7FC69E00A37D35 /* Date +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */; };
 		CEA24D322C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */; };
 		CEA24D352C848BB300A37D35 /* UIConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D342C848BB300A37D35 /* UIConfigurationProtocol.swift */; };
+		CEA24D372C84A3A600A37D35 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */; };
 		CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408542C68A41900E88229 /* ScheduleCell.swift */; };
 		CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */; };
 		CEF4085B2C6A733C00E88229 /* CategoryAndScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */; };
@@ -102,6 +103,7 @@
 		CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date +Extensions.swift"; sourceTree = "<group>"; };
 		CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategorySupplementaryView.swift; sourceTree = "<group>"; };
 		CEA24D342C848BB300A37D35 /* UIConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfigurationProtocol.swift; sourceTree = "<group>"; };
+		CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		CEF408542C68A41900E88229 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		CEF408562C68B5AA00E88229 /* ScheduleCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCreationDelegate.swift; sourceTree = "<group>"; };
 		CEF4085A2C6A733C00E88229 /* CategoryAndScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAndScheduleCell.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
 				CE3063ED2C63D5070013F319 /* UITableViewCell +Extensions.swift */,
 				CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */,
+				CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */,
 			);
 			path = "Extensions&Helpers";
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			files = (
 				CE30634D2C5BAEFB0013F319 /* LaunchScreen.storyboard in Resources */,
 				CE30634A2C5BAEFB0013F319 /* Assets.xcassets in Resources */,
+				CEA24D372C84A3A600A37D35 /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
