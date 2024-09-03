@@ -39,6 +39,7 @@
 		CE3063F62C640D390013F319 /* CategoryCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F52C640D390013F319 /* CategoryCreationViewController.swift */; };
 		CE3063F82C6417500013F319 /* CategoryCreationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F72C6417500013F319 /* CategoryCreationDelegate.swift */; };
 		CE3063FA2C6775380013F319 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3063F92C6775370013F319 /* ScheduleViewController.swift */; };
+		CE8E48422C875D7200C225F4 /* WeekDaysTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E48412C875D7200C225F4 /* WeekDaysTransformer.swift */; };
 		CE9122162C75197B005B6FB1 /* NewCategoryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9122152C75197B005B6FB1 /* NewCategoryTVCell.swift */; };
 		CE9122182C753F8C005B6FB1 /* CategorySelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9122172C753F8C005B6FB1 /* CategorySelectionDelegate.swift */; };
 		CEA24D222C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */; };
@@ -92,6 +93,7 @@
 		CE3063F52C640D390013F319 /* CategoryCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCreationViewController.swift; sourceTree = "<group>"; };
 		CE3063F72C6417500013F319 /* CategoryCreationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCreationDelegate.swift; sourceTree = "<group>"; };
 		CE3063F92C6775370013F319 /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		CE8E48412C875D7200C225F4 /* WeekDaysTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysTransformer.swift; sourceTree = "<group>"; };
 		CE9122152C75197B005B6FB1 /* NewCategoryTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryTVCell.swift; sourceTree = "<group>"; };
 		CE9122172C753F8C005B6FB1 /* CategorySelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionDelegate.swift; sourceTree = "<group>"; };
 		CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
@@ -241,13 +243,30 @@
 		CE3063EC2C63D4E60013F319 /* Extensions&Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E48402C875CA600C225F4 /* CoreDataTransformers */,
+				CE8E483F2C875C9500C225F4 /* Localization */,
 				CE3063D12C622EEC0013F319 /* Constants.swift */,
 				CE3063DE2C6245D20013F319 /* PaddedTextField.swift */,
 				CE3063ED2C63D5070013F319 /* UITableViewCell +Extensions.swift */,
 				CEA24D2F2C7FC69E00A37D35 /* Date +Extensions.swift */,
-				CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */,
 			);
 			path = "Extensions&Helpers";
+			sourceTree = "<group>";
+		};
+		CE8E483F2C875C9500C225F4 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		CE8E48402C875CA600C225F4 /* CoreDataTransformers */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E48412C875D7200C225F4 /* WeekDaysTransformer.swift */,
+			);
+			path = CoreDataTransformers;
 			sourceTree = "<group>";
 		};
 		CEA24D252C7CECC300A37D35 /* CategoryAndSchedule */ = {
@@ -398,6 +417,7 @@
 				CEA24D2E2C7FA6E900A37D35 /* TrackerCellDelegate.swift in Sources */,
 				CEF4085D2C6A915F00E88229 /* ScheduleViewControllerDelegate.swift in Sources */,
 				CE3063D52C6235780013F319 /* NameTextfieldCell.swift in Sources */,
+				CE8E48422C875D7200C225F4 /* WeekDaysTransformer.swift in Sources */,
 				CE3063E72C636D440013F319 /* CancelAndCreateButtonsCellDelegate.swift in Sources */,
 				CEA24D2C2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift in Sources */,
 				CE3063FA2C6775380013F319 /* ScheduleViewController.swift in Sources */,

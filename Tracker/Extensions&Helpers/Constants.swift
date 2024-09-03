@@ -4,7 +4,7 @@ enum InitializerTag {
     case habit, event
 }
 
-enum WeekDays: String, CaseIterable {
+enum WeekDays: String, CaseIterable, Codable {
     case monday = "Понедельник"
     case tuesday = "Вторник"
     case wednesday = "Среда"

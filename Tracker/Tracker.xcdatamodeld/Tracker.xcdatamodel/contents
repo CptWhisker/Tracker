@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G436" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="TrackerCategoryCoreData" representedClassName="TrackerCategoryCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="categoryName" attributeType="String"/>
+        <relationship name="trackersInCategory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrackerCoreData" inverseName="trackerCategory" inverseEntity="TrackerCoreData"/>
+    </entity>
+    <entity name="TrackerCoreData" representedClassName="TrackerCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="habitColor" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="habitEmoji" attributeType="String"/>
+        <attribute name="habitID" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="habitName" attributeType="String"/>
+        <attribute name="habitSchedule" optional="YES" attributeType="Transformable" valueTransformerName="WeekDaysTransformer"/>
+        <relationship name="trackerCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackerCategoryCoreData" inverseName="trackersInCategory" inverseEntity="TrackerCategoryCoreData"/>
+        <relationship name="trackerRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrackerRecordCoreData" inverseName="trackers" inverseEntity="TrackerRecordCoreData"/>
+    </entity>
+    <entity name="TrackerRecordCoreData" representedClassName="TrackerRecordCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="completionDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="trackerID" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="trackers" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackerCoreData" inverseName="trackerRecords" inverseEntity="TrackerCoreData"/>
+    </entity>
 </model>
