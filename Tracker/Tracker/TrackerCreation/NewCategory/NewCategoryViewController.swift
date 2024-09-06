@@ -10,6 +10,8 @@ final class NewCategoryViewController: UIViewController {
             categoriesTableView.reloadData()
         }
     }
+    
+    // MARK: - UI Elements
     private lazy var stubImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "trackersStubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false

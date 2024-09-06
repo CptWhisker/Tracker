@@ -1,16 +1,32 @@
 import UIKit
 import CoreData
 
-final class TrackerCategoryStore {
+final class TrackerCategoryStore: NSObject {
     // MARK: - Properties
     private let context: NSManagedObjectContext
+    private lazy var fetchedResultsController: NSFetchedResultsController<TrackerCategoryCoreData> = {
+        let fetchRequest = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "categoryName", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        
+        fetchedResultsController.delegate = self
+        try? fetchedResultsController.performFetch()
+        
+        return fetchedResultsController
+    }()
     
     // MARK: - Initializers
     init(context: NSManagedObjectContext) {
         self.context = context
     }
     
-    convenience init() {
+    convenience override init() {
         let initContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         self.init(context: initContext)
@@ -66,5 +82,6 @@ final class TrackerCategoryStore {
         
         return fetchedCategories
     }
-
 }
+
+extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {}

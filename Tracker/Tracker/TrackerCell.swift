@@ -1,8 +1,11 @@
 import UIKit
 
 final class TrackerCell: UICollectionViewCell {
+    // MARK: - Properties
     static let identifier = "TrackerCell"
     private weak var delegate: TrackerCellDelegate?
+    
+    // MARK: - UI Elements
     private lazy var topView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16

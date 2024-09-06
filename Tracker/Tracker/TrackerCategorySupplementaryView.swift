@@ -1,7 +1,10 @@
 import UIKit
 
 final class TrackerCategorySupplementaryView: UICollectionReusableView {
+    // MARK: - Properties
     static let identifier = "Header"
+    
+    // MARK: - UI Elements
     private lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
