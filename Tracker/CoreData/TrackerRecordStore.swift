@@ -32,6 +32,8 @@ final class TrackerRecordStore {
                 
                 newTrackerRecordEntry.tracker = targetTracker
                 targetTracker.addToTrackerRecords(newTrackerRecordEntry)
+                
+                try context.save()
             }
         } catch {
             print("[TrackerRecordStore createTrackerRecords]: CoreDataError - Failed to create TrackerRecord")
@@ -106,9 +108,11 @@ final class TrackerRecordStore {
         
         do {
             let records = try context.fetch(fetchRequest)
-            let record = records.first!
+            if let recordToDelete = records.first {
+                context.delete(recordToDelete)
+                try context.save()
+            }
             
-            context.delete(record)
         } catch {
             print("[TrackerRecordStore deleteTrackerRecords]: CoreDataError - Failed to delete TrackerRecord")
         }
