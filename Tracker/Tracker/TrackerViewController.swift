@@ -2,16 +2,24 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
-    private var trackersToDisplay: [Tracker] = [] {
+    private let trackerCategoryStore = TrackerCategoryStore()
+    private let trackerRecordStore = TrackerRecordStore()
+//    private var trackersToDisplay: [Tracker] = [] {
+//        didSet {
+//            let weekday = Calendar.current.component(.weekday, from: selectedDate)
+//            filterTrackersBy(weekday: weekday)
+//        }
+//    }
+//    private var filteredTrackers: [Tracker] = []
+    private var categories: [TrackerCategory] = [] {
         didSet {
             let weekday = Calendar.current.component(.weekday, from: selectedDate)
-            filterTrackersBy(weekday: weekday)
+            filterTrackersInCategoriesBy(weekday: weekday)
         }
     }
-    private var filteredTrackers: [Tracker] = []
     private var filteredCategories: [TrackerCategory] = []
-    private var categories: [TrackerCategory] = []
-    private var completedTrackers = Set<TrackerRecord>()
+
+//    private var completedTrackers = Set<TrackerRecord>()
     private var selectedDate: Date = Date().dateWithoutTime
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -63,6 +71,7 @@ final class TrackerViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        fetchCategories()
         checkTrackers()
     }
     
@@ -85,7 +94,9 @@ final class TrackerViewController: UIViewController {
     }
     
     private func checkTrackers() {
-        if !filteredTrackers.isEmpty {
+        let hasTrackers = filteredCategories.contains { $0.trackersInCategory?.isEmpty == false }
+            if hasTrackers {
+//        if !filteredTrackers.isEmpty {
             removeStubImageAndText()
         } else {
             configureStubImageAndText()
@@ -106,24 +117,65 @@ final class TrackerViewController: UIViewController {
     }
     
     // MARK: - Tracker Filtering
-    private func filterTrackersBy(weekday: Int) {
+//    private func filterTrackersBy(weekday: Int) {
+//        guard let dayToFilter = WeekDays.from(weekday: weekday) else { return }
+//        
+//        let filteredTrackers = trackersToDisplay.compactMap { tracker -> Tracker? in
+////            guard let tracker = tracker else { return nil }
+//            
+//            if tracker.habitSchedule?.contains(dayToFilter) == true {
+//                return tracker
+//            } else {
+//                return nil
+//            }
+//        }
+//        
+//        self.filteredTrackers = filteredTrackers
+//
+//        checkTrackers()
+//        
+//        trackerCollectionView.reloadData()
+//    }
+    
+//    private func filterTrackersInCategoriesBy(weekday: Int) {
+//        guard let dayToFilter = WeekDays.from(weekday: weekday) else { return }
+//
+//        filteredCategories = categories.map { category -> TrackerCategory in
+//            let filteredTrackers = category.trackersInCategory?.filter { tracker in
+//                tracker.habitSchedule?.contains(dayToFilter) == true
+//            } ?? nil
+//            
+//            return TrackerCategory(categoryName: category.categoryName, trackersInCategory: filteredTrackers)
+//        }.filter { !$0.trackersInCategory!.isEmpty }
+//        
+//        checkTrackers()
+//        trackerCollectionView.reloadData()
+//    }
+    
+    private func filterTrackersInCategoriesBy(weekday: Int) {
         guard let dayToFilter = WeekDays.from(weekday: weekday) else { return }
         
-        let filteredTrackers = trackersToDisplay.compactMap { tracker -> Tracker? in
-//            guard let tracker = tracker else { return nil }
+        filteredCategories = categories.map { category -> TrackerCategory in
+            let filteredTrackers = category.trackersInCategory?.filter { tracker in
+                if let schedule = tracker.habitSchedule {
+                    return schedule.contains(dayToFilter)
+                } else {
+                    return Calendar.current.isDate(selectedDate, inSameDayAs: Date())
+                }
+            } ?? []
             
-            if tracker.habitSchedule?.contains(dayToFilter) == true {
-                return tracker
-            } else {
-                return nil
-            }
-        }
-        
-        self.filteredTrackers = filteredTrackers
+            let sortedTrackers = filteredTrackers.sorted { $0.habitName < $1.habitName }
+            
+            return TrackerCategory(categoryName: category.categoryName, trackersInCategory: sortedTrackers)
+        }.filter { !$0.trackersInCategory!.isEmpty }
         
         checkTrackers()
-        
         trackerCollectionView.reloadData()
+    }
+
+    // MARK: - Private Methods
+    private func fetchCategories() {
+        categories = trackerCategoryStore.readTrackerCategories()
     }
     
     // MARK: - Actions
@@ -140,24 +192,35 @@ final class TrackerViewController: UIViewController {
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: selectedDate)
         
-        filterTrackersBy(weekday: weekday)
+//        filterTrackersBy(weekday: weekday)
+        filterTrackersInCategoriesBy(weekday: weekday)
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension TrackerViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return filteredCategories.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredTrackers.count
+//        return filteredTrackers.count
+        return filteredCategories[section].trackersInCategory?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
+              let tracker = filteredCategories[indexPath.section].trackersInCategory?[indexPath.item]
+        else {
             print("[TrackerViewController cellForItemAt]: typecastError - Unable to dequeue cell as TrackerCell")
             return UICollectionViewCell()
         }
-        let tracker = filteredTrackers[indexPath.item]
-        let count = completedTrackers.filter { $0.trackerID == tracker.habitID }.count
-        let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
+//        let tracker = filteredTrackers[indexPath.item]
+        
+//        let count = completedTrackers.filter { $0.trackerID == tracker.habitID }.count
+//        let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
+        let count = trackerRecordStore.readTrackerRecordCount(tracker.habitID)
+        let isCompleted = trackerRecordStore.readTrackerRecordIsCompleted(tracker.habitID, for: datePicker.date.dateWithoutTime) ?? false
         
         cell.configure(with: tracker, timesCompleted: count, isCompleted: isCompleted)
         cell.setDelegate(delegate: self)
@@ -165,9 +228,9 @@ extension TrackerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard filteredTrackers.count > 0 else {
-            return UICollectionReusableView()
-        }
+//        guard filteredTrackers.count > 0 else {
+//            return UICollectionReusableView()
+//        }
         
         guard let view = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
@@ -178,7 +241,8 @@ extension TrackerViewController: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
         
-        view.setHeaderLabel(to: "Тестовая Категория")
+        let category = filteredCategories[indexPath.section]
+        view.setHeaderLabel(to: category.categoryName)
         
         return view
     }
@@ -206,7 +270,12 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard filteredTrackers.count > 0 else {
+//        guard filteredTrackers.count > 0 else {
+//            return CGSize.zero
+//        }
+        
+        guard let trackersInCategory = filteredCategories[section].trackersInCategory, !trackersInCategory.isEmpty
+        else {
             return CGSize.zero
         }
         
@@ -226,32 +295,56 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - NewHabitOrIrregularEventDelegate
 extension TrackerViewController: NewHabitOrIrregularEventDelegate {
-    func didCreateTracker(_ tracker: Tracker) {
-        trackersToDisplay.append(tracker)
+//    func didCreateTracker(_ tracker: Tracker) {
+//        trackersToDisplay.append(tracker)
+//        categories = trackerCategoryStore.readTrackerCategories()
+//    }
+    
+    func didCreateTracker() {
+        categories = trackerCategoryStore.readTrackerCategories()
     }
 }
 
 // MARK: - TrackerCellDelegate
 extension TrackerViewController: TrackerCellDelegate {
     func didTapPlusButton(in cell: TrackerCell) {
-        guard let indexPath = trackerCollectionView.indexPath(for: cell) else { return }
+        guard let indexPath = trackerCollectionView.indexPath(for: cell),
+              let tracker = filteredCategories[indexPath.section].trackersInCategory?[indexPath.item]
+        else { return }
         
-        let tracker = filteredTrackers[indexPath.item]
         let day = selectedDate
         let record = TrackerRecord(trackerID: tracker.habitID, completionDate: day)
         
-        if completedTrackers.contains(record) {
-            completedTrackers.remove(record)
+//        if let trackerRecordAlreadySaved = trackerRecordStore.readContainsTrackerRecord(record) {
+//            trackerRecordStore.deleteTrackerRecord(record)
+//        } else {
+//            trackerRecordStore.createTrackerRecord(record)
+//        }
+        
+        if let trackerExists = trackerRecordStore.readContainsTrackerRecord(record), trackerExists {
+            print("DELETE")
+            trackerRecordStore.deleteTrackerRecord(record)
         } else {
-            completedTrackers.insert(record)
+            print("CREATE")
+            trackerRecordStore.createTrackerRecord(record)
         }
         
-        let count = completedTrackers.filter { $0.trackerID == tracker.habitID}.count
-        let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
+//        if completedTrackers.contains(record) {
+//            completedTrackers.remove(record)
+//        } else {
+//            completedTrackers.insert(record)
+//        }
         
-        if let cellToUpdate = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
-            cellToUpdate.configure(completed: count, isCompleted: isCompleted)
-        }
+//        let count = completedTrackers.filter { $0.trackerID == tracker.habitID}.count
+//        let count = trackerRecordStore.readTrackerRecordCount(record.trackerID)
+//        
+////        let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
+//        let isCompleted = trackerRecordStore.readTrackerRecordIsCompleted(record.trackerID, for: datePicker.date.dateWithoutTime) ?? false
+//        
+//        if let cellToUpdate = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
+//            cellToUpdate.configure(completed: count, isCompleted: isCompleted)
+//        }
+        trackerCollectionView.reloadItems(at: [indexPath])
     }
 }
 

@@ -21,7 +21,7 @@ final class TrackerCategoryStore {
         let newTrackerCategoryEntry = TrackerCategoryCoreData(context: context)
         
         newTrackerCategoryEntry.categoryName = category.categoryName
-
+        
         do {
             try context.save()
         } catch {
@@ -29,7 +29,7 @@ final class TrackerCategoryStore {
         }
     }
     
-    // MARK: - READ 
+    // MARK: - READ
     func readTrackerCategories() -> [TrackerCategory] {
         var fetchedCategories: [TrackerCategory] = []
         
@@ -38,20 +38,18 @@ final class TrackerCategoryStore {
         do {
             let categories = try context.fetch(fetchRequest)
             
-            categories.forEach { categoryCoreData in
+            for categoryCoreData in categories {
                 var trackers: [Tracker] = []
                 
-                if let trackerSet = categoryCoreData.trackersInCategory as? Set<TrackerCoreData> {
-                    trackers.forEach { trackerCoreData in
-                        let tracker = Tracker(
-                            habitID: trackerCoreData.habitID,
-                            habitName: trackerCoreData.habitName,
-                            habitColor: trackerCoreData.habitColor ,
-                            habitEmoji: trackerCoreData.habitEmoji,
-                            habitSchedule: trackerCoreData.habitSchedule
+                if let coreDataTrackers = categoryCoreData.trackersInCategory?.allObjects as? [TrackerCoreData] {
+                    trackers = coreDataTrackers.map { trackerCoreData in
+                        return Tracker(
+                            habitID: trackerCoreData.habitID!,
+                            habitName: trackerCoreData.habitName!,
+                            habitColor: trackerCoreData.habitColor as! UIColor,
+                            habitEmoji: trackerCoreData.habitEmoji!,
+                            habitSchedule: trackerCoreData.habitSchedule as? [WeekDays]
                         )
-                        
-                        trackers.append(tracker)
                     }
                 }
                 
@@ -68,4 +66,5 @@ final class TrackerCategoryStore {
         
         return fetchedCategories
     }
+
 }

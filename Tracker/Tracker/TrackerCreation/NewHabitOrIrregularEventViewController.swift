@@ -3,6 +3,7 @@ import UIKit
 final class NewHabitOrIrregularEventViewController: UIViewController {
     // MARK: - Properties
     var initializerTag: InitializerTag
+    private var trackerStore = TrackerStore()
     private weak var delegate: NewHabitOrIrregularEventDelegate?
     private var trackerTitle: String? {
         didSet { updateCreateButtonState() }
@@ -230,7 +231,8 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
         
         guard let title = trackerTitle,
               let emoji = trackerEmoji,
-              let color = trackerColor else {
+              let color = trackerColor,
+              let category = trackerCategory else {
             print("[NewHabitOrIrregularEventViewController didTapCreateButton]: trackerError - Missong required properties")
             return
         }
@@ -246,10 +248,13 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
             tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: nil)
         }
         
-        dismiss(animated: true) { [weak delegate] in
-            guard let delegate else { return }
+        dismiss(animated: true) { [weak self, weak delegate] in
+            guard let delegate,
+                  let self else { return }
             
-            delegate.didCreateTracker(tracker)
+            self.trackerStore.createTracker(tracker, in: category)
+//            delegate.didCreateTracker(tracker)
+            delegate.didCreateTracker()
         }
     }
 }
@@ -314,7 +319,7 @@ extension NewHabitOrIrregularEventViewController: ColorSchemeCollectionViewCellD
 extension NewHabitOrIrregularEventViewController: UIConfigurationProtocol {
     func configureUI() {
         view.backgroundColor = .ypMain
-
+        
         switch initializerTag {
         case .habit:
             title = "Новая привычка"

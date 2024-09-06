@@ -19,7 +19,9 @@ final class TrackerStore {
     // MARK: - CREATE
     func createTracker(_ tracker: Tracker, in category: TrackerCategory) {
         let fetchRequest = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
-        fetchRequest.predicate = NSPredicate(format: "categoryName == $@", category.categoryName)
+        fetchRequest.predicate = NSPredicate(
+            format: "%K == %@", #keyPath(TrackerCategoryCoreData.categoryName), category.categoryName
+        )
         
         do {
         let categories = try context.fetch(fetchRequest)

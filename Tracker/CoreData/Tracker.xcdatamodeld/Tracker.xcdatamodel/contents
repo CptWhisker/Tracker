@@ -5,7 +5,7 @@
         <relationship name="trackersInCategory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrackerCoreData" inverseName="trackerCategory" inverseEntity="TrackerCoreData"/>
     </entity>
     <entity name="TrackerCoreData" representedClassName="TrackerCoreData" syncable="YES" codeGenerationType="class">
-        <attribute name="habitColor" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="habitColor" attributeType="Transformable" valueTransformerName="UIColorTransformer"/>
         <attribute name="habitEmoji" attributeType="String"/>
         <attribute name="habitID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="habitName" attributeType="String"/>
