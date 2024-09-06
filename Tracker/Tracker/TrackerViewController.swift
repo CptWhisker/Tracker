@@ -2,14 +2,15 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
-    private var trackersToDisplay: [Tracker?] = [] {
+    private var trackersToDisplay: [Tracker] = [] {
         didSet {
             let weekday = Calendar.current.component(.weekday, from: selectedDate)
             filterTrackersBy(weekday: weekday)
         }
     }
-    private var filteredTrackers: [Tracker?] = []
-    private var categories: [TrackerCategory?] = []
+    private var filteredTrackers: [Tracker] = []
+    private var filteredCategories: [TrackerCategory] = []
+    private var categories: [TrackerCategory] = []
     private var completedTrackers = Set<TrackerRecord>()
     private var selectedDate: Date = Date().dateWithoutTime
     private lazy var datePicker: UIDatePicker = {
@@ -109,7 +110,7 @@ final class TrackerViewController: UIViewController {
         guard let dayToFilter = WeekDays.from(weekday: weekday) else { return }
         
         let filteredTrackers = trackersToDisplay.compactMap { tracker -> Tracker? in
-            guard let tracker = tracker else { return nil }
+//            guard let tracker = tracker else { return nil }
             
             if tracker.habitSchedule?.contains(dayToFilter) == true {
                 return tracker
@@ -150,16 +151,15 @@ extension TrackerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
-              let tracker = filteredTrackers[indexPath.item] else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell else {
             print("[TrackerViewController cellForItemAt]: typecastError - Unable to dequeue cell as TrackerCell")
             return UICollectionViewCell()
         }
-        
+        let tracker = filteredTrackers[indexPath.item]
         let count = completedTrackers.filter { $0.trackerID == tracker.habitID }.count
         let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
         
-        cell.configure(with: tracker, completed: count, isCompleted: isCompleted)
+        cell.configure(with: tracker, timesCompleted: count, isCompleted: isCompleted)
         cell.setDelegate(delegate: self)
         return cell
     }
@@ -234,9 +234,9 @@ extension TrackerViewController: NewHabitOrIrregularEventDelegate {
 // MARK: - TrackerCellDelegate
 extension TrackerViewController: TrackerCellDelegate {
     func didTapPlusButton(in cell: TrackerCell) {
-        guard let indexPath = trackerCollectionView.indexPath(for: cell),
-              let tracker = filteredTrackers[indexPath.item] else { return }
+        guard let indexPath = trackerCollectionView.indexPath(for: cell) else { return }
         
+        let tracker = filteredTrackers[indexPath.item]
         let day = selectedDate
         let record = TrackerRecord(trackerID: tracker.habitID, completionDate: day)
         
@@ -249,8 +249,8 @@ extension TrackerViewController: TrackerCellDelegate {
         let count = completedTrackers.filter { $0.trackerID == tracker.habitID}.count
         let isCompleted = completedTrackers.contains { $0.trackerID == tracker.habitID && datePicker.date.dateWithoutTime == $0.completionDate }
         
-        if let updatedCell = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
-            updatedCell.configure(completed: count, isCompleted: isCompleted)
+        if let cellToUpdate = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
+            cellToUpdate.configure(completed: count, isCompleted: isCompleted)
         }
     }
 }

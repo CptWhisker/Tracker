@@ -2,6 +2,7 @@ import UIKit
 
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
+    private var trackerCategoryStore = TrackerCategoryStore()
     private weak var delegate: CategorySelectionDelegate?
     private var categories: [TrackerCategory] = []
     private var selectedCategory: TrackerCategory? {
@@ -61,6 +62,7 @@ final class NewCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        categories = trackerCategoryStore.readTrackerCategories()
         configureUI()
     }
     
@@ -78,6 +80,11 @@ final class NewCategoryViewController: UIViewController {
         stubStackView.removeFromSuperview()
     }
     
+    // MARK: - Public Methods
+    func setDelegate(delegate: CategorySelectionDelegate) {
+        self.delegate = delegate
+    }
+    
     // MARK: - Actions
     @objc private func createNewCategory() {
         let categoryCreationViewController = CategoryCreationViewController()
@@ -88,6 +95,7 @@ final class NewCategoryViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension NewCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
@@ -112,11 +120,6 @@ extension NewCategoryViewController: UITableViewDataSource {
         cell.selectionStyle = .none
         
         return cell
-    }
-    
-    // MARK: - Public Methods
-    func setDelegate(delegate: CategorySelectionDelegate) {
-        self.delegate = delegate
     }
 }
 
@@ -147,6 +150,7 @@ extension NewCategoryViewController: UITableViewDelegate {
 // MARK: - CategoryCreationDelegate
 extension NewCategoryViewController: CategoryCreationDelegate {
     func didCreateCategory(_ category: TrackerCategory) {
+        trackerCategoryStore.createTrackerCategory(category)
         categories.append(category)
         categoriesTableView.reloadData()
         removeStubImageAndText()
