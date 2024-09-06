@@ -33,7 +33,7 @@ final class UIColorTransformer: ValueTransformer {
             let jsonData = try encoder.encode(components)
             return jsonData
         } catch {
-            print("Error encoding color to JSON: \(error)")
+            print("[UIColorTransformer transformedValue]: EncodingError - Failed to encode color to JSON")
             return nil
         }
     }
@@ -47,7 +47,7 @@ final class UIColorTransformer: ValueTransformer {
 
             return UIColor(red: components.red, green: components.green, blue: components.blue, alpha: components.alpha)
         } catch {
-            print("Error decoding color from JSON: \(error)")
+            print("[UIColorTransformer reverseTransformedValue]: DecodingError - Failed to decode color from JSON")
             return nil
         }
     }
