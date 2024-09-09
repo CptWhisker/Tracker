@@ -5,7 +5,7 @@ final class TrackerCategoryStore: NSObject {
     // MARK: - Properties
     private let context: NSManagedObjectContext
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerCategoryCoreData> = {
-        let fetchRequest = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
+        let fetchRequest = TrackerCategoryCoreData.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "categoryName", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(
@@ -49,8 +49,8 @@ final class TrackerCategoryStore: NSObject {
     func readTrackerCategories() -> [TrackerCategory] {
         var fetchedCategories: [TrackerCategory] = []
         
-        let fetchRequest = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
-
+        let fetchRequest = TrackerCategoryCoreData.fetchRequest()
+        
         do {
             let categories = try context.fetch(fetchRequest)
             

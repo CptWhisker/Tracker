@@ -2,7 +2,7 @@ import UIKit
 
 final class NewHabitOrIrregularEventViewController: UIViewController {
     // MARK: - Properties
-    var initializerTag: InitializerTag
+    let initializerTag: InitializerTag
     private var trackerStore = TrackerStore()
     private weak var delegate: NewHabitOrIrregularEventDelegate?
     private var trackerTitle: String? {

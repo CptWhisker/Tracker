@@ -5,7 +5,7 @@ final class TrackerRecordStore: NSObject {
     // MARK: - Properties
     private let context: NSManagedObjectContext
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerRecordCoreData> = {
-        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "trackerID", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(
@@ -34,7 +34,7 @@ final class TrackerRecordStore: NSObject {
     
     // MARK: - CREATE
     func createTrackerRecord(_ record: TrackerRecord) {
-        let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        let fetchRequest = TrackerCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@", #keyPath(TrackerCoreData.habitID), record.trackerID as CVarArg
         )
@@ -58,7 +58,7 @@ final class TrackerRecordStore: NSObject {
     
     // MARK: - READ
     func readContainsTrackerRecord(_ record: TrackerRecord) -> Bool? {
-        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@ AND %K == %@",
             #keyPath(TrackerRecordCoreData.trackerID), record.trackerID as CVarArg,
@@ -77,7 +77,7 @@ final class TrackerRecordStore: NSObject {
     }
     
     func readTrackerRecordCount(_ recordID: UUID) -> Int {
-        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@",
             #keyPath(TrackerRecordCoreData.trackerID), recordID as CVarArg
@@ -95,7 +95,7 @@ final class TrackerRecordStore: NSObject {
     }
     
     func readTrackerRecordIsCompleted(_ recordID: UUID, for date: Date) -> Bool? {
-        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@ AND %K == %@",
             #keyPath(TrackerRecordCoreData.trackerID), recordID as CVarArg,
@@ -115,7 +115,7 @@ final class TrackerRecordStore: NSObject {
     
     // MARK: - DELETE
     func deleteTrackerRecord(_ record: TrackerRecord) {
-        let fetchRequest = NSFetchRequest<TrackerRecordCoreData>(entityName: "TrackerRecordCoreData")
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@ AND %K == %@",
             #keyPath(TrackerRecordCoreData.trackerID), record.trackerID as CVarArg,

@@ -5,7 +5,7 @@ final class TrackerStore: NSObject {
     // MARK: - Properties
     private let context: NSManagedObjectContext
     private lazy var fetchedResultsController: NSFetchedResultsController<TrackerCoreData> = {
-        let fetchRequest = NSFetchRequest<TrackerCoreData>(entityName: "TrackerCoreData")
+        let fetchRequest = TrackerCoreData.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "habitName", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(
@@ -34,7 +34,7 @@ final class TrackerStore: NSObject {
     
     // MARK: - CREATE
     func createTracker(_ tracker: Tracker, in category: TrackerCategory) {
-        let fetchRequest = NSFetchRequest<TrackerCategoryCoreData>(entityName: "TrackerCategoryCoreData")
+        let fetchRequest = TrackerCategoryCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@", #keyPath(TrackerCategoryCoreData.categoryName), category.categoryName
         )
