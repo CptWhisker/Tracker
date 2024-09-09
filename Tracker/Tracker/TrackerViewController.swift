@@ -124,7 +124,7 @@ final class TrackerViewController: UIViewController {
             let sortedTrackers = filteredTrackers.sorted { $0.habitName < $1.habitName }
             
             return TrackerCategory(categoryName: category.categoryName, trackersInCategory: sortedTrackers)
-        }.filter { !$0.trackersInCategory!.isEmpty }
+        }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
         
         checkTrackers()
         trackerCollectionView.reloadData()

@@ -60,17 +60,17 @@ final class TrackerCategoryStore: NSObject {
                 if let coreDataTrackers = categoryCoreData.trackersInCategory?.allObjects as? [TrackerCoreData] {
                     trackers = coreDataTrackers.map { trackerCoreData in
                         return Tracker(
-                            habitID: trackerCoreData.habitID!,
-                            habitName: trackerCoreData.habitName!,
-                            habitColor: trackerCoreData.habitColor as! UIColor,
-                            habitEmoji: trackerCoreData.habitEmoji!,
+                            habitID: trackerCoreData.habitID ?? UUID(),
+                            habitName: trackerCoreData.habitName ?? "default",
+                            habitColor: trackerCoreData.habitColor as? UIColor ?? .white,
+                            habitEmoji: trackerCoreData.habitEmoji ?? "🫥",
                             habitSchedule: trackerCoreData.habitSchedule as? [WeekDays]
                         )
                     }
                 }
                 
                 let category = TrackerCategory(
-                    categoryName: categoryCoreData.categoryName!,
+                    categoryName: categoryCoreData.categoryName ?? "default",
                     trackersInCategory: trackers
                 )
                 
