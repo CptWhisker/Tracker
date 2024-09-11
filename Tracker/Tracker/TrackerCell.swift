@@ -1,8 +1,11 @@
 import UIKit
 
 final class TrackerCell: UICollectionViewCell {
+    // MARK: - Properties
     static let identifier = "TrackerCell"
     private weak var delegate: TrackerCellDelegate?
+    
+    // MARK: - UI Elements
     private lazy var topView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
@@ -107,7 +110,7 @@ final class TrackerCell: UICollectionViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with tracker: Tracker, completed count: Int?, isCompleted: Bool) {
+    func configure(with tracker: Tracker, timesCompleted count: Int?, isCompleted: Bool) {
         titleLabel.text = tracker.habitName
         emojiLabel.text = tracker.habitEmoji
         topView.backgroundColor = tracker.habitColor

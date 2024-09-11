@@ -3,6 +3,8 @@ import UIKit
 final class CategoryCreationViewController: UIViewController {
     // MARK: - Properties
     private weak var delegate: CategoryCreationDelegate?
+    
+    // MARK: - UI Elements
     private lazy var categoryNameTextField: UITextField = {
         let textfield = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         textfield.translatesAutoresizingMaskIntoConstraints = false

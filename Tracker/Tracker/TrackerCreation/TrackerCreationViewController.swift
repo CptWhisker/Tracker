@@ -76,8 +76,14 @@ final class TrackerCreationViewController: UIViewController {
 
 // MARK: - NewHabitOrIrregularEventDelegate
 extension TrackerCreationViewController: NewHabitOrIrregularEventDelegate {
-    func didCreateTracker(_ tracker: Tracker) {
-        delegate?.didCreateTracker(tracker)
+//    func didCreateTracker(_ tracker: Tracker) {
+//        delegate?.didCreateTracker(tracker)
+//        
+//        dismiss(animated: true, completion: nil)
+//    }
+    
+    func didCreateTracker() {
+        delegate?.didCreateTracker()
         
         dismiss(animated: true, completion: nil)
     }
