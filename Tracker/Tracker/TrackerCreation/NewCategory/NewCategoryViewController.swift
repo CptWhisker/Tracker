@@ -2,14 +2,8 @@ import UIKit
 
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
-    private var trackerCategoryStore = TrackerCategoryStore()
+    private var viewModel: NewCategoryViewModel?
     private weak var delegate: CategorySelectionDelegate?
-    private var categories: [TrackerCategory] = []
-    private var selectedCategory: TrackerCategory? {
-        didSet {
-            categoriesTableView.reloadData()
-        }
-    }
     
     // MARK: - UI Elements
     private lazy var stubImage: UIImageView = {
@@ -63,9 +57,26 @@ final class NewCategoryViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+                
+        viewModel = NewCategoryViewModel()
+        bindViewModel()
         
-        categories = trackerCategoryStore.readTrackerCategories()
         configureUI()
+    }
+    
+    // MARK: - Binding
+    private func bindViewModel() {
+        viewModel?.categoriesUpdated = { [weak self] in
+            self?.categoriesTableView.reloadData()
+        }
+        
+        viewModel?.emptyStateChanged = { [weak self] isEmpty in
+            if isEmpty {
+                self?.configureStubImageAndText()
+            } else {
+                self?.removeStubImageAndText()
+            }
+        }
     }
     
     // MARK: - Stub Image
@@ -100,7 +111,7 @@ final class NewCategoryViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension NewCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return viewModel?.categories.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,9 +120,10 @@ extension NewCategoryViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let category = categories[indexPath.row]
-        cell.setTitleLabel(to: category.categoryName)
-        cell.setCheckmarkVisible(category.categoryName == selectedCategory?.categoryName)
+        if let category = viewModel?.categories[indexPath.row] {
+            cell.setTitleLabel(to: category.categoryName)
+            cell.setCheckmarkVisible(category.categoryName == viewModel?.selectedCategory?.categoryName)
+        }
         
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
             cell.roundLowerCorners()
@@ -125,6 +137,7 @@ extension NewCategoryViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension NewCategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
@@ -138,13 +151,9 @@ extension NewCategoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let category = categories[indexPath.row]
-        
-        if category.categoryName != selectedCategory?.categoryName {
-            selectedCategory = category
-            delegate?.didSelectCategory(category)
-        } else {
-            selectedCategory = nil
+        viewModel?.selectCategory(at: indexPath.row)
+        if let selectedCategory = viewModel?.selectedCategory {
+            delegate?.didSelectCategory(selectedCategory)
         }
     }
 }
@@ -152,10 +161,8 @@ extension NewCategoryViewController: UITableViewDelegate {
 // MARK: - CategoryCreationDelegate
 extension NewCategoryViewController: CategoryCreationDelegate {
     func didCreateCategory(_ category: TrackerCategory) {
-        trackerCategoryStore.createTrackerCategory(category)
-        categories.append(category)
-        categoriesTableView.reloadData()
-        removeStubImageAndText()
+        viewModel?.createCategory(category)
+//        removeStubImageAndText()
     }
 }
 
@@ -167,10 +174,6 @@ extension NewCategoryViewController: UIConfigurationProtocol {
         
         addSubviews()
         addConstraints()
-        
-        if categories.isEmpty {
-            configureStubImageAndText()
-        }
     }
     
     func addSubviews() {
