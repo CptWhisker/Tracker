@@ -9,6 +9,7 @@ protocol NewCategoryViewModelProtocol {
     func createCategory(_ category: TrackerCategory)
     func selectCategory(at index: Int)
     func setDelegate(delegate: CategorySelectionDelegate)
+    func setSelectedCategory(category: TrackerCategory?)
 }
 
 final class NewCategoryViewModel: NewCategoryViewModelProtocol {
@@ -54,13 +55,20 @@ final class NewCategoryViewModel: NewCategoryViewModelProtocol {
         let category = categories[index]
         if category.categoryName != selectedCategory?.categoryName {
             selectedCategory = category
-            delegate?.didSelectCategory(category)
         } else {
             selectedCategory = nil
         }
+        
+        delegate?.didSelectCategory(selectedCategory)
     }
     
     func setDelegate(delegate: CategorySelectionDelegate) {
         self.delegate = delegate
+    }
+    
+    func setSelectedCategory(category: TrackerCategory?) {
+        if let category {
+            selectedCategory = category
+        }
     }
 }

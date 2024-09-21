@@ -109,6 +109,10 @@ final class NewCategoryViewController: UIViewController {
         viewModel.setDelegate(delegate: delegate)
     }
     
+    func setSelectedCategory(category: TrackerCategory?) {
+        viewModel.setSelectedCategory(category: category)
+    }
+    
     // MARK: - Actions
     @objc private func createNewCategory() {
         let categoryCreationViewController = CategoryCreationViewController()

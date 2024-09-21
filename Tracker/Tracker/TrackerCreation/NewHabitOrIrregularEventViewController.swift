@@ -54,7 +54,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func setTrackerCategory(to category: TrackerCategory) {
+    private func setTrackerCategory(to category: TrackerCategory?) {
         trackerCategory = category
     }
     
@@ -62,7 +62,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         trackerWeekDays = weekdays
     }
     
-    private func updateCategorySelectionLabel(with category: TrackerCategory) {
+    private func updateCategorySelectionLabel(with category: TrackerCategory?) {
         let indexPath = IndexPath(item: 1, section: 0)
         
         if let cell = newHabitOrEventCollectionView.cellForItem(at: indexPath) as? CategoryAndScheduleTableViewCell {
@@ -253,7 +253,6 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
                   let self else { return }
             
             self.trackerStore.createTracker(tracker, in: category)
-//            delegate.didCreateTracker(tracker)
             delegate.didCreateTracker()
         }
     }
@@ -264,6 +263,7 @@ extension NewHabitOrIrregularEventViewController: NewCategoryAndScheduleTableVie
     func didTapCategoryButton() {
         let newCategoryViewController = NewCategoryViewController()
         newCategoryViewController.setDelegate(delegate: self)
+        newCategoryViewController.setSelectedCategory(category: trackerCategory)
         let newCategoryNavigationController = UINavigationController(rootViewController: newCategoryViewController)
         present(newCategoryNavigationController, animated: true, completion: nil)
     }
@@ -294,7 +294,7 @@ extension NewHabitOrIrregularEventViewController: ScheduleViewControllerDelegate
 
 // MARK: - CategorySelectionDelegate
 extension NewHabitOrIrregularEventViewController: CategorySelectionDelegate {
-    func didSelectCategory(_ category: TrackerCategory) {
+    func didSelectCategory(_ category: TrackerCategory?) {
         setTrackerCategory(to: category)
         updateCategorySelectionLabel(with: category)
     }
