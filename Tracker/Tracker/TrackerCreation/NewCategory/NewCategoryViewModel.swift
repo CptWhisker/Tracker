@@ -15,7 +15,7 @@ protocol NewCategoryViewModelProtocol {
 final class NewCategoryViewModel: NewCategoryViewModelProtocol {
     
     // MARK: - Properties
-    private var trackerCategoryStore: TrackerCategoryStore
+    private let trackerCategoryStore: TrackerCategoryStore
     private weak var delegate: CategorySelectionDelegate?
     private(set) var categories: [TrackerCategory] = [] {
         didSet {

@@ -8,6 +8,7 @@ final class CategoryCreationViewController: UIViewController {
     private lazy var categoryNameTextField: UITextField = {
         let textfield = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.delegate = self
         textfield.layer.cornerRadius = 16
         textfield.backgroundColor = .ypBackground
         textfield.placeholder = "Введите название категории"
@@ -33,6 +34,7 @@ final class CategoryCreationViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        addTapGestureToHideKeyboard()
     }
     
     // MARK: - Public Methods
@@ -85,5 +87,13 @@ extension CategoryCreationViewController: UIConfigurationProtocol {
             completeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             completeButton.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension CategoryCreationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -3,10 +3,12 @@ import UIKit
 final class NameTextfieldCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "NameTextfieldCell"
+    private weak var view: UIViewController?
     private weak var delegate: NameTextfieldCellDelegate?
-    private lazy var nameTextfield: UITextField = {
+    lazy var nameTextfield: UITextField = {
         let textfield = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.delegate = self
         textfield.layer.cornerRadius = 16
         textfield.backgroundColor = .ypBackground
         textfield.placeholder = "Введите название трекера"
@@ -56,5 +58,13 @@ extension NameTextfieldCell: UIConfigurationProtocol {
             nameTextfield.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             nameTextfield.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension NameTextfieldCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

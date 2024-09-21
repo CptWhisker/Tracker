@@ -51,6 +51,7 @@ final class NewHabitOrIrregularEventViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        addTapGestureToHideKeyboard()
     }
     
     // MARK: - Private Methods
@@ -116,6 +117,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
             }
             
             cell.setDelegate(delegate: self)
+
             return cell
             
         case 1:
@@ -126,6 +128,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
             
             cell.setInitializerTag(to: initializerTag)
             cell.setDelegate(delegate: self)
+            
             return cell
             
         case 2:
@@ -135,6 +138,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
             }
             
             cell.setDelegate(delegate: self)
+            
             return cell
             
         case 3:
@@ -144,6 +148,7 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
             }
             
             cell.setDelegate(delegate: self)
+            
             return cell
             
         case 4:
@@ -153,14 +158,13 @@ extension NewHabitOrIrregularEventViewController: UICollectionViewDataSource {
             }
             
             cell.setDelegate(delegate: self)
+            
             return cell
             
         default:
             fatalError("Unexpected index path")
         }
-        
     }
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -313,7 +317,6 @@ extension NewHabitOrIrregularEventViewController: ColorSchemeCollectionViewCellD
         trackerColor = color
     }
 }
-
 
 // MARK: - UIConfigurationProtocol
 extension NewHabitOrIrregularEventViewController: UIConfigurationProtocol {
