@@ -88,6 +88,10 @@ final class NewCategoryViewController: UIViewController {
                 self?.removeStubImageAndText()
             }
         }
+        
+        viewModel.categorySelected = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Stub Image
