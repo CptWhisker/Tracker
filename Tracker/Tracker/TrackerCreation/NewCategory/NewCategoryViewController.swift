@@ -2,7 +2,7 @@ import UIKit
 
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
-    private var viewModel: NewCategoryViewModelProtocol
+    private let viewModel: NewCategoryViewModelProtocol
     
     // MARK: - UI Elements
     private lazy var stubImage: UIImageView = {
