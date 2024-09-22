@@ -286,6 +286,11 @@ extension TrackerViewController: NewHabitOrIrregularEventDelegate {
 // MARK: - TrackerCellDelegate
 extension TrackerViewController: TrackerCellDelegate {
     func didTapPlusButton(in cell: TrackerCell) {
+        let today = Date().dateWithoutTime
+        if selectedDate > today {
+            return
+        }
+        
         guard let indexPath = trackerCollectionView.indexPath(for: cell),
               let tracker = filteredCategories[indexPath.section].trackersInCategory?[indexPath.item]
         else { return }

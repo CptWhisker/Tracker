@@ -2,14 +2,7 @@ import UIKit
 
 final class NewCategoryViewController: UIViewController {
     // MARK: - Properties
-    private var trackerCategoryStore = TrackerCategoryStore()
-    private weak var delegate: CategorySelectionDelegate?
-    private var categories: [TrackerCategory] = []
-    private var selectedCategory: TrackerCategory? {
-        didSet {
-            categoriesTableView.reloadData()
-        }
-    }
+    private let viewModel: NewCategoryViewModelProtocol
     
     // MARK: - UI Elements
     private lazy var stubImage: UIImageView = {
@@ -60,12 +53,45 @@ final class NewCategoryViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Initialization
+    init(viewModel: NewCategoryViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init() {
+        self.init(viewModel: NewCategoryViewModel())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        categories = trackerCategoryStore.readTrackerCategories()
+                
+        bindViewModel()
         configureUI()
+    }
+    
+    // MARK: - Binding
+    private func bindViewModel() {
+        viewModel.categoriesUpdated = { [weak self] in
+            self?.categoriesTableView.reloadData()
+        }
+        
+        viewModel.emptyStateChanged = { [weak self] isEmpty in
+            if isEmpty {
+                self?.configureStubImageAndText()
+            } else {
+                self?.removeStubImageAndText()
+            }
+        }
+        
+        viewModel.categorySelected = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
     
     // MARK: - Stub Image
@@ -84,7 +110,11 @@ final class NewCategoryViewController: UIViewController {
     
     // MARK: - Public Methods
     func setDelegate(delegate: CategorySelectionDelegate) {
-        self.delegate = delegate
+        viewModel.setDelegate(delegate: delegate)
+    }
+    
+    func setSelectedCategory(category: TrackerCategory?) {
+        viewModel.setSelectedCategory(category: category)
     }
     
     // MARK: - Actions
@@ -100,7 +130,7 @@ final class NewCategoryViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension NewCategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return viewModel.categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,9 +139,10 @@ extension NewCategoryViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let category = categories[indexPath.row]
+        let category = viewModel.categories[indexPath.row]
         cell.setTitleLabel(to: category.categoryName)
-        cell.setCheckmarkVisible(category.categoryName == selectedCategory?.categoryName)
+        cell.setCheckmarkVisible(category.categoryName == viewModel.selectedCategory?.categoryName)
+        
         
         if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
             cell.roundLowerCorners()
@@ -125,6 +156,7 @@ extension NewCategoryViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension NewCategoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
@@ -138,24 +170,14 @@ extension NewCategoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let category = categories[indexPath.row]
-        
-        if category.categoryName != selectedCategory?.categoryName {
-            selectedCategory = category
-            delegate?.didSelectCategory(category)
-        } else {
-            selectedCategory = nil
-        }
+        viewModel.selectCategory(at: indexPath.row)
     }
 }
 
 // MARK: - CategoryCreationDelegate
 extension NewCategoryViewController: CategoryCreationDelegate {
     func didCreateCategory(_ category: TrackerCategory) {
-        trackerCategoryStore.createTrackerCategory(category)
-        categories.append(category)
-        categoriesTableView.reloadData()
-        removeStubImageAndText()
+        viewModel.createCategory(category)
     }
 }
 
@@ -167,10 +189,6 @@ extension NewCategoryViewController: UIConfigurationProtocol {
         
         addSubviews()
         addConstraints()
-        
-        if categories.isEmpty {
-            configureStubImageAndText()
-        }
     }
     
     func addSubviews() {
