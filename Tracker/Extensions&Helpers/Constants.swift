@@ -4,27 +4,25 @@ enum InitializerTag {
     case habit, event
 }
 
-enum WeekDays: String, CaseIterable, Codable {
-    case monday = "Понедельник"
-    case tuesday = "Вторник"
-    case wednesday = "Среда"
-    case thursday = "Четверг"
-    case friday = "Пятница"
-    case saturday = "Суббота"
-    case sunday = "Воскресенье"
+enum WeekDays: String, CaseIterable, Codable { 
+    case monday = "weekdays.monday"
+    case tuesday = "weekdays.tuesday"
+    case wednesday = "weekdays.wednesday"
+    case thursday = "weekdays.thursday"
+    case friday = "weekdays.friday"
+    case saturday = "weekdays.saturday"
+    case sunday = "weekdays.sunday"
+
 }
 
 extension WeekDays {
+    var localizedName: String {
+        return NSLocalizedString(self.rawValue, comment: "Weekday name")
+    }
+    
     var abbreviation: String {
-        switch self {
-        case .monday: return "Пн"
-        case .tuesday: return "Вт"
-        case .wednesday: return "Ср"
-        case .thursday: return "Чт"
-        case .friday: return "Пт"
-        case .saturday: return "Сб"
-        case .sunday: return "Вс"
-        }
+        let abbreviation = "\(self.rawValue).short"
+        return NSLocalizedString(abbreviation, comment: "Weekday abbreviation")
     }
     
     static func from(weekday: Int) -> WeekDays? {

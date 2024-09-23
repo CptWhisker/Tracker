@@ -59,6 +59,7 @@
 		CEA24D322C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */; };
 		CEA24D352C848BB300A37D35 /* UIConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D342C848BB300A37D35 /* UIConfigurationProtocol.swift */; };
 		CEA24D372C84A3A600A37D35 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */; };
+		CEA5DF162CA1BF6C0002D544 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEA5DF182CA1BF6C0002D544 /* Localizable.strings */; };
 		CEAD44FF2C9DADF600417CBE /* NewCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAD44FE2C9DADF600417CBE /* NewCategoryViewModel.swift */; };
 		CEAD45032C9ED7B000417CBE /* UIView +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAD45022C9ED7B000417CBE /* UIView +Extensions.swift */; };
 		CEF408552C68A41900E88229 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF408542C68A41900E88229 /* ScheduleCell.swift */; };
@@ -122,6 +123,8 @@
 		CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategorySupplementaryView.swift; sourceTree = "<group>"; };
 		CEA24D342C848BB300A37D35 /* UIConfigurationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConfigurationProtocol.swift; sourceTree = "<group>"; };
 		CEA24D362C84A3A600A37D35 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		CEA5DF172CA1BF6C0002D544 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEA5DF192CA1BF830002D544 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CEAD44FE2C9DADF600417CBE /* NewCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryViewModel.swift; sourceTree = "<group>"; };
 		CEAD45022C9ED7B000417CBE /* UIView +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView +Extensions.swift"; sourceTree = "<group>"; };
 		CEF408542C68A41900E88229 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 		CE30633C2C5BAEF40013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				CEA5DF132CA1BF310002D544 /* Resources */,
 				CE11F9C92C9C713100B2A04D /* Onboarding */,
 				CE46F64A2C8B9969004CD3C7 /* CoreData */,
 				CEA24D332C8488CD00A37D35 /* Protocols */,
@@ -347,6 +351,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		CEA5DF132CA1BF310002D544 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CEA5DF182CA1BF6C0002D544 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		CEF408582C68C1A500E88229 /* NewCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +421,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = CE3063312C5BAEF40013F319;
 			productRefGroup = CE30633B2C5BAEF40013F319 /* Products */;
@@ -426,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE30634D2C5BAEFB0013F319 /* LaunchScreen.storyboard in Resources */,
+				CEA5DF162CA1BF6C0002D544 /* Localizable.strings in Resources */,
 				CE30634A2C5BAEFB0013F319 /* Assets.xcassets in Resources */,
 				CEA24D372C84A3A600A37D35 /* Localizable.stringsdict in Resources */,
 			);
@@ -507,6 +521,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		CEA5DF182CA1BF6C0002D544 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEA5DF172CA1BF6C0002D544 /* en */,
+				CEA5DF192CA1BF830002D544 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -515,6 +538,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -578,6 +602,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

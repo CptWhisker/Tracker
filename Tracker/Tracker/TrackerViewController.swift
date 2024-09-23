@@ -30,7 +30,7 @@ final class TrackerViewController: UIViewController {
     private lazy var stubLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Что будем отслеживать?"
+        label.text = NSLocalizedString("tracker.stub", comment: "Text for the stub label")
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .center
         return label
@@ -83,7 +83,7 @@ final class TrackerViewController: UIViewController {
         navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
         // TODO: Create custom SearchController
         
-        navigationItem.title = "Трекеры"
+        navigationItem.title = NSLocalizedString("tracker.title", comment: "Title for Trackers screen")
     }
     
     private func checkTrackers() {

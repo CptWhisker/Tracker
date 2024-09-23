@@ -4,6 +4,7 @@ final class ScheduleCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = "ScheduleCell"
     private var delegate: ScheduleCreationDelegate?
+    private var weekday: WeekDays?
     
     // MARK: - UI Elements
     private var accessory: UISwitch = {
@@ -64,8 +65,9 @@ final class ScheduleCell: UITableViewCell {
             print("[ScheduleCell switchToggled]: delegateError - Delegate is not set")
             return
         }
-        guard let weekday = weekdayLabel.text else {
-            print("[ScheduleCell switchToggled]: weekdayLabelError - weekdayLabel`s text is not set")
+        
+        guard let weekday else {
+            print("[ScheduleCell switchToggled]: weekdayError - weekday is not set")
             return
         }
         
@@ -77,8 +79,9 @@ final class ScheduleCell: UITableViewCell {
     }
     
     // MARK: - Public Methods
-    func setTitle(to title: WeekDays) {
-        weekdayLabel.text = title.rawValue
+    func setWeekday(to weekday: WeekDays) {
+        self.weekday = weekday
+        weekdayLabel.text = weekday.localizedName
     }
     
     func setDelegate(delegate: ScheduleCreationDelegate) {

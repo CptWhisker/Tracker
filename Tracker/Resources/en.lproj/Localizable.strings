@@ -1,0 +1,27 @@
+// MARK: - Constants
+"weekdays.monday" = "Monday";
+"weekdays.tuesday" = "Tuesday";
+"weekdays.wednesday" = "Wednesday";
+"weekdays.thursday" = "Thursday";
+"weekdays.friday" = "Friday";
+"weekdays.saturday" = "Saturday";
+"weekdays.sunday" = "Sunday";
+
+"weekdays.monday.short" = "Mon";
+"weekdays.tuesday.short" = "Tue";
+"weekdays.wednesday.short" = "Wed";
+"weekdays.thursday.short" = "Thu";
+"weekdays.friday.short" = "Fri";
+"weekdays.saturday.short" = "Sat";
+"weekdays.sunday.short" = "Sun";
+
+// MARK: - OnboardingViewController
+"onboarding.navigationButton.title" = "These are some technologies!";
+
+// MARK: - StatisticsViewController
+"statistics.title" = "Statistics";
+"statistics.stub" = "Nothing to analyze yet";
+
+// MARK: - TrackerViewController
+"tracker.title" = "Trackers";
+"tracker.stub" = "What will we track?";

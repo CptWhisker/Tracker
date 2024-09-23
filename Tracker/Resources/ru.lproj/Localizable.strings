@@ -1,0 +1,27 @@
+// MARK: - Constants
+"weekdays.monday" = "Понедельник";
+"weekdays.tuesday" = "Вторник";
+"weekdays.wednesday" = "Среда";
+"weekdays.thursday" = "Четверг";
+"weekdays.friday" = "Пятница";
+"weekdays.saturday" = "Суббота";
+"weekdays.sunday" = "Воскресенье";
+
+"weekdays.monday.short" = "Пн";
+"weekdays.tuesday.short" = "Вт";
+"weekdays.wednesday.short" = "Ср";
+"weekdays.thursday.short" = "Чт";
+"weekdays.friday.short" = "Пт";
+"weekdays.saturday.short" = "Сб";
+"weekdays.sunday.short" = "Вс";
+
+// MARK: - OnboardingViewController
+"onboarding.navigationButton.title" = "Вот это технологии!";
+
+// MARK: - StatisticsViewController
+"statistics.title" = "Статистика";
+"statistics.stub" = "Анализировать пока нечего";
+
+// MARK: - TrackerViewController
+"tracker.title" = "Трекеры";
+"tracker.stub" = "Что будем отслеживать?";

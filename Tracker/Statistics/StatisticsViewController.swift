@@ -12,7 +12,7 @@ final class StatisticsViewController: UIViewController {
     private lazy var stubLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Анализировать пока нечего"
+        label.text = NSLocalizedString("statistics.stub", comment: "Text for the stub label")
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .center
         return label
@@ -34,7 +34,7 @@ final class StatisticsViewController: UIViewController {
     
     // MARK: - Private Methods
     private func configureNavigationBar() {
-        navigationItem.title = "Статистика"
+        navigationItem.title = NSLocalizedString("statistics.title", comment: "Title for Statistics screen")
     }
     
     private func configureStatistics() {

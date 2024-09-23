@@ -22,7 +22,8 @@ final class OnboardingViewController: UIViewController {
     private lazy var navigationButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Вот это технологии!", for: .normal)
+        let title = NSLocalizedString("onboarding.navigationButton.title", comment: "The button that takes a user to the main app")
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 16

@@ -59,7 +59,7 @@ extension ScheduleViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ScheduleCell()
-        cell.setTitle(to: weekDays[indexPath.row])
+        cell.setWeekday(to: weekDays[indexPath.row])
         cell.setDelegate(delegate: self)
         return cell
     }
@@ -82,20 +82,12 @@ extension ScheduleViewController: UITableViewDelegate {
 
 // MARK: - ScheduleCreationDelegate
 extension ScheduleViewController: ScheduleCreationDelegate {
-    func addWeekDay(_ weekday: String) {
-        guard let weekDay = WeekDays(rawValue: weekday) else {
-            print("[ScheduleViewController addWeekDay]: weekdayError - Weekday is not found")
-            return
-        }
-        selectedWeekDays.append(weekDay)
+    func addWeekDay(_ weekday: WeekDays) {
+        selectedWeekDays.append(weekday)
     }
     
-    func removeWeekDay(_ weekday: String) {
-        guard let weekDay = WeekDays(rawValue: weekday) else {
-            print("[ScheduleViewController removeWeekDay]: weekdayError - Weekday is not found")
-            return
-        }
-        selectedWeekDays.removeAll(where: {$0 == weekDay})
+    func removeWeekDay(_ weekday: WeekDays) {
+        selectedWeekDays.removeAll(where: {$0 == weekday})
     }
 }
 

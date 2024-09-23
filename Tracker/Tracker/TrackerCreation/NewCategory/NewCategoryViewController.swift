@@ -80,7 +80,7 @@ final class NewCategoryViewController: UIViewController {
         viewModel.categoriesUpdated = { [weak self] in
             self?.categoriesTableView.reloadData()
         }
-        
+
         viewModel.emptyStateChanged = { [weak self] isEmpty in
             if isEmpty {
                 self?.configureStubImageAndText()
