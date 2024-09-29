@@ -25,3 +25,50 @@
 // MARK: - TrackerViewController
 "tracker.title" = "Trackers";
 "tracker.stub" = "What will we track?";
+
+// MARK: - TrackerCreationViewController
+"tracker.creation.title" = "Create a tracker";
+"tracker.creation.button.habit" = "Habit";
+"tracker.creation.button.event" = "Irregular Event";
+
+// MARK: - NewHabitOrIrregularEventViewController
+"tracker.creation.details.title.habit" = "New Habit";
+"tracker.creation.details.title.event" = "New Irregular Event";
+
+// MARK: - NameTextfieldCell
+"nameTextfield.placeholder" = "Enter tracker's name";
+
+// MARK: - CategoryAndScheduleTableViewCell
+"categoryAndSchedule.tableview.category" = "Category";
+"categoryAndSchedule.tableview.schedule" = "Schedule";
+
+// MARK: - EmojiCollectionViewCell
+"emoji.collectionview.header" = "Emoji";
+
+// MARK: - ColorSchemeCollectionViewCell
+"color.collectionview.header" = "Color";
+
+// MARK: - CancelAndCreateButtonsCell
+"cancelButton.title" = "Cancel";
+"createButton.title" = "Create";
+
+// MARK: - NewCategoryViewController
+"newCategory.title" = "Category";
+"newCategory.stubLabel" = "Habits and Events can be\ncombined by meaning";
+"newCategory.addCategory" = "Add Category";
+
+// MARK: - CategoryCreationViewController
+"categoryCreation.placeholder" = "Enter category's name";
+"categoryCreation.completeButton" = "Done";
+
+// MARK: - ScheduleViewController
+"schedule.title" = "Schedule";
+"schedule.doneButton" = "Done";
+
+// MARK: - TabBarController
+"tabBar.item.trackers" = "Trackers";
+"tabBar.item.statistics" = "Statistics";
+
+// MARK: - PageViewController
+"pageView.title.first" = "Track only what you want";
+"pageView.title.second" = "Even if it’s not liters of water or yoga";

@@ -21,12 +21,13 @@ final class ScheduleViewController: UIViewController {
     }()
     private lazy var completeButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("schedule.doneButton", comment: "Title for schedule creation 'Done' button")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypAccent
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
         button.addTarget(self, action: #selector(complete), for: .touchUpInside)
         return button
@@ -95,7 +96,7 @@ extension ScheduleViewController: ScheduleCreationDelegate {
 extension ScheduleViewController: UIConfigurationProtocol {
     func configureUI() {
         view.backgroundColor = .ypMain
-        title = "Расписание"
+        title = NSLocalizedString("schedule.title", comment: "Title for schedule selection screen")
         
         addSubviews()
         addConstraints()

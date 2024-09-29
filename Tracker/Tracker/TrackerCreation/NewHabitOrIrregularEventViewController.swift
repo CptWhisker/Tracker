@@ -325,9 +325,9 @@ extension NewHabitOrIrregularEventViewController: UIConfigurationProtocol {
         
         switch initializerTag {
         case .habit:
-            title = "Новая привычка"
+            title = NSLocalizedString("tracker.creation.details.title.habit", comment: "Title for when the 'Habit' option was chosen")
         case .event:
-            title = "Новое нерегулярное событие"
+            title = NSLocalizedString("tracker.creation.details.title.event", comment: "Title for when the 'Event' option was chosen")
         }
         
         addSubviews()

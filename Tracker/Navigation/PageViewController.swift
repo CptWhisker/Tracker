@@ -8,13 +8,15 @@ final class PageViewController: UIPageViewController {
         if let firstImage = UIImage(named: "onboardingFirst") {
             firstVC.setBackgroundImage(to: firstImage)
         }
-        firstVC.setTitleLabel(to: "Отслеживайте только то, что хотите")
+        let firstTitle = NSLocalizedString("pageView.title.first", comment: "Text for the first onboarding screen")
+        firstVC.setTitleLabel(to: firstTitle)
         
         let secondVC = OnboardingViewController()
         if let secondImage = UIImage(named: "onboardingSecond") {
             secondVC.setBackgroundImage(to: secondImage)
         }
-        secondVC.setTitleLabel(to: "Даже если это не литры воды и йога")
+        let secondTitle = NSLocalizedString("pageView.title.second", comment: "Text for the second onboarding screen")
+        secondVC.setTitleLabel(to: secondTitle)
         
         return [firstVC, secondVC]
     }()

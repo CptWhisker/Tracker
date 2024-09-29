@@ -70,7 +70,8 @@ extension ColorSchemeCollectionViewCell: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
         
-        view.setHeaderLabel(to: "Цвет")
+        let headerLabel = NSLocalizedString("color.collectionview.header", comment: "Header for color section")
+        view.setHeaderLabel(to: headerLabel)
         
         return view
     }

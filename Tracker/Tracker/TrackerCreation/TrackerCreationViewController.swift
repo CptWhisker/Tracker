@@ -12,7 +12,8 @@ final class TrackerCreationViewController: UIViewController {
         button.backgroundColor = .ypAccent
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Привычка", for: .normal)
+        let title = NSLocalizedString("tracker.creation.button.habit", comment: "New habit button")
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
         button.addTarget(self, action: #selector(createNewHabit), for: .touchUpInside)
         return button
@@ -24,7 +25,8 @@ final class TrackerCreationViewController: UIViewController {
         button.backgroundColor = .ypAccent
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Нерегулярное событие", for: .normal)
+        let title = NSLocalizedString("tracker.creation.button.event", comment: "New irregular event button")
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
         button.addTarget(self, action: #selector(createNewIrregularEvent), for: .touchUpInside)
         return button
@@ -87,7 +89,7 @@ extension TrackerCreationViewController: NewHabitOrIrregularEventDelegate {
 extension TrackerCreationViewController: UIConfigurationProtocol {
     func configureUI() {
         view.backgroundColor = .ypMain
-        title = "Создание трекера"
+        title = NSLocalizedString("tracker.creation.title", comment: "Title for tracker creation screen")
         
         addSubviews()
         addConstraints()

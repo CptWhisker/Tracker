@@ -73,7 +73,8 @@ extension EmojiCollectionViewCell: UICollectionViewDataSource {
             return UICollectionReusableView()
         }
         
-        view.setHeaderLabel(to: "Emoji")
+        let headerString = NSLocalizedString("emoji.collectionview.header", comment: "Header for emoji section")
+        view.setHeaderLabel(to: headerString)
         
         return view
     }

@@ -199,7 +199,7 @@ extension TrackerViewController: UICollectionViewDataSource {
             withReuseIdentifier: TrackerCategorySupplementaryView.identifier,
             for: indexPath
         ) as? TrackerCategorySupplementaryView else {
-            print("[TrackerViewCOntroller viewForSupplementaryElementOfKind]: typecastError - Unable to dequeue view as TrackerCategorySupplementaryView")
+            print("[TrackerViewController viewForSupplementaryElementOfKind]: typecastError - Unable to dequeue view as TrackerCategorySupplementaryView")
             return UICollectionReusableView()
         }
         

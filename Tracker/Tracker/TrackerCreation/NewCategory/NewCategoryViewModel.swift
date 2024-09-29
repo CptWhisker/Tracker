@@ -7,6 +7,7 @@ protocol NewCategoryViewModelProtocol {
     var categoriesUpdated: (() -> Void)? { get set }
     var emptyStateChanged: ((Bool) -> Void)? { get set }
     var categorySelected: (() -> Void)? { get set }
+    func loadCategories()
     func createCategory(_ category: TrackerCategory)
     func selectCategory(at index: Int)
     func setDelegate(delegate: CategorySelectionDelegate)
@@ -37,11 +38,10 @@ final class NewCategoryViewModel: NewCategoryViewModelProtocol {
     // MARK: - Initialization
     init(trackerCategoryStore: TrackerCategoryStore = TrackerCategoryStore()) {
         self.trackerCategoryStore = trackerCategoryStore
-        loadCategories()
     }
     
-    // MARK: - Private Methods
-    private func loadCategories() {
+    // MARK: - Public Methods
+    func loadCategories() {
         categories = trackerCategoryStore.readTrackerCategories()
         emptyStateChanged?(categories.isEmpty)
     }

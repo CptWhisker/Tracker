@@ -11,18 +11,19 @@ final class CategoryCreationViewController: UIViewController {
         textfield.delegate = self
         textfield.layer.cornerRadius = 16
         textfield.backgroundColor = .ypBackground
-        textfield.placeholder = "Введите название категории"
+        textfield.placeholder = NSLocalizedString("categoryCreation.placeholder", comment: "Text for category creation textfield's placeholder")
         textfield.addTarget(self, action: #selector(textTyped), for: .editingChanged)
         return textfield
     }()
     private lazy var completeButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("categoryCreation.completeButton", comment: "Title for 'Done' button")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypGray
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
         button.isEnabled = false
         button.addTarget(self, action: #selector(completeCreation), for: .touchUpInside)

@@ -6,12 +6,13 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
     private weak var delegate: CancelAndCreateButtonsCellDelegate?
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("cancelButton.title", comment: "Title for 'Cancel' button")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypMain
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Отменить", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypRed, for: .normal)
         button.layer.borderColor = UIColor.ypRed.cgColor
         button.layer.borderWidth = 1
@@ -20,13 +21,14 @@ final class CancelAndCreateButtonsCell: UICollectionViewCell {
     }()
     private lazy var createButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("createButton.title", comment: "Title for 'Create' button")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypGray
         button.isEnabled = false
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Создать", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
         button.addTarget(self, action: #selector(createAction), for: .touchUpInside)
         return button
@@ -107,6 +109,4 @@ extension CancelAndCreateButtonsCell: UIConfigurationProtocol {
             buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
         ])
     }
-    
-    
 }

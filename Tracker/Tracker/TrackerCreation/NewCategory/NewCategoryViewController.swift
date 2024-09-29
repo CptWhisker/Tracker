@@ -15,10 +15,7 @@ final class NewCategoryViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.text = """
-            Привычки и события можно
-            объединить по смыслу
-            """
+        label.text = NSLocalizedString("newCategory.stubLabel", comment: "Stub text for when there's no data")
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .center
         return label
@@ -42,12 +39,13 @@ final class NewCategoryViewController: UIViewController {
     }()
     private lazy var newCategoryButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("newCategory.addCategory", comment: "Text for button, that adds new category")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.backgroundColor = .ypAccent
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
-        button.setTitle("Добавить категорию", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.ypMain, for: .normal)
         button.addTarget(self, action: #selector(createNewCategory), for: .touchUpInside)
         return button
@@ -73,6 +71,8 @@ final class NewCategoryViewController: UIViewController {
                 
         bindViewModel()
         configureUI()
+        
+        viewModel.loadCategories()
     }
     
     // MARK: - Binding
@@ -184,7 +184,7 @@ extension NewCategoryViewController: CategoryCreationDelegate {
 // MARK: - UIConfigurationProtocol
 extension NewCategoryViewController: UIConfigurationProtocol {
     func configureUI() {
-        title = "Категория"
+        title = NSLocalizedString("newCategory.title", comment: "Title for 'Category' screen")
         view.backgroundColor = .ypMain
         
         addSubviews()

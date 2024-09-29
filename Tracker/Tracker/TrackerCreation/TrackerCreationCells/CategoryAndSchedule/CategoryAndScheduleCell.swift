@@ -78,6 +78,4 @@ extension CategoryAndScheduleCell: UIConfigurationProtocol {
             selectionLabel.widthAnchor.constraint(equalTo: titleLabel.widthAnchor)
         ])
     }
-    
-    
 }

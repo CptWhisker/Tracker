@@ -11,7 +11,7 @@ final class NameTextfieldCell: UICollectionViewCell {
         textfield.delegate = self
         textfield.layer.cornerRadius = 16
         textfield.backgroundColor = .ypBackground
-        textfield.placeholder = "Введите название трекера"
+        textfield.placeholder = NSLocalizedString("nameTextfield.placeholder", comment: "Text for the placeholder")
         textfield.addTarget(self, action: #selector(textTyped), for: .editingChanged)
         return textfield
     }()

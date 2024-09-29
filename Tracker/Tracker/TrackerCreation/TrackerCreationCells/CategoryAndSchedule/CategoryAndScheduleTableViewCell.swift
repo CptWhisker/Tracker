@@ -9,11 +9,14 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
             categoryAndScheduleTableView.reloadData()
         }
     }
+    
+    private let category = NSLocalizedString("categoryAndSchedule.tableview.category", comment: "Option leading to category selection screen")
+    private let schedule = NSLocalizedString("categoryAndSchedule.tableview.schedule", comment: "Option leading to schedule selection screen")
     private lazy var tableViewOptions: [String] =  {
         if initializerTag == .habit {
-            return ["Категория", "Расписание"]
+            return [category, schedule]
         } else {
-            return ["Категория"]
+            return [category]
         }
     }()
     private lazy var categoryAndScheduleTableView: UITableView = {
@@ -98,10 +101,10 @@ extension CategoryAndScheduleTableViewCell: UITableViewDelegate {
     }
         
         switch tableViewOptions[indexPath.row] {
-        case "Категория":
+        case category:
         delegate.didTapCategoryButton()
             
-        case "Расписание":
+        case schedule:
         delegate.didTapScheduleButton()
             
         default:

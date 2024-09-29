@@ -25,3 +25,50 @@
 // MARK: - TrackerViewController
 "tracker.title" = "Трекеры";
 "tracker.stub" = "Что будем отслеживать?";
+
+// MARK: - TrackerCreationViewController
+"tracker.creation.title" = "Создание трекера";
+"tracker.creation.button.habit" = "Привычка";
+"tracker.creation.button.event" = "Нерегулярное событие";
+
+// MARK: - NewHabitOrIrregularEventViewController
+"tracker.creation.details.title.habit" = "Новая привычка";
+"tracker.creation.details.title.event" = "Новое нерегулярное событие";
+
+// MARK: - NameTextfieldCell
+"nameTextfield.placeholder" = "Введите название трекера";
+
+// MARK: - CategoryAndScheduleTableViewCell
+"categoryAndSchedule.tableview.category" = "Категория";
+"categoryAndSchedule.tableview.schedule" = "Расписание";
+
+// MARK: - EmojiCollectionViewCell
+"emoji.collectionview.header" = "Эмоджи";
+
+// MARK: - ColorSchemeCollectionViewCell
+"color.collectionview.header" = "Цвет";
+
+// MARK: - CancelAndCreateButtonsCell
+"cancelButton.title" = "Отменить";
+"createButton.title" = "Создать";
+
+// MARK: - NewCategoryViewController
+"newCategory.title" = "Категория";
+"newCategory.stubLabel" = "Привычки и события можно\nобъединить по смыслу";
+"newCategory.addCategory" = "Добавить категорию";
+
+// MARK: - CategoryCreationViewController
+"categoryCreation.placeholder" = "Введите название категории";
+"categoryCreation.completeButton" = "Готово";
+
+// MARK: - ScheduleViewController
+"schedule.title" = "Расписание";
+"schedule.doneButton" = "Готово";
+
+// MARK: - TabBarController
+"tabBar.item.trackers" = "Трекеры";
+"tabBar.item.statistics" = "Статистика";
+
+// MARK: - PageViewController
+"pageView.title.first" = "Отслеживайте только то, что хотите";
+"pageView.title.second" = "Даже если это не литры воды или йога";
