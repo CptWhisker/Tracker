@@ -70,9 +70,11 @@ final class TrackerCell: UICollectionViewCell {
     // MARK: - Private Methods
     private func updateRecordLabel(with count: Int?) {
         let record = count ?? 0
-        let dayString = dayDeclension(for: record)
         
-        recordLabel.text = "\(record) " + dayString
+        let dayFormatString = NSLocalizedString("daysPlural", comment: "Number of days a tracker was completed in pliral configuration")
+        let dayResultString = String.localizedStringWithFormat(dayFormatString, record)
+        
+        recordLabel.text = dayResultString
     }
     
     private func updateButtonImage(isCompleted: Bool) {
@@ -83,23 +85,6 @@ final class TrackerCell: UICollectionViewCell {
             plusButton.setImage(UIImage(named: "trackerPlus")?.withRenderingMode(.alwaysTemplate), for: .normal)
             plusButton.alpha = 1
         }
-    }
-    
-    private func dayDeclension(for day: Int) -> String {
-        let absNumber = abs(day)
-
-        let lastDigit = absNumber % 10
-        let lastTwoDigits = absNumber % 100
-
-        if lastDigit == 1 && lastTwoDigits != 11 {
-            return "день"
-        } else if (lastDigit == 2 || lastDigit == 3 || lastDigit == 4) && !(lastTwoDigits >= 12 && lastTwoDigits <= 14) {
-            return "дня"
-        } else {
-            return "дней"
-        }
-        
-        //TODO: Create full localization
     }
     
     // MARK: - Actions
