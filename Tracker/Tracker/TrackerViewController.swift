@@ -11,6 +11,7 @@ final class TrackerViewController: UIViewController {
         }
     }
     private var filteredCategories: [TrackerCategory] = []
+    private var visibleCategories: [TrackerCategory] = []
     private var selectedDate: Date = Date().dateWithoutTime
     
     // MARK: - UI Elements
@@ -21,12 +22,14 @@ final class TrackerViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         return datePicker
     }()
+    
     private lazy var stubImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "trackersStubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
     private lazy var stubLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +38,7 @@ final class TrackerViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     private lazy var stubStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [stubImage, stubLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +46,7 @@ final class TrackerViewController: UIViewController {
         stackView.spacing = 8
         return stackView
     }()
+    
     private lazy var trackerCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +62,13 @@ final class TrackerViewController: UIViewController {
             withReuseIdentifier: TrackerCategorySupplementaryView.identifier
         )
         return collectionView
+    }()
+    
+    private lazy var searchController: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchResultsUpdater = self
+        return search
     }()
     
     // MARK: - Lifecycle
@@ -79,22 +91,21 @@ final class TrackerViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePicker)
         
-        navigationItem.searchController = UISearchController()
+        navigationItem.searchController = searchController
         navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
-        // TODO: Create custom SearchController
         
         navigationItem.title = NSLocalizedString("tracker.title", comment: "Title for Trackers screen")
     }
     
     private func checkTrackers() {
         let hasTrackers = filteredCategories.contains { $0.trackersInCategory?.isEmpty == false }
-            if hasTrackers {
+        if hasTrackers {
             removeStubImageAndText()
         } else {
             configureStubImageAndText()
         }
     }
-
+    
     private func configureStubImageAndText() {
         view.addSubview(stubStackView)
         
@@ -127,9 +138,10 @@ final class TrackerViewController: UIViewController {
         }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
         
         checkTrackers()
+        visibleCategories = filteredCategories
         trackerCollectionView.reloadData()
     }
-
+    
     // MARK: - Private Methods
     private func fetchCategories() {
         categories = trackerCategoryStore.readTrackerCategories()
@@ -150,22 +162,24 @@ final class TrackerViewController: UIViewController {
         let weekday = calendar.component(.weekday, from: selectedDate)
         
         filterTrackersInCategoriesBy(weekday: weekday)
+        
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            filterTrackersInCategoriesBy(searchText)
+        }
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension TrackerViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
-        return filteredCategories.count
+        return visibleCategories.count
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        
-        return filteredCategories[section].trackersInCategory?.count ?? 0
+        return visibleCategories[section].trackersInCategory?.count ?? 0
     }
     
     func collectionView(
@@ -174,12 +188,13 @@ extension TrackerViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCell.identifier, for: indexPath) as? TrackerCell,
-              let tracker = filteredCategories[indexPath.section].trackersInCategory?[indexPath.item]
+              let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item]
+                
         else {
             print("[TrackerViewController cellForItemAt]: typecastError - Unable to dequeue cell as TrackerCell")
             return UICollectionViewCell()
         }
-
+        
         let count = trackerRecordStore.readTrackerRecordCount(tracker.habitID)
         let isCompleted = trackerRecordStore.readTrackerRecordIsCompleted(tracker.habitID, for: datePicker.date.dateWithoutTime) ?? false
         
@@ -303,7 +318,7 @@ extension TrackerViewController: TrackerCellDelegate {
         } else {
             trackerRecordStore.createTrackerRecord(record)
         }
-
+        
         let count = trackerRecordStore.readTrackerRecordCount(record.trackerID)
         let isCompleted = trackerRecordStore.readTrackerRecordIsCompleted(record.trackerID, for: datePicker.date.dateWithoutTime) ?? false
         
@@ -334,5 +349,32 @@ extension TrackerViewController: UIConfigurationProtocol {
             trackerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+extension TrackerViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            filterTrackersInCategoriesBy(searchText)
+        } else {
+            restoreCategories()
+        }
+        
+        trackerCollectionView.reloadData()
+    }
+    
+    private func filterTrackersInCategoriesBy(_ text: String) {
+        visibleCategories = filteredCategories.map {category in
+            let filteredTrackers = category.trackersInCategory?.filter { tracker in
+                return tracker.habitName.lowercased().contains(text.lowercased())
+            } ?? []
+            
+            return TrackerCategory(categoryName: category.categoryName, trackersInCategory: filteredTrackers)
+        }.filter { !$0.trackersInCategory!.isEmpty }
+    }
+    
+    private func restoreCategories() {
+        visibleCategories = filteredCategories
     }
 }

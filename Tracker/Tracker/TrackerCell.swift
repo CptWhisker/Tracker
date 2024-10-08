@@ -71,7 +71,7 @@ final class TrackerCell: UICollectionViewCell {
     private func updateRecordLabel(with count: Int?) {
         let record = count ?? 0
         
-        let dayFormatString = NSLocalizedString("daysPlural", comment: "Number of days a tracker was completed in pliral configuration")
+        let dayFormatString = NSLocalizedString("daysPlural", comment: "Number of days a tracker was completed in plural configuration")
         let dayResultString = String.localizedStringWithFormat(dayFormatString, record)
         
         recordLabel.text = dayResultString
