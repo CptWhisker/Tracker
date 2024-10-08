@@ -371,7 +371,7 @@ extension TrackerViewController: UISearchResultsUpdating {
             } ?? []
             
             return TrackerCategory(categoryName: category.categoryName, trackersInCategory: filteredTrackers)
-        }.filter { !$0.trackersInCategory!.isEmpty }
+        }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
     }
     
     private func restoreCategories() {
