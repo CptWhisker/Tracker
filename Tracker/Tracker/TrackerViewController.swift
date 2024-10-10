@@ -2,8 +2,10 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
+    private let pinnedCategoryIdentifier: String = NSLocalizedString("tracker.pinned", comment: "Title for pinned trackers")
     private let trackerCategoryStore = TrackerCategoryStore()
     private let trackerRecordStore = TrackerRecordStore()
+    private let trackerStore = TrackerStore()
     private var categories: [TrackerCategory] = [] {
         didSet {
             let weekday = Calendar.current.component(.weekday, from: selectedDate)
@@ -76,6 +78,7 @@ final class TrackerViewController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        updateLanguage()
         fetchCategories()
         checkTrackers()
     }
@@ -143,8 +146,48 @@ final class TrackerViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    private func updateLanguage() {
+        let currentLanguageIdentifier = pinnedCategoryIdentifier
+        let previousLanguageIdentifier = UserDefaults.standard.string(forKey: "currentLanguagePinnedCategoryIdentifier")
+        
+        guard previousLanguageIdentifier != currentLanguageIdentifier else {
+            UserDefaults.standard.setValue(currentLanguageIdentifier, forKey: "currentLanguagePinnedCategoryIdentifier")
+            return
+        }
+        
+        if let previousIdentifier = previousLanguageIdentifier {
+            trackerCategoryStore.updateTrackerCategoryName(from: previousIdentifier, to: currentLanguageIdentifier)
+        }
+        
+        UserDefaults.standard.setValue(currentLanguageIdentifier, forKey: "currentLanguagePinnedCategoryIdentifier")
+    }
+
+    
     private func fetchCategories() {
         categories = trackerCategoryStore.readTrackerCategories()
+        
+        if !categories.contains(where: { $0.categoryName == pinnedCategoryIdentifier }) {
+            let pinnedCategory = TrackerCategory(categoryName: pinnedCategoryIdentifier, trackersInCategory: [])
+            trackerCategoryStore.createTrackerCategory(pinnedCategory)
+            categories.insert(pinnedCategory, at: 0)
+        }
+    }
+    
+    private func pinTracker(_ tracker: Tracker) {
+        var updatedTracker = tracker
+        updatedTracker.isPinned = true
+        
+        if let pinnedCategoryIndex = categories.firstIndex(where: { $0.categoryName == pinnedCategoryIdentifier }) {
+            let pinnedCategory = categories[pinnedCategoryIndex]
+            trackerStore.pinTracker(updatedTracker, to: pinnedCategory)
+        }
+    }
+    
+    private func unpinTracker(_ tracker: Tracker) {
+        var updatedTracker = tracker
+        updatedTracker.isPinned = false
+
+        trackerStore.unpinTracker(updatedTracker)
     }
     
     // MARK: - Actions
@@ -166,6 +209,28 @@ final class TrackerViewController: UIViewController {
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
             filterTrackersInCategoriesBy(searchText)
         }
+    }
+    
+    @objc private func pinTracker(at indexPath: IndexPath) {
+        let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item]
+
+        if let tracker {
+            if tracker.isPinned {
+                unpinTracker(tracker)
+            } else {
+                pinTracker(tracker)
+            }
+            
+            fetchCategories()
+        }
+    }
+    
+    @objc private func editTracker() {
+        print(#function)
+    }
+    
+    @objc private func deleteTracker() {
+        print(#function)
     }
 }
 
@@ -288,6 +353,46 @@ extension TrackerViewController: UICollectionViewDelegateFlowLayout {
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
         )
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension TrackerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        guard indexPaths.count > 0 else { return nil }
+        
+        let indexPath = indexPaths[0]
+        
+        guard let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] else {
+            return nil
+        }
+        
+        let pinString = NSLocalizedString("tracker.contextual.pin", comment: "Title for 'Pin' contextual menu option")
+        let unpinString = NSLocalizedString("tracker.contextual.unpin", comment: "Title for 'Unpin' contextual menu option")
+        let pinActionTitle = tracker.isPinned ? unpinString : pinString
+        let pinEditTitle = NSLocalizedString("tracker.contextual.edit", comment: "Title for 'Edit' contextual menu option")
+        let pinDeleteTitle = NSLocalizedString("tracker.contextual.delete", comment: "Title for 'Delete' contextual menu option")
+        
+        return UIContextMenuConfiguration(actionProvider: { actions in
+            return UIMenu(children: [
+                UIAction(title: pinActionTitle) { [weak self] _ in
+                    self?.pinTracker(at: indexPath)
+                },
+                UIAction(title: pinEditTitle) { [weak self] _ in
+                    self?.editTracker()
+                },
+                UIAction(title: pinDeleteTitle, attributes: .destructive) { [weak self] _ in
+                    self?.deleteTracker()
+                },
+            ])
+        })
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplayContextMenu configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionAnimating?) {
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
+              let cell = collectionView.cellForItem(at: indexPath) else { return }
+        
+        cell.layer.cornerRadius = 0
     }
 }
 

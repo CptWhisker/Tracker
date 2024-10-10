@@ -43,6 +43,10 @@ final class NewCategoryViewModel: NewCategoryViewModelProtocol {
     // MARK: - Public Methods
     func loadCategories() {
         categories = trackerCategoryStore.readTrackerCategories()
+        let systemCategoryName = NSLocalizedString("newCategoryViewModel.hiddenSystemCategory", comment: "Name for system category 'Pinned'")
+
+        categories = categories.filter { $0.categoryName.lowercased() != systemCategoryName.lowercased() }
+
         emptyStateChanged?(categories.isEmpty)
     }
     

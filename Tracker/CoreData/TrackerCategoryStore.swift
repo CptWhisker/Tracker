@@ -64,7 +64,9 @@ final class TrackerCategoryStore: NSObject {
                             habitName: trackerCoreData.habitName ?? "default",
                             habitColor: trackerCoreData.habitColor as? UIColor ?? .white,
                             habitEmoji: trackerCoreData.habitEmoji ?? "🫥",
-                            habitSchedule: trackerCoreData.habitSchedule as? [WeekDays]
+                            habitSchedule: trackerCoreData.habitSchedule as? [WeekDays],
+                            isPinned: trackerCoreData.isPinned,
+                            originalCategory: trackerCoreData.originalCategory ?? "default"
                         )
                     }
                 }
@@ -82,6 +84,29 @@ final class TrackerCategoryStore: NSObject {
         
         return fetchedCategories
     }
+    
+    // MARK: - UPDATE
+    func updateTrackerCategoryName(from oldName: String, to newName: String) {
+        let fetchRequest: NSFetchRequest<TrackerCategoryCoreData> = TrackerCategoryCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "categoryName == %@", oldName)
+        
+        do {
+            let categories = try context.fetch(fetchRequest)
+            
+            guard let categoryToUpdate = categories.first else {
+                print("[TrackerCategoryStore updateTrackerCategoryName]: No category found with name \(oldName)")
+                return
+            }
+            
+            categoryToUpdate.categoryName = newName
+
+            try context.save()
+            print("[TrackerCategoryStore updateTrackerCategoryName]: Successfully updated category name from \(oldName) to \(newName)")
+        } catch {
+            print("[TrackerCategoryStore updateTrackerCategoryName]: CoreDataError - Failed to update TrackerCategory with name \(oldName)")
+        }
+    }
 }
+
 
 extension TrackerCategoryStore: NSFetchedResultsControllerDelegate {}

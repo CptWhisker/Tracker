@@ -10,6 +10,8 @@
         <attribute name="habitID" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="habitName" attributeType="String"/>
         <attribute name="habitSchedule" optional="YES" attributeType="Transformable" valueTransformerName="WeekDaysTransformer"/>
+        <attribute name="isPinned" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="originalCategory" attributeType="String"/>
         <relationship name="trackerCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TrackerCategoryCoreData" inverseName="trackersInCategory" inverseEntity="TrackerCategoryCoreData"/>
         <relationship name="trackerRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TrackerRecordCoreData" inverseName="tracker" inverseEntity="TrackerRecordCoreData"/>
     </entity>

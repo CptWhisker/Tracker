@@ -6,4 +6,6 @@ struct Tracker {
     let habitColor: UIColor
     let habitEmoji: String
     let habitSchedule: [WeekDays]?
+    var isPinned: Bool
+    var originalCategory: String
 }

@@ -8,7 +8,7 @@ final class TrackerCell: UICollectionViewCell {
     // MARK: - UI Elements
     private lazy var topView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -31,6 +31,12 @@ final class TrackerCell: UICollectionViewCell {
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    private lazy var pinIcon: UIImageView = {
+        let icon = UIImageView(image: UIImage(named: "pinIcon"))
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.isHidden = true
+        return icon
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -87,6 +93,10 @@ final class TrackerCell: UICollectionViewCell {
         }
     }
     
+    private func updatePinIcon(isPinned: Bool) {
+        pinIcon.isHidden = !isPinned
+    }
+    
     // MARK: - Actions
     @objc private func plusButtonTapped() {
         guard let delegate else { return }
@@ -103,6 +113,7 @@ final class TrackerCell: UICollectionViewCell {
         
         updateRecordLabel(with: count)
         updateButtonImage(isCompleted: isCompleted)
+        updatePinIcon(isPinned: tracker.isPinned)
     }
     
     func configure(completed count: Int?, isCompleted: Bool) {
@@ -127,6 +138,7 @@ extension TrackerCell: UIConfigurationProtocol {
         contentView.addSubview(bottomView)
         
         topView.addSubview(emojiBackgroundView)
+        topView.addSubview(pinIcon)
         topView.addSubview(titleLabel)
         emojiBackgroundView.addSubview(emojiLabel)
         
@@ -151,6 +163,10 @@ extension TrackerCell: UIConfigurationProtocol {
             emojiBackgroundView.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 12),
             emojiBackgroundView.widthAnchor.constraint(equalToConstant: 24),
             emojiBackgroundView.heightAnchor.constraint(equalToConstant: 24),
+            pinIcon.topAnchor.constraint(equalTo: topView.topAnchor, constant: 12),
+            pinIcon.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -4),
+            pinIcon.widthAnchor.constraint(equalToConstant: 24),
+            pinIcon.heightAnchor.constraint(equalToConstant: 24),
             emojiLabel.centerYAnchor.constraint(equalTo: emojiBackgroundView.centerYAnchor),
             emojiLabel.centerXAnchor.constraint(equalTo: emojiBackgroundView.centerXAnchor),
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: emojiLabel.bottomAnchor, constant: 8),

@@ -247,9 +247,9 @@ extension NewHabitOrIrregularEventViewController: CancelAndCreateButtonsCellDele
                 return
             }
             
-            tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule)
+            tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: schedule, isPinned: false, originalCategory: category.categoryName)
         } else {
-            tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: nil)
+            tracker = Tracker(habitID: id, habitName: title, habitColor: color, habitEmoji: emoji, habitSchedule: nil, isPinned: false, originalCategory: category.categoryName)
         }
         
         dismiss(animated: true) { [weak self, weak delegate] in

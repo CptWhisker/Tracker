@@ -25,6 +25,11 @@
 // MARK: - TrackerViewController
 "tracker.title" = "Trackers";
 "tracker.stub" = "What will we track?";
+"tracker.pinned" = "Pinned";
+"tracker.contextual.pin" = "Pin";
+"tracker.contextual.unpin" = "Unpin";
+"tracker.contextual.edit" = "Edit";
+"tracker.contextual.delete" = "Delete";
 
 // MARK: - TrackerCreationViewController
 "tracker.creation.title" = "Create a tracker";
@@ -57,9 +62,13 @@
 "newCategory.stubLabel" = "Habits and Events can be\ncombined by meaning";
 "newCategory.addCategory" = "Add Category";
 
+// MARK: - NewCategoryViewModel
+"newCategoryViewModel.hiddenSystemCategory" = "Pinned";
+
 // MARK: - CategoryCreationViewController
 "categoryCreation.placeholder" = "Enter category's name";
 "categoryCreation.completeButton" = "Done";
+"categoryCreation.forbiddenName" = "Pinned";
 
 // MARK: - ScheduleViewController
 "schedule.title" = "Schedule";

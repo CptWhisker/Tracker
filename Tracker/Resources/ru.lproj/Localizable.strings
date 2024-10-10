@@ -25,6 +25,11 @@
 // MARK: - TrackerViewController
 "tracker.title" = "Трекеры";
 "tracker.stub" = "Что будем отслеживать?";
+"tracker.pinned" = "Закрепленные";
+"tracker.contextual.pin" = "Закрепить";
+"tracker.contextual.unpin" = "Открепить";
+"tracker.contextual.edit" = "Редактировать";
+"tracker.contextual.delete" = "Удалить";
 
 // MARK: - TrackerCreationViewController
 "tracker.creation.title" = "Создание трекера";
@@ -57,9 +62,13 @@
 "newCategory.stubLabel" = "Привычки и события можно\nобъединить по смыслу";
 "newCategory.addCategory" = "Добавить категорию";
 
+// MARK: - NewCategoryViewModel
+"newCategoryViewModel.hiddenSystemCategory" = "Закрепленные";
+
 // MARK: - CategoryCreationViewController
 "categoryCreation.placeholder" = "Введите название категории";
 "categoryCreation.completeButton" = "Готово";
+"categoryCreation.forbiddenName" = "Закрепленные";
 
 // MARK: - ScheduleViewController
 "schedule.title" = "Расписание";
