@@ -3,6 +3,7 @@ import UIKit
 final class CategoryCreationViewController: UIViewController {
     // MARK: - Properties
     private weak var delegate: CategoryCreationDelegate?
+    private var categoryNames: [String]?
     
     // MARK: - UI Elements
     private lazy var categoryNameTextField: UITextField = {
@@ -43,15 +44,24 @@ final class CategoryCreationViewController: UIViewController {
         self.delegate = delegate
     }
     
-    // MARK: - Actions
-    @objc private func textTyped() {
-        let forbiddenString = NSLocalizedString("categoryCreation.forbiddenName", comment: "Forbidden name for pre-existing system category 'Pinned'")
-        let forbiddenName: Bool = categoryNameTextField.text?.lowercased() == forbiddenString.lowercased() ? true : false
-        let textFieldEmpty = categoryNameTextField.text?.isEmpty ?? true
-        completeButton.isEnabled = !textFieldEmpty && !forbiddenName
-        completeButton.backgroundColor = !textFieldEmpty && !forbiddenName ? .ypAccent : .ypGray
+    func setCategoryNames(_ categoryNames: [String]?) {
+        self.categoryNames = categoryNames
     }
     
+    // MARK: - Actions
+    @objc private func textTyped() {
+        guard let text = categoryNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() else { return }
+        let systemNames = ["Pinned", "Закрепленные"]
+        
+        let systemName = systemNames.contains(where: { $0.lowercased() == text })
+        let duplicateName = categoryNames?.contains(where: { $0.lowercased() == text }) ?? false
+        let textFieldEmpty = text.isEmpty
+        
+        let shouldEnableButton = !textFieldEmpty && !systemName && !duplicateName
+        completeButton.isEnabled = shouldEnableButton
+        completeButton.backgroundColor = shouldEnableButton ? .ypAccent : .ypGray
+    }
+
     @objc private func completeCreation() {
         guard let delegate,
               let categoryName = categoryNameTextField.text else { return }

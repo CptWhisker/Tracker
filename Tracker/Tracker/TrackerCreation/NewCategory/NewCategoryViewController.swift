@@ -121,6 +121,7 @@ final class NewCategoryViewController: UIViewController {
     @objc private func createNewCategory() {
         let categoryCreationViewController = CategoryCreationViewController()
         categoryCreationViewController.setDelegate(delegate: self)
+        categoryCreationViewController.setCategoryNames(viewModel.getCategoryNames())
         let categoryCreationNavigationController = UINavigationController(rootViewController: categoryCreationViewController)
         
         present(categoryCreationNavigationController, animated: true, completion: nil)

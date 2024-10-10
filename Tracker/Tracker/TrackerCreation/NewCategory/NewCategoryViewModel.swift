@@ -12,6 +12,7 @@ protocol NewCategoryViewModelProtocol {
     func selectCategory(at index: Int)
     func setDelegate(delegate: CategorySelectionDelegate)
     func setSelectedCategory(category: TrackerCategory?)
+    func getCategoryNames() -> [String]?
 }
 
 final class NewCategoryViewModel: NewCategoryViewModelProtocol {
@@ -42,12 +43,18 @@ final class NewCategoryViewModel: NewCategoryViewModelProtocol {
     
     // MARK: - Public Methods
     func loadCategories() {
-        categories = trackerCategoryStore.readTrackerCategories()
-        let systemCategoryName = NSLocalizedString("newCategoryViewModel.hiddenSystemCategory", comment: "Name for system category 'Pinned'")
+        let systemNames = ["pinned", "закрепленные"]
 
-        categories = categories.filter { $0.categoryName.lowercased() != systemCategoryName.lowercased() }
+        categories = trackerCategoryStore.readTrackerCategories()
+        categories = categories.filter { category in
+            !systemNames.contains(category.categoryName.lowercased())
+        }
 
         emptyStateChanged?(categories.isEmpty)
+    }
+    
+    func getCategoryNames() -> [String]? {
+        return categories.map { $0.categoryName }
     }
     
     // MARK: - Protocol Implementation
