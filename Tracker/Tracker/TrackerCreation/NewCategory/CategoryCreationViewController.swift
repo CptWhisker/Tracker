@@ -46,7 +46,7 @@ final class CategoryCreationViewController: UIViewController {
     // MARK: - Actions
     @objc private func textTyped() {
         let forbiddenString = NSLocalizedString("categoryCreation.forbiddenName", comment: "Forbidden name for pre-existing system category 'Pinned'")
-        let forbiddenName: Bool = categoryNameTextField.text?.lowercased() == forbiddenString ? true : false
+        let forbiddenName: Bool = categoryNameTextField.text?.lowercased() == forbiddenString.lowercased() ? true : false
         let textFieldEmpty = categoryNameTextField.text?.isEmpty ?? true
         completeButton.isEnabled = !textFieldEmpty && !forbiddenName
         completeButton.backgroundColor = !textFieldEmpty && !forbiddenName ? .ypAccent : .ypGray
