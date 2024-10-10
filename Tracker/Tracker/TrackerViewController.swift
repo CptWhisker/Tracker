@@ -212,9 +212,7 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func pinTracker(at indexPath: IndexPath) {
-        let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item]
-
-        if let tracker {
+        if let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] {
             if tracker.isPinned {
                 unpinTracker(tracker)
             } else {
@@ -229,8 +227,13 @@ final class TrackerViewController: UIViewController {
         print(#function)
     }
     
-    @objc private func deleteTracker() {
-        print(#function)
+    @objc private func deleteTracker(at indexPath: IndexPath) {
+        if let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] {
+            trackerStore.deleteTracker(tracker)
+            trackerRecordStore.deleteAllRecords(for: tracker)
+            
+            fetchCategories()
+        }
     }
 }
 
@@ -382,7 +385,7 @@ extension TrackerViewController: UICollectionViewDelegate {
                     self?.editTracker()
                 },
                 UIAction(title: pinDeleteTitle, attributes: .destructive) { [weak self] _ in
-                    self?.deleteTracker()
+                    self?.deleteTracker(at: indexPath)
                 },
             ])
         })

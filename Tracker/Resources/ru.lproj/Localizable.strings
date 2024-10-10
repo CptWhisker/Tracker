@@ -62,13 +62,9 @@
 "newCategory.stubLabel" = "Привычки и события можно\nобъединить по смыслу";
 "newCategory.addCategory" = "Добавить категорию";
 
-// MARK: - NewCategoryViewModel
-"newCategoryViewModel.hiddenSystemCategory" = "Закрепленные";
-
 // MARK: - CategoryCreationViewController
 "categoryCreation.placeholder" = "Введите название категории";
 "categoryCreation.completeButton" = "Готово";
-"categoryCreation.forbiddenName" = "Закрепленные";
 
 // MARK: - ScheduleViewController
 "schedule.title" = "Расписание";

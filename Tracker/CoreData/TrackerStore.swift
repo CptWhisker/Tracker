@@ -61,6 +61,7 @@ final class TrackerStore: NSObject {
         }
     }
     
+    // MARK: - UPDATE
     func pinTracker(_ tracker: Tracker, to pinnedCategory: TrackerCategory) {
         let fetchRequest = TrackerCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCoreData.habitID), tracker.habitID as CVarArg)
@@ -131,8 +132,25 @@ final class TrackerStore: NSObject {
         }
     }
 
-
-
+    // MARK: - DELETE
+    func deleteTracker(_ tracker: Tracker) {
+        let fetchRequest = TrackerCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCoreData.habitID), tracker.habitID as CVarArg)
+        
+        do {
+            let trackerResults = try context.fetch(fetchRequest)
+            guard let trackerToDelete = trackerResults.first else {
+                print("[TrackerStore deleteTracker]: Tracker not found.")
+                return
+            }
+            
+            context.delete(trackerToDelete)
+            
+            try context.save()
+        } catch {
+            print("[TrackerStore deleteTracker]: Failed to delete tracker: \(error)")
+        }
+    }
 }
 
 extension TrackerStore: NSFetchedResultsControllerDelegate {}

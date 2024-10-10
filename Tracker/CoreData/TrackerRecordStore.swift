@@ -133,6 +133,23 @@ final class TrackerRecordStore: NSObject {
             print("[TrackerRecordStore deleteTrackerRecords]: CoreDataError - Failed to delete TrackerRecord")
         }
     }
+    
+    func deleteAllRecords(for tracker: Tracker) {
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerRecordCoreData.trackerID), tracker.habitID as CVarArg)
+        
+        do {
+            let recordsToDelete = try context.fetch(fetchRequest)
+            
+            for record in recordsToDelete {
+                context.delete(record)
+            }
+            
+            try context.save()
+        } catch {
+            print("[TrackerStore deleteAllRecords]: Failed to delete records for tracker: \(error)")
+        }
+    }
 }
 
 extension TrackerRecordStore: NSFetchedResultsControllerDelegate {}

@@ -62,13 +62,9 @@
 "newCategory.stubLabel" = "Habits and Events can be\ncombined by meaning";
 "newCategory.addCategory" = "Add Category";
 
-// MARK: - NewCategoryViewModel
-"newCategoryViewModel.hiddenSystemCategory" = "Pinned";
-
 // MARK: - CategoryCreationViewController
 "categoryCreation.placeholder" = "Enter category's name";
 "categoryCreation.completeButton" = "Done";
-"categoryCreation.forbiddenName" = "Pinned";
 
 // MARK: - ScheduleViewController
 "schedule.title" = "Schedule";
