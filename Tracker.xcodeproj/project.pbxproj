@@ -203,6 +203,7 @@
 		CE30635B2C5C0F510013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				CE95FCC72CBC0466005BCAC9 /* TrackerEditing */,
 				CE3063412C5BAEF40013F319 /* TrackerViewController.swift */,
 				CEA24D292C7D019300A37D35 /* TrackerCell.swift */,
 				CEA24D312C7FD3B900A37D35 /* TrackerCategorySupplementaryView.swift */,
@@ -305,6 +306,13 @@
 				CE46F64B2C8B9D60004CD3C7 /* UIColorTransformer.swift */,
 			);
 			path = CoreDataTransformers;
+			sourceTree = "<group>";
+		};
+		CE95FCC72CBC0466005BCAC9 /* TrackerEditing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TrackerEditing;
 			sourceTree = "<group>";
 		};
 		CEA24D252C7CECC300A37D35 /* CategoryAndSchedule */ = {

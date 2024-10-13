@@ -190,6 +190,13 @@ final class TrackerViewController: UIViewController {
         trackerStore.unpinTracker(updatedTracker)
     }
     
+    private func deleteTracker(_ tracker: Tracker) {
+        trackerStore.deleteTracker(tracker)
+        trackerRecordStore.deleteAllRecords(for: tracker)
+        
+        fetchCategories()
+    }
+    
     // MARK: - Actions
     @objc private func addHabitOrIrregularEvent() {
         let trackerCreationViewController = TrackerCreationViewController()
@@ -212,15 +219,15 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func pinTracker(at indexPath: IndexPath) {
-        if let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] {
-            if tracker.isPinned {
-                unpinTracker(tracker)
-            } else {
-                pinTracker(tracker)
-            }
-            
-            fetchCategories()
+        guard let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] else { return }
+        
+        if tracker.isPinned {
+            unpinTracker(tracker)
+        } else {
+            pinTracker(tracker)
         }
+        
+        fetchCategories()
     }
     
     @objc private func editTracker() {
@@ -228,12 +235,20 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func deleteTracker(at indexPath: IndexPath) {
-        if let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] {
-            trackerStore.deleteTracker(tracker)
-            trackerRecordStore.deleteAllRecords(for: tracker)
-            
-            fetchCategories()
-        }
+        guard let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] else { return }
+        
+        let title = NSLocalizedString("tracker.actionSheet.text", comment: "Title for contextual menu's 'Delete' action")
+        let deleteString = NSLocalizedString("tracker.actionSheet.deleteAction", comment: "Text for Alert Controller's 'Delete' button")
+        let cancelString = NSLocalizedString("tracker.actionSheet.cancelAction", comment: "Text for Alert Controller's 'Cancel' button")
+        
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        
+        alertController.addAction(UIAlertAction(title: deleteString, style: .destructive) { [weak self] _ in
+            self?.deleteTracker(tracker)
+        })
+        alertController.addAction(UIAlertAction(title: cancelString, style: .cancel))
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -372,19 +387,19 @@ extension TrackerViewController: UICollectionViewDelegate {
         
         let pinString = NSLocalizedString("tracker.contextual.pin", comment: "Title for 'Pin' contextual menu option")
         let unpinString = NSLocalizedString("tracker.contextual.unpin", comment: "Title for 'Unpin' contextual menu option")
-        let pinActionTitle = tracker.isPinned ? unpinString : pinString
-        let pinEditTitle = NSLocalizedString("tracker.contextual.edit", comment: "Title for 'Edit' contextual menu option")
-        let pinDeleteTitle = NSLocalizedString("tracker.contextual.delete", comment: "Title for 'Delete' contextual menu option")
+        let menuActionTitle = tracker.isPinned ? unpinString : pinString
+        let menuEditTitle = NSLocalizedString("tracker.contextual.edit", comment: "Title for 'Edit' contextual menu option")
+        let menuDeleteTitle = NSLocalizedString("tracker.contextual.delete", comment: "Title for 'Delete' contextual menu option")
         
         return UIContextMenuConfiguration(actionProvider: { actions in
             return UIMenu(children: [
-                UIAction(title: pinActionTitle) { [weak self] _ in
+                UIAction(title: menuActionTitle) { [weak self] _ in
                     self?.pinTracker(at: indexPath)
                 },
-                UIAction(title: pinEditTitle) { [weak self] _ in
+                UIAction(title: menuEditTitle) { [weak self] _ in
                     self?.editTracker()
                 },
-                UIAction(title: pinDeleteTitle, attributes: .destructive) { [weak self] _ in
+                UIAction(title: menuDeleteTitle, attributes: .destructive) { [weak self] _ in
                     self?.deleteTracker(at: indexPath)
                 },
             ])

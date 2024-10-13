@@ -30,6 +30,9 @@
 "tracker.contextual.unpin" = "Unpin";
 "tracker.contextual.edit" = "Edit";
 "tracker.contextual.delete" = "Delete";
+"tracker.actionSheet.text" = "Are you sure you want to delete the Tracker?";
+"tracker.actionSheet.deleteAction" = "Delete";
+"tracker.actionSheet.cancelAction" = "Cancel";
 
 // MARK: - TrackerCreationViewController
 "tracker.creation.title" = "Create a tracker";
