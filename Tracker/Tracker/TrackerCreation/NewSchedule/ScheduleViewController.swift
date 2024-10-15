@@ -16,6 +16,7 @@ final class ScheduleViewController: UIViewController {
         tableView.backgroundColor = .red
         tableView.tableHeaderView = UIView(frame: .zero)
         tableView.layer.cornerRadius = 16
+        tableView.separatorColor = .ypGray
         tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
         return tableView
     }()

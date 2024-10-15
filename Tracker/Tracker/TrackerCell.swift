@@ -49,14 +49,14 @@ final class TrackerCell: UICollectionViewCell {
     private lazy var recordLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
-        label.textColor = .black
+        label.textColor = .ypAccent
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private lazy var plusButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 16
-        button.tintColor = .white
+        button.tintColor = .ypMain
         button.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

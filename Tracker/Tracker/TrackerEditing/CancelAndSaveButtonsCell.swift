@@ -29,7 +29,7 @@ final class CancelAndSaveButtonsCell: UICollectionViewCell {
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 16
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.ypMain, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
         return button
     }()

@@ -4,7 +4,7 @@ final class NavigationController: UINavigationController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         configureNavigationBar()
     }
     

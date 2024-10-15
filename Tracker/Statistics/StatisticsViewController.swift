@@ -59,7 +59,7 @@ final class StatisticsViewController: UIViewController {
 //MARK: - UIConfigurationProtocol
 extension StatisticsViewController: UIConfigurationProtocol {
     func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .ypMain
         
         configureNavigationBar()
         configureStatistics()

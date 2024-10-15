@@ -63,6 +63,7 @@ final class TrackerViewController: UIViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: TrackerCategorySupplementaryView.identifier
         )
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     

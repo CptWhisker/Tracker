@@ -25,6 +25,7 @@ final class CategoryAndScheduleTableViewCell: UICollectionViewCell {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.layer.cornerRadius = 16
+        tableView.separatorColor = .ypGray
         return tableView
     }()
     
