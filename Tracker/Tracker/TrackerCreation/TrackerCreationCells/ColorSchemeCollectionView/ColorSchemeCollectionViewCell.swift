@@ -42,6 +42,44 @@ final class ColorSchemeCollectionViewCell: UICollectionViewCell {
     func setDelegate(delegate: ColorSchemeCollectionViewCellDelegate) {
         self.delegate = delegate
     }
+    
+    func selectCell(withColor color: UIColor) {
+        var targetRed: CGFloat = 0
+        var targetGreen: CGFloat = 0
+        var targetBlue: CGFloat = 0
+        var targetAlpha: CGFloat = 0
+        color.getRed(&targetRed, green: &targetGreen, blue: &targetBlue, alpha: &targetAlpha)
+        
+        var colorIndex: Int?
+        
+        for (index, colorInArray) in colors.enumerated() {
+            var red: CGFloat = 0
+            var green: CGFloat = 0
+            var blue: CGFloat = 0
+            var alpha: CGFloat = 0
+            colorInArray.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+            
+            if red == targetRed && green == targetGreen && blue == targetBlue && alpha == targetAlpha {
+                colorIndex = index
+                break
+            }
+        }
+        
+        guard let index = colorIndex else {
+            print("[ColorSchemeCollectionViewCell selectCell]: colorNotFound - Unable to find color in colors array")
+            return
+        }
+        
+        let indexPath = IndexPath(item: index, section: 0)
+        
+        guard let cell = colorCollectionView.cellForItem(at: indexPath) as? ColorCell else {
+            print("[ColorSchemeCollectionViewCell selectCell]: typecastError - Unable to typecast cell as ColorCell")
+            return
+        }
+        
+        cell.selectColor(color)
+        colorCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+    }
 }
 
 // MARK: - UICollectionViewDataSource

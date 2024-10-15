@@ -38,6 +38,10 @@ final class NameTextfieldCell: UICollectionViewCell {
     func setDelegate(delegate: NameTextfieldCellDelegate) {
         self.delegate = delegate
     }
+    
+    func setTitle(_ title: String) {
+        nameTextfield.text = title
+    }
 }
 
 //MARK: - UIConfigurationProtocol

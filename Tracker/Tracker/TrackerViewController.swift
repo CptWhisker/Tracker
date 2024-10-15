@@ -230,8 +230,15 @@ final class TrackerViewController: UIViewController {
         fetchCategories()
     }
     
-    @objc private func editTracker() {
-        print(#function)
+    @objc private func editTracker(at indexPath: IndexPath) {
+        guard let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] else { return }
+        
+        let initializerTag: InitializerTag = tracker.habitSchedule != nil ? .habit : .event
+        let count = trackerRecordStore.readTrackerRecordCount(tracker.habitID)
+        let trackerEditingViewController = TrackerEditingViewController(initializerTag: initializerTag, editingTracker: tracker, daysCompleted: count)
+        trackerEditingViewController.setDelegate(delegate: self)
+        let trackerEditingNavigationController = UINavigationController(rootViewController: trackerEditingViewController)
+        present(trackerEditingNavigationController, animated: true)
     }
     
     @objc private func deleteTracker(at indexPath: IndexPath) {
@@ -397,7 +404,7 @@ extension TrackerViewController: UICollectionViewDelegate {
                     self?.pinTracker(at: indexPath)
                 },
                 UIAction(title: menuEditTitle) { [weak self] _ in
-                    self?.editTracker()
+                    self?.editTracker(at: indexPath)
                 },
                 UIAction(title: menuDeleteTitle, attributes: .destructive) { [weak self] _ in
                     self?.deleteTracker(at: indexPath)

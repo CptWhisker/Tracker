@@ -44,6 +44,24 @@ final class EmojiCollectionViewCell: UICollectionViewCell {
     func setDelegate(delegate: EmojiCollectionViewCellDelegate) {
         self.delegate = delegate
     }
+    
+    func selectEmoji(withEmoji emoji: String) {
+        guard let emojiIndex = emojis.firstIndex(of: emoji) else {
+            print("[EmojiCollectionViewCell selectCell]: emojiNotFound - Unable to find emoji in emojis array")
+            return
+        }
+        
+        let indexPath = IndexPath(item: emojiIndex, section: 0)
+        
+        guard let cell = emojiCollectionView.cellForItem(at: indexPath) as? EmojiCell else {
+            print("[ColorSchemeCollectionViewCell selectCell]: typecastError - Unable to typecast cell as ColorCell")
+            return
+        }
+        
+        cell.selectEmoji()
+        
+        emojiCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+    }
 }
 
 // MARK: - UICollectionViewDataSource

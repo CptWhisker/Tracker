@@ -50,6 +50,10 @@
 		CE9122162C75197B005B6FB1 /* NewCategoryTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9122152C75197B005B6FB1 /* NewCategoryTVCell.swift */; };
 		CE9122182C753F8C005B6FB1 /* CategorySelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9122172C753F8C005B6FB1 /* CategorySelectionDelegate.swift */; };
 		CE95FC722CAA9A34005BCAC9 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CE95FC742CAA9A34005BCAC9 /* Localizable.stringsdict */; };
+		CE95FCC92CBC056F005BCAC9 /* TrackerEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCC82CBC056F005BCAC9 /* TrackerEditingViewController.swift */; };
+		CE95FCCB2CBC097F005BCAC9 /* ProgressLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCCA2CBC097E005BCAC9 /* ProgressLabelCell.swift */; };
+		CE95FCCD2CBC0DA2005BCAC9 /* CancelAndSaveButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCCC2CBC0DA2005BCAC9 /* CancelAndSaveButtonsCell.swift */; };
+		CE95FCCF2CBC0E11005BCAC9 /* CancelAndSaveButtonsCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCCE2CBC0E11005BCAC9 /* CancelAndSaveButtonsCellDelegate.swift */; };
 		CEA24D222C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */; };
 		CEA24D242C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */; };
 		CEA24D272C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */; };
@@ -115,6 +119,10 @@
 		CE9122172C753F8C005B6FB1 /* CategorySelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionDelegate.swift; sourceTree = "<group>"; };
 		CE95FC732CAA9A34005BCAC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		CE95FC752CAA9A35005BCAC9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		CE95FCC82CBC056F005BCAC9 /* TrackerEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerEditingViewController.swift; sourceTree = "<group>"; };
+		CE95FCCA2CBC097E005BCAC9 /* ProgressLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressLabelCell.swift; sourceTree = "<group>"; };
+		CE95FCCC2CBC0DA2005BCAC9 /* CancelAndSaveButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndSaveButtonsCell.swift; sourceTree = "<group>"; };
+		CE95FCCE2CBC0E11005BCAC9 /* CancelAndSaveButtonsCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelAndSaveButtonsCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextfieldCellDelegate.swift; sourceTree = "<group>"; };
@@ -311,6 +319,9 @@
 		CE95FCC72CBC0466005BCAC9 /* TrackerEditing */ = {
 			isa = PBXGroup;
 			children = (
+				CE95FCC82CBC056F005BCAC9 /* TrackerEditingViewController.swift */,
+				CE95FCCA2CBC097E005BCAC9 /* ProgressLabelCell.swift */,
+				CE95FCCC2CBC0DA2005BCAC9 /* CancelAndSaveButtonsCell.swift */,
 			);
 			path = TrackerEditing;
 			sourceTree = "<group>";
@@ -338,6 +349,7 @@
 				CE3063F12C63E2440013F319 /* NewCategoryAndScheduleTableViewDelegate.swift */,
 				CEA24D2B2C7E340700A37D35 /* NewHabitOrIrregularEventDelegate.swift */,
 				CEA24D2D2C7FA6E900A37D35 /* TrackerCellDelegate.swift */,
+				CE95FCCE2CBC0E11005BCAC9 /* CancelAndSaveButtonsCellDelegate.swift */,
 			);
 			path = DelegateProtocols;
 			sourceTree = "<group>";
@@ -471,8 +483,11 @@
 				CE3063C92C5F591E0013F319 /* TrackerRecord.swift in Sources */,
 				CE3063482C5BAEF40013F319 /* Tracker.xcdatamodeld in Sources */,
 				CEA24D222C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift in Sources */,
+				CE95FCCD2CBC0DA2005BCAC9 /* CancelAndSaveButtonsCell.swift in Sources */,
 				CE3063DB2C6235CC0013F319 /* ColorSchemeCollectionViewCell.swift in Sources */,
 				CE3063F62C640D390013F319 /* CategoryCreationViewController.swift in Sources */,
+				CE95FCCF2CBC0E11005BCAC9 /* CancelAndSaveButtonsCellDelegate.swift in Sources */,
+				CE95FCC92CBC056F005BCAC9 /* TrackerEditingViewController.swift in Sources */,
 				CE3063D92C6235AE0013F319 /* EmojiCollectionViewCell.swift in Sources */,
 				CE3063422C5BAEF40013F319 /* TrackerViewController.swift in Sources */,
 				CE8E48522C87B2CA00C225F4 /* TrackerStore.swift in Sources */,
@@ -494,6 +509,7 @@
 				CEA24D242C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift in Sources */,
 				CE3063D22C622EEC0013F319 /* Constants.swift in Sources */,
 				CEA24D302C7FC69E00A37D35 /* Date +Extensions.swift in Sources */,
+				CE95FCCB2CBC097F005BCAC9 /* ProgressLabelCell.swift in Sources */,
 				CEF408572C68B5AA00E88229 /* ScheduleCreationDelegate.swift in Sources */,
 				CE3063552C5BE9030013F319 /* TabBarController.swift in Sources */,
 				CE3063D72C6235970013F319 /* CategoryAndScheduleTableViewCell.swift in Sources */,

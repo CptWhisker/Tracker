@@ -40,21 +40,21 @@ final class TrackerStore: NSObject {
         )
         
         do {
-        let categories = try context.fetch(fetchRequest)
-        
-        if let targetCategory = categories.first {
-            let newTrackerEntry = TrackerCoreData(context: context)
-            newTrackerEntry.habitID = tracker.habitID
-            newTrackerEntry.habitName = tracker.habitName
-            newTrackerEntry.habitEmoji = tracker.habitEmoji
-            newTrackerEntry.habitColor = tracker.habitColor
-            newTrackerEntry.habitSchedule = tracker.habitSchedule as? NSObject
-            newTrackerEntry.isPinned = tracker.isPinned
-            newTrackerEntry.originalCategory = tracker.originalCategory
+            let categories = try context.fetch(fetchRequest)
             
-            newTrackerEntry.trackerCategory = targetCategory
-            targetCategory.addToTrackersInCategory(newTrackerEntry)
-        }
+            if let targetCategory = categories.first {
+                let newTrackerEntry = TrackerCoreData(context: context)
+                newTrackerEntry.habitID = tracker.habitID
+                newTrackerEntry.habitName = tracker.habitName
+                newTrackerEntry.habitEmoji = tracker.habitEmoji
+                newTrackerEntry.habitColor = tracker.habitColor
+                newTrackerEntry.habitSchedule = tracker.habitSchedule as? NSObject
+                newTrackerEntry.isPinned = tracker.isPinned
+                newTrackerEntry.originalCategory = tracker.originalCategory
+                
+                newTrackerEntry.trackerCategory = targetCategory
+                targetCategory.addToTrackersInCategory(newTrackerEntry)
+            }
             try context.save()
         } catch {
             print("[TrackerStore addTrackerToCategory]: CoreDataError - Failed to save tracker to category")
@@ -73,7 +73,7 @@ final class TrackerStore: NSObject {
             
             let categoryFetchRequest = TrackerCategoryCoreData.fetchRequest()
             categoryFetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCategoryCoreData.categoryName), pinnedCategory.categoryName)
-                        
+            
             let categories = try context.fetch(categoryFetchRequest)
             
             guard let pinnedCategory = categories.first else { return }
@@ -101,7 +101,7 @@ final class TrackerStore: NSObject {
             let trackerResults = try context.fetch(fetchRequest)
             
             guard let unpinnedTracker = trackerResults.first else {
-                print("[moveTrackerToOriginalCategory]: Tracker not found.")
+                print("[unpinTracker]: Tracker not found.")
                 return
             }
             
@@ -113,7 +113,7 @@ final class TrackerStore: NSObject {
             let categories = try context.fetch(categoryFetchRequest)
             
             guard let originalCategory = categories.first else {
-                print("[moveTrackerToOriginalCategory]: Original category not found.")
+                print("[unpinTracker]: Original category not found.")
                 return
             }
             
@@ -131,7 +131,58 @@ final class TrackerStore: NSObject {
             print("[moveTrackerToOriginalCategory]: Failed to move tracker to original category: \(error)")
         }
     }
-
+    
+    func updateTracker(tracker: Tracker) {
+        let fetchRequest = TrackerCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCoreData.habitID), tracker.habitID as CVarArg)
+        
+        do {
+            let trackerResults = try context.fetch(fetchRequest)
+            
+            guard let trackerToUpdate = trackerResults.first else {
+                print("[updateTracker]: Tracker not found.")
+                return
+            }
+            
+            trackerToUpdate.habitName = tracker.habitName
+            trackerToUpdate.habitEmoji = tracker.habitEmoji
+            trackerToUpdate.habitColor = tracker.habitColor
+            trackerToUpdate.habitSchedule = tracker.habitSchedule as? NSObject
+            trackerToUpdate.isPinned = tracker.isPinned
+            
+            if trackerToUpdate.originalCategory == tracker.originalCategory {
+                try context.save()
+                return
+            }
+            
+            if trackerToUpdate.trackerCategory?.categoryName != trackerToUpdate.originalCategory {
+                trackerToUpdate.originalCategory = tracker.originalCategory
+            } else {
+                let categoryFetchRequest = TrackerCategoryCoreData.fetchRequest()
+                categoryFetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerCategoryCoreData.categoryName), tracker.originalCategory)
+                
+                let categoryResults = try context.fetch(categoryFetchRequest)
+                guard let newCategory = categoryResults.first else {
+                    print("[updateTracker]: New category not found.")
+                    return
+                }
+                
+                if let currentCategory = trackerToUpdate.trackerCategory {
+                    currentCategory.removeFromTrackersInCategory(trackerToUpdate)
+                }
+                
+                trackerToUpdate.trackerCategory = newCategory
+                newCategory.addToTrackersInCategory(trackerToUpdate)
+                
+                trackerToUpdate.originalCategory = tracker.originalCategory
+            }
+            
+            try context.save()
+        } catch {
+            print("[updateTracker]: Failed to update tracker: \(error)")
+        }
+    }
+    
     // MARK: - DELETE
     func deleteTracker(_ tracker: Tracker) {
         let fetchRequest = TrackerCoreData.fetchRequest()
