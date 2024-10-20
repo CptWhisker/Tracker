@@ -95,6 +95,11 @@ final class TrackerViewController: UIViewController {
         checkTrackers()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configureCollectionViewOverscroll()
+    }
+    
     // MARK: - UI Configuration
     private func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -504,6 +509,15 @@ extension TrackerViewController: UIConfigurationProtocol {
             filterButton.widthAnchor.constraint(equalToConstant: 114),
             filterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    func configureCollectionViewOverscroll() {
+        let buttonHeight: CGFloat = filterButton.bounds.height
+        let padding: CGFloat = 16
+        let totalInset = buttonHeight + padding
+        
+        trackerCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: totalInset, right: 0)
+        trackerCollectionView.scrollIndicatorInsets = trackerCollectionView.contentInset
     }
 }
 
