@@ -2,6 +2,7 @@ import UIKit
 
 final class ColorCell: UICollectionViewCell {
     static let identifier = "ColorCell"
+    private var selectedColor: UIColor?
     private lazy var colorBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -38,16 +39,34 @@ final class ColorCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            updateBorderColor()
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func updateBorderColor() {
+        if selectedColor == nil {
+            colorBackgroundView.layer.borderColor = UIColor.ypMain.cgColor
+        }
+    }
+    
     // MARK: - Public Methods
     func setColor(_ color: UIColor) {
         colorView.backgroundColor = color
     }
     
     func selectColor(_ color: UIColor) {
-        colorBackgroundView.layer.borderColor = color.withAlphaComponent(0.3).cgColor
+        selectedColor = color
+        colorBackgroundView.layer.borderColor = selectedColor?.withAlphaComponent(0.3).cgColor
     }
     
     func deselectColor() {
+        selectedColor = nil
         colorBackgroundView.layer.borderColor = UIColor.ypMain.cgColor
     }
 }
