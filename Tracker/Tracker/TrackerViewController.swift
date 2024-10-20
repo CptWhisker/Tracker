@@ -74,6 +74,17 @@ final class TrackerViewController: UIViewController {
         return search
     }()
     
+    private lazy var filterButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Filters", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -257,6 +268,13 @@ final class TrackerViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: cancelString, style: .cancel))
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc private func filterButtonTapped() {
+        let trackerFilteringViewController = TrackerFilteringViewController()
+//        trackerCreationViewController.setDelegate(delegate: self)
+        let trackerFilteringNavigationController = UINavigationController(rootViewController: trackerFilteringViewController)
+        present(trackerFilteringNavigationController, animated: true)
     }
 }
 
@@ -471,6 +489,7 @@ extension TrackerViewController: UIConfigurationProtocol {
     
     func addSubviews() {
         view.addSubview(trackerCollectionView)
+        view.addSubview(filterButton)
     }
     
     func addConstraints() {
@@ -478,7 +497,12 @@ extension TrackerViewController: UIConfigurationProtocol {
             trackerCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             trackerCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             trackerCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            trackerCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            filterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            filterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            filterButton.widthAnchor.constraint(equalToConstant: 114),
+            filterButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }
