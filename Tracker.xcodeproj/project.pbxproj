@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EAEB74EA2D75B5CDA4499F9 /* Pods_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FF9DEAFB68D21C821278535 /* Pods_Tracker.framework */; };
 		CE11F9CB2C9C74F400B2A04D /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9CA2C9C74F400B2A04D /* PageViewController.swift */; };
 		CE11F9CD2C9C752600B2A04D /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9CC2C9C752600B2A04D /* OnboardingViewController.swift */; };
 		CE30633E2C5BAEF40013F319 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE30633D2C5BAEF40013F319 /* AppDelegate.swift */; };
@@ -77,6 +78,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C78EB9E6734EADDBE57C150 /* Pods-Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker.release.xcconfig"; path = "Target Support Files/Pods-Tracker/Pods-Tracker.release.xcconfig"; sourceTree = "<group>"; };
+		5FF9DEAFB68D21C821278535 /* Pods_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74E4B6693FFB5948BA04F2B1 /* Pods-Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Tracker/Pods-Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		CE11F9CA2C9C74F400B2A04D /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		CE11F9CC2C9C752600B2A04D /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		CE30633A2C5BAEF40013F319 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,12 +159,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EAEB74EA2D75B5CDA4499F9 /* Pods_Tracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8BD176FA667943D74CD75091 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5FF9DEAFB68D21C821278535 /* Pods_Tracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C987A6CA18F2FA81791B1312 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				74E4B6693FFB5948BA04F2B1 /* Pods-Tracker.debug.xcconfig */,
+				1C78EB9E6734EADDBE57C150 /* Pods-Tracker.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CE11F9C92C9C713100B2A04D /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +196,8 @@
 			children = (
 				CE30633C2C5BAEF40013F319 /* Tracker */,
 				CE30633B2C5BAEF40013F319 /* Products */,
+				C987A6CA18F2FA81791B1312 /* Pods */,
+				8BD176FA667943D74CD75091 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -419,9 +443,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE3063512C5BAEFB0013F319 /* Build configuration list for PBXNativeTarget "Tracker" */;
 			buildPhases = (
+				2CDC76594E324BEF5D1BDDF1 /* [CP] Check Pods Manifest.lock */,
 				CE3063362C5BAEF40013F319 /* Sources */,
 				CE3063372C5BAEF40013F319 /* Frameworks */,
 				CE3063382C5BAEF40013F319 /* Resources */,
+				48E878CEF5912CDDEA934BA8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,6 +505,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2CDC76594E324BEF5D1BDDF1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Tracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		48E878CEF5912CDDEA934BA8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tracker/Pods-Tracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tracker/Pods-Tracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tracker/Pods-Tracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE3063362C5BAEF40013F319 /* Sources */ = {
@@ -621,7 +689,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -685,7 +753,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -706,6 +774,7 @@
 		};
 		CE3063522C5BAEFB0013F319 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74E4B6693FFB5948BA04F2B1 /* Pods-Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -737,6 +806,7 @@
 		};
 		CE3063532C5BAEFB0013F319 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C78EB9E6734EADDBE57C150 /* Pods-Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
