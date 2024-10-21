@@ -161,8 +161,10 @@ final class TrackerViewController: UIViewController {
         if hasTrackers {
             removeStubImageAndText()
         } else if selectedFilter == .all {
+            removeStubImageAndText()
             configureStubImageAndText()
         } else {
+            removeStubImageAndText()
             configureSearchStubImageAndText()
         }
     }
