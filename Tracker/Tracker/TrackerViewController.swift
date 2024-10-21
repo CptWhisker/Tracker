@@ -162,6 +162,8 @@ final class TrackerViewController: UIViewController {
             return TrackerCategory(categoryName: category.categoryName, trackersInCategory: sortedTrackers)
         }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
         
+        updateFilterButtonVisibility()
+        
         if selectedFilter == .completed || selectedFilter == .incompleted {
             applyFilter(selectedFilter)
         }
@@ -244,6 +246,14 @@ final class TrackerViewController: UIViewController {
         trackerRecordStore.deleteAllRecords(for: tracker)
         
         fetchCategories()
+    }
+    
+    private func updateFilterButtonVisibility() {
+        if filteredCategories.isEmpty {
+            filterButton.isHidden = true
+        } else {
+            filterButton.isHidden = false
+        }
     }
     
     // MARK: - Actions
