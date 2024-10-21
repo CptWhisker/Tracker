@@ -2,7 +2,8 @@ import UIKit
 
 final class StatisticsViewController: UIViewController {
     // MARK: - Properties
-    private var statisticsToDisplay: [AnyObject]?
+    private let trackerStore = TrackerStore()
+    private let trackerRecordStore = TrackerRecordStore()
     private lazy var stubImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "statisticsStubImage"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,6 +25,12 @@ final class StatisticsViewController: UIViewController {
         stackView.spacing = 8
         return stackView
     }()
+    private lazy var statisticsView: StatisticsView = {
+        let view = StatisticsView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 16
+        return view
+    }()
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -32,18 +39,20 @@ final class StatisticsViewController: UIViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if trackerStore.readTrackersExist() {
+            removeStubImageAndText()
+            
+            let score = trackerRecordStore.readAllRecords()
+            statisticsView.setScore(to: score)
+        } else {
+            configureStubImageAndText()
+        }
+    }
+    
     // MARK: - Private Methods
     private func configureNavigationBar() {
         navigationItem.title = NSLocalizedString("statistics.title", comment: "Title for Statistics screen")
-    }
-    
-    private func configureStatistics() {
-        guard statisticsToDisplay != nil else {
-            configureStubImageAndText()
-            return
-        }
-        
-        // Show statistics
     }
     
     private func configureStubImageAndText() {
@@ -54,6 +63,10 @@ final class StatisticsViewController: UIViewController {
             stubStackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
+    
+    private func removeStubImageAndText() {
+        stubStackView.removeFromSuperview()
+    }
 }
 
 //MARK: - UIConfigurationProtocol
@@ -62,12 +75,20 @@ extension StatisticsViewController: UIConfigurationProtocol {
         view.backgroundColor = .ypMain
         
         configureNavigationBar()
-        configureStatistics()
+        addSubviews()
+        addConstraints()
     }
     
-    func addSubviews() {}
+    func addSubviews() {
+        view.addSubview(statisticsView)
+    }
     
-    func addConstraints() {}
-    
-    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            statisticsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            statisticsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            statisticsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            statisticsView.heightAnchor.constraint(equalToConstant: 90)
+        ])
+    }
 }

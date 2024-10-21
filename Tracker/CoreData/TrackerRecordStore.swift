@@ -57,6 +57,19 @@ final class TrackerRecordStore: NSObject {
     }
     
     // MARK: - READ
+    func readAllRecords() -> Int {
+        let fetchRequest = TrackerRecordCoreData.fetchRequest()
+        
+        do {
+            let records = try context.fetch(fetchRequest)
+            
+            return records.count
+        } catch {
+            print("[TrackerRecordStore readAllRecords]: CoreDataError - Failed to read TrackerRecords")
+            return 0
+        }
+    }
+    
     func readContainsTrackerRecord(_ record: TrackerRecord) -> Bool? {
         let fetchRequest = TrackerRecordCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(

@@ -303,11 +303,6 @@ final class TrackerViewController: UIViewController {
     @objc private func dateChanged(_ datePicker: UIDatePicker) {
         selectedDate = datePicker.date.dateWithoutTime
         
-//        let calendar = Calendar.current
-//        let weekday = calendar.component(.weekday, from: selectedDate)
-//        
-//        filterTrackersInCategoriesBy(weekday: weekday)
-        
         filterTrackersInCategoriesBy(weekday: currentWeekDay)
         
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {

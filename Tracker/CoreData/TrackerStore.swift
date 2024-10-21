@@ -61,6 +61,19 @@ final class TrackerStore: NSObject {
         }
     }
     
+    // MARK: - READ
+    func readTrackersExist() -> Bool {
+        let fetchRequest = TrackerCoreData.fetchRequest()
+        
+        do {
+            let trackers = try context.fetch(fetchRequest)
+            return trackers.count > 0
+        } catch {
+            print("[TrackerStore readAllTrackerCount]: CoreDataError - Failed to read tracker data")
+            return false
+        }
+    }
+    
     // MARK: - UPDATE
     func pinTracker(_ tracker: Tracker, to pinnedCategory: TrackerCategory) {
         let fetchRequest = TrackerCoreData.fetchRequest()
