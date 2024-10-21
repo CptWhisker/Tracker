@@ -42,10 +42,12 @@ final class StatisticsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if trackerStore.readTrackersExist() {
             removeStubImageAndText()
+            statisticsView.isHidden = false
             
             let score = trackerRecordStore.readAllRecords()
             statisticsView.setScore(to: score)
         } else {
+            statisticsView.isHidden = true
             configureStubImageAndText()
         }
     }
