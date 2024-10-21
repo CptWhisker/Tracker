@@ -53,6 +53,30 @@ final class TrackerViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var searchStubImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "searchStubImage"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private lazy var searchStubLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Nothing was found"
+        label.font = .systemFont(ofSize: 12)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private lazy var searchStubStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [searchStubImage, searchStubLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        return stackView
+    }()
+    
     private lazy var trackerCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -126,8 +150,10 @@ final class TrackerViewController: UIViewController {
         let hasTrackers = filteredCategories.contains { $0.trackersInCategory?.isEmpty == false }
         if hasTrackers {
             removeStubImageAndText()
-        } else {
+        } else if selectedFilter == .all {
             configureStubImageAndText()
+        } else {
+            configureSearchStubImageAndText()
         }
     }
     
@@ -140,8 +166,18 @@ final class TrackerViewController: UIViewController {
         ])
     }
     
+    private func configureSearchStubImageAndText() {
+        view.addSubview(searchStubStackView)
+        
+        NSLayoutConstraint.activate([
+            searchStubStackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            searchStubStackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+    }
+    
     private func removeStubImageAndText() {
         stubStackView.removeFromSuperview()
+        searchStubStackView.removeFromSuperview()
     }
     
     // MARK: - Tracker Filtering
@@ -574,6 +610,12 @@ extension TrackerViewController: UISearchResultsUpdating {
             filterTrackersInCategoriesBy(searchText)
         } else {
             restoreCategories()
+        }
+        
+        if visibleCategories.isEmpty {
+            configureSearchStubImageAndText()
+        } else {
+            removeStubImageAndText()
         }
         
         trackerCollectionView.reloadData()
