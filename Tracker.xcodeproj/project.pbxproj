@@ -59,6 +59,7 @@
 		CE95FCD62CC52C23005BCAC9 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCD52CC52C23005BCAC9 /* FilterCell.swift */; };
 		CE95FCD82CC65B50005BCAC9 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCD72CC65B50005BCAC9 /* StatisticsView.swift */; };
 		CE95FCDA2CC663ED005BCAC9 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCD92CC663ED005BCAC9 /* GradientView.swift */; };
+		CE95FCDD2CC6940F005BCAC9 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95FCDC2CC6940F005BCAC9 /* AnalyticsService.swift */; };
 		CEA24D222C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */; };
 		CEA24D242C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */; };
 		CEA24D272C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */; };
@@ -135,6 +136,7 @@
 		CE95FCD52CC52C23005BCAC9 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		CE95FCD72CC65B50005BCAC9 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		CE95FCD92CC663ED005BCAC9 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		CE95FCDC2CC6940F005BCAC9 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		CEA24D212C7CE84C00A37D35 /* EmojiCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D232C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		CEA24D262C7CF2D900A37D35 /* NameTextfieldCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTextfieldCellDelegate.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		CE30633C2C5BAEF40013F319 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				CE95FCDB2CC693F1005BCAC9 /* AppMetrica */,
 				CEA5DF132CA1BF310002D544 /* Resources */,
 				CE11F9C92C9C713100B2A04D /* Onboarding */,
 				CE46F64A2C8B9969004CD3C7 /* CoreData */,
@@ -368,6 +371,14 @@
 				CE95FCD52CC52C23005BCAC9 /* FilterCell.swift */,
 			);
 			path = TrackerFiltering;
+			sourceTree = "<group>";
+		};
+		CE95FCDB2CC693F1005BCAC9 /* AppMetrica */ = {
+			isa = PBXGroup;
+			children = (
+				CE95FCDC2CC6940F005BCAC9 /* AnalyticsService.swift */,
+			);
+			path = AppMetrica;
 			sourceTree = "<group>";
 		};
 		CEA24D252C7CECC300A37D35 /* CategoryAndSchedule */ = {
@@ -594,6 +605,7 @@
 				CE11F9CB2C9C74F400B2A04D /* PageViewController.swift in Sources */,
 				CE3063F02C63DE810013F319 /* NewCategoryViewController.swift in Sources */,
 				CE3063572C5C031F0013F319 /* StatisticsViewController.swift in Sources */,
+				CE95FCDD2CC6940F005BCAC9 /* AnalyticsService.swift in Sources */,
 				CE3063C52C5F579C0013F319 /* Tracker.swift in Sources */,
 				CEA24D242C7CE9DB00A37D35 /* ColorSchemeCollectionViewCellDelegate.swift in Sources */,
 				CE3063D22C622EEC0013F319 /* Constants.swift in Sources */,

@@ -1,4 +1,5 @@
 import UIKit
+import AppMetricaCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,7 +9,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         WeekDaysTransformer.register()
         UIColorTransformer.register()
-
+        
+        AnalyticsService.activate()
+        
         return true
     }
 

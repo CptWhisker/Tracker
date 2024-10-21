@@ -3,6 +3,7 @@ import UIKit
 final class TrackerViewController: UIViewController {
     // MARK: - Properties
     private let pinnedCategoryIdentifier: String = NSLocalizedString("tracker.pinned", comment: "Title for pinned trackers")
+    private let analyticsService = AnalyticsService()
     private let trackerCategoryStore = TrackerCategoryStore()
     private let trackerRecordStore = TrackerRecordStore()
     private let trackerStore = TrackerStore()
@@ -128,6 +129,14 @@ final class TrackerViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureCollectionViewOverscroll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        analyticsService.sendEvent(event: .open, screen: .main, item: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        analyticsService.sendEvent(event: .close, screen: .main, item: nil)
     }
     
     // MARK: - UI Configuration
@@ -286,7 +295,7 @@ final class TrackerViewController: UIViewController {
     }
     
     private func updateFilterButtonVisibility() {
-        if filteredCategories.isEmpty {
+        if filteredCategories.isEmpty && selectedFilter != .today {
             filterButton.isHidden = true
         } else {
             filterButton.isHidden = false
@@ -295,6 +304,8 @@ final class TrackerViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func addHabitOrIrregularEvent() {
+        analyticsService.sendEvent(event: .tap, screen: .main, item: .add_tracker)
+        
         let trackerCreationViewController = TrackerCreationViewController()
         trackerCreationViewController.setDelegate(delegate: self)
         let trackerCreationNavigationController = UINavigationController(rootViewController: trackerCreationViewController)
@@ -324,6 +335,8 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func editTracker(at indexPath: IndexPath) {
+        analyticsService.sendEvent(event: .tap, screen: .main, item: .edit)
+        
         guard let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] else { return }
         
         let initializerTag: InitializerTag = tracker.habitSchedule != nil ? .habit : .event
@@ -335,6 +348,8 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func deleteTracker(at indexPath: IndexPath) {
+        analyticsService.sendEvent(event: .tap, screen: .main, item: .delete)
+        
         guard let tracker = visibleCategories[indexPath.section].trackersInCategory?[indexPath.item] else { return }
         
         let title = NSLocalizedString("tracker.actionSheet.text", comment: "Title for contextual menu's 'Delete' action")
@@ -352,6 +367,8 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func filterButtonTapped() {
+        analyticsService.sendEvent(event: .tap, screen: .main, item: .filter)
+        
         let trackerFilteringViewController = TrackerFilteringViewController(selectedFilter: selectedFilter)
         trackerFilteringViewController.setDelegate(delegate: self)
         let trackerFilteringNavigationController = UINavigationController(rootViewController: trackerFilteringViewController)
@@ -531,6 +548,8 @@ extension TrackerViewController: NewHabitOrIrregularEventDelegate {
 // MARK: - TrackerCellDelegate
 extension TrackerViewController: TrackerCellDelegate {
     func didTapPlusButton(in cell: TrackerCell) {
+        analyticsService.sendEvent(event: .tap, screen: .main, item: .complete_tracker)
+        
         let today = Date().dateWithoutTime
         if selectedDate > today {
             return
