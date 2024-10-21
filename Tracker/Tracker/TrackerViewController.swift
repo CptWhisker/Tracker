@@ -63,7 +63,7 @@ final class TrackerViewController: UIViewController {
     private lazy var searchStubLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Nothing was found"
+        label.text = NSLocalizedString("tracker.searchStub", comment: "Text for the search stub label")
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .center
         return label
@@ -104,8 +104,9 @@ final class TrackerViewController: UIViewController {
     
     private lazy var filterButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("tracker.filterButton", comment: "Title for 'Filters' button")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Filters", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 16

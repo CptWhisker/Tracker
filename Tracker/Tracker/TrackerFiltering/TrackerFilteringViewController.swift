@@ -4,13 +4,6 @@ protocol TrackerFilteringViewControllerDelegate: AnyObject {
     func updateFilter(with filter: Filters)
 }
 
-enum Filters: String {
-    case all = "All"
-    case today = "Trackers for today"
-    case completed = "Completed"
-    case incompleted = "Not completed"
-}
-
 final class TrackerFilteringViewController: UIViewController {
     // MARK: - Properties
     private weak var delegate: TrackerFilteringViewControllerDelegate?
@@ -66,7 +59,7 @@ extension TrackerFilteringViewController: UITableViewDataSource {
         }
         
         let filter = filters[indexPath.row]
-        cell.setTitleLabel(to: filter.rawValue)
+        cell.setTitleLabel(to: filter.localizedName)
         cell.setCheckmarkVisible(filter == selectedFilter)
         
         
@@ -107,7 +100,7 @@ extension TrackerFilteringViewController: UITableViewDelegate {
 // MARK: - UIConfigurationProtocol
 extension TrackerFilteringViewController: UIConfigurationProtocol {
     func configureUI() {
-        title = "Filters"
+        title = NSLocalizedString("filtering.title", comment: "Title for filtering screen")
         view.backgroundColor = .ypMain
         
         addSubviews()

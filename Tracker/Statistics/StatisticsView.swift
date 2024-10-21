@@ -31,7 +31,7 @@ final class StatisticsView: UIView {
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.textColor = .ypAccent
         label.textAlignment = .left
-        label.text = "Trackers completed"
+        label.text = NSLocalizedString("statisticsView.title.first", comment: "Description for 'the number of completed trackers' statistical parameter")
         return label
     }()
     

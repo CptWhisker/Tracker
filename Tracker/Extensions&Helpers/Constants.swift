@@ -1,7 +1,20 @@
-import Foundation
+import UIKit
 
 enum InitializerTag {
     case habit, event
+}
+
+enum Filters: String {
+    case all = "filters.all"
+    case today = "filters.today"
+    case completed = "filters.completed"
+    case incompleted = "filters.incompleted"
+}
+
+extension Filters {
+    var localizedName: String {
+        return NSLocalizedString(self.rawValue, comment: "Title for filter option")
+    }
 }
 
 enum WeekDays: String, CaseIterable, Codable { 

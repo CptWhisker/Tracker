@@ -1,4 +1,9 @@
 // MARK: - Constants
+"filters.all" = "Все трекеры";
+"filters.today" = "Трекеры на сегодня";
+"filters.completed" = "Завершенные";
+"filters.incompleted" = "Не завершенные";
+
 "weekdays.monday" = "Понедельник";
 "weekdays.tuesday" = "Вторник";
 "weekdays.wednesday" = "Среда";
@@ -22,6 +27,9 @@
 "statistics.title" = "Статистика";
 "statistics.stub" = "Анализировать пока нечего";
 
+// MARK: - StatisticsView
+"statisticsView.title.first" = "Трекеров завершено";
+
 // MARK: - TrackerViewController
 "tracker.title" = "Трекеры";
 "tracker.stub" = "Что будем отслеживать?";
@@ -33,6 +41,8 @@
 "tracker.actionSheet.text" = "Уверены что хотите удалить трекер?";
 "tracker.actionSheet.deleteAction" = "Удалить";
 "tracker.actionSheet.cancelAction" = "Отменить";
+"tracker.filterButton" = "Фильтры";
+"tracker.searchStub" = "Ничего не найдено";
 
 // MARK: - TrackerEditingViewController
 "trackerEditing.title" = "Редактирование трекера";
@@ -78,6 +88,9 @@
 // MARK: - ScheduleViewController
 "schedule.title" = "Расписание";
 "schedule.doneButton" = "Готово";
+
+// MARK: - TrackerFlteringViewController
+"filtering.title" = "Фильтры";
 
 // MARK: - TabBarController
 "tabBar.item.trackers" = "Трекеры";
