@@ -15,6 +15,10 @@ final class TrackerViewController: UIViewController {
     private var filteredCategories: [TrackerCategory] = []
     private var visibleCategories: [TrackerCategory] = []
     private var selectedDate: Date = Date().dateWithoutTime
+    private var currentWeekDay: Int {
+        return Calendar.current.component(.weekday, from: selectedDate)
+    }
+    private var selectedFilter: Filters = .all
     
     // MARK: - UI Elements
     private lazy var datePicker: UIDatePicker = {
@@ -81,6 +85,7 @@ final class TrackerViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 16
+        button.layer.borderColor = UIColor.ypRed.cgColor
         button.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -157,9 +162,36 @@ final class TrackerViewController: UIViewController {
             return TrackerCategory(categoryName: category.categoryName, trackersInCategory: sortedTrackers)
         }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
         
+        if selectedFilter == .completed || selectedFilter == .incompleted {
+            applyFilter(selectedFilter)
+        }
+        
         checkTrackers()
         visibleCategories = filteredCategories
         trackerCollectionView.reloadData()
+    }
+    
+    private func applyFilter(_ filter: Filters) {
+        switch filter {
+        case .all, .today:
+            return
+        case .completed:
+            filteredCategories = filteredCategories.map { category in
+                let filteredTrackers = category.trackersInCategory?.filter { tracker in
+                    let isCompleted = trackerRecordStore.readTrackerRecordIsCompleted(tracker.habitID, for: selectedDate) ?? false
+                    return isCompleted
+                } ?? []
+                return TrackerCategory(categoryName: category.categoryName, trackersInCategory: filteredTrackers)
+            }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
+        case .incompleted:
+            filteredCategories = filteredCategories.map { category in
+                let filteredTrackers = category.trackersInCategory?.filter { tracker in
+                    let isCompleted = trackerRecordStore.readTrackerRecordIsCompleted(tracker.habitID, for: selectedDate) ?? false
+                    return !isCompleted
+                } ?? []
+                return TrackerCategory(categoryName: category.categoryName, trackersInCategory: filteredTrackers)
+            }.filter { !($0.trackersInCategory?.isEmpty ?? true) }
+        }
     }
     
     // MARK: - Private Methods
@@ -225,10 +257,12 @@ final class TrackerViewController: UIViewController {
     @objc private func dateChanged(_ datePicker: UIDatePicker) {
         selectedDate = datePicker.date.dateWithoutTime
         
-        let calendar = Calendar.current
-        let weekday = calendar.component(.weekday, from: selectedDate)
+//        let calendar = Calendar.current
+//        let weekday = calendar.component(.weekday, from: selectedDate)
+//        
+//        filterTrackersInCategoriesBy(weekday: weekday)
         
-        filterTrackersInCategoriesBy(weekday: weekday)
+        filterTrackersInCategoriesBy(weekday: currentWeekDay)
         
         if let searchText = searchController.searchBar.text, !searchText.isEmpty {
             filterTrackersInCategoriesBy(searchText)
@@ -276,8 +310,8 @@ final class TrackerViewController: UIViewController {
     }
     
     @objc private func filterButtonTapped() {
-        let trackerFilteringViewController = TrackerFilteringViewController()
-//        trackerCreationViewController.setDelegate(delegate: self)
+        let trackerFilteringViewController = TrackerFilteringViewController(selectedFilter: selectedFilter)
+        trackerFilteringViewController.setDelegate(delegate: self)
         let trackerFilteringNavigationController = UINavigationController(rootViewController: trackerFilteringViewController)
         present(trackerFilteringNavigationController, animated: true)
     }
@@ -479,6 +513,8 @@ extension TrackerViewController: TrackerCellDelegate {
         if let cellToUpdate = trackerCollectionView.cellForItem(at: indexPath) as? TrackerCell {
             cellToUpdate.configure(completed: count, isCompleted: isCompleted)
         }
+        
+        filterTrackersInCategoriesBy(weekday: currentWeekDay)
     }
 }
 
@@ -545,5 +581,30 @@ extension TrackerViewController: UISearchResultsUpdating {
     
     private func restoreCategories() {
         visibleCategories = filteredCategories
+    }
+}
+
+// MARK: - TrackerFilteringViewControllerDelegate
+extension TrackerViewController: TrackerFilteringViewControllerDelegate {
+    func updateFilter(with filter: Filters) {
+        selectedFilter = filter
+        
+        if filter == .today {
+            let today = Date().dateWithoutTime
+            if selectedDate != today {
+                datePicker.date = today
+                dateChanged(datePicker)
+            }
+            datePicker.isEnabled = false
+        } else {
+            datePicker.isEnabled = true
+            filterTrackersInCategoriesBy(weekday: currentWeekDay)
+        }
+        
+        if filter != .all {
+            filterButton.layer.borderWidth = 4
+        } else {
+            filterButton.layer.borderWidth = 0
+        }
     }
 }

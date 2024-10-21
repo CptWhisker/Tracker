@@ -1,6 +1,8 @@
 import UIKit
 
-protocol TrackerFilteringViewControllerDelegate: AnyObject {}
+protocol TrackerFilteringViewControllerDelegate: AnyObject {
+    func updateFilter(with filter: Filters)
+}
 
 enum Filters: String {
     case all = "All"
@@ -13,7 +15,7 @@ final class TrackerFilteringViewController: UIViewController {
     // MARK: - Properties
     private weak var delegate: TrackerFilteringViewControllerDelegate?
     private let filters: [Filters]  = [.all, .today, .completed, .incompleted]
-    private var selectedFilter: Filters = .all
+    private var selectedFilter: Filters
     
     // MARK: - UI Elements
     private lazy var filterTableView: UITableView = {
@@ -26,6 +28,22 @@ final class TrackerFilteringViewController: UIViewController {
         tableView.register(FilterCell.self, forCellReuseIdentifier: "FilterCell")
         return tableView
     }()
+    
+    // MARK: - Initialization
+    init(selectedFilter: Filters) {
+        self.selectedFilter = selectedFilter
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public Methods
+    func setDelegate(delegate: TrackerFilteringViewControllerDelegate) {
+        self.delegate = delegate
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -78,21 +96,11 @@ extension TrackerFilteringViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedFilter = filters[indexPath.row]
-        self.selectedFilter = selectedFilter
+        self.selectedFilter = filters[indexPath.row]
+                
+        delegate?.updateFilter(with: selectedFilter)
         
-        switch selectedFilter {
-        case .all:
-            print("All trackers selected")
-        case .today:
-            print("Trackers for today selected")
-        case .completed:
-            print("Completed trackers selected")
-        case .incompleted:
-            print("Not completed trackers selected")
-        }
-        
-        tableView.reloadData()
+        dismiss(animated: true, completion: nil)
     }
 }
 
