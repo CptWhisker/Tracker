@@ -601,6 +601,10 @@ extension TrackerViewController: TrackerFilteringViewControllerDelegate {
             filterTrackersInCategoriesBy(weekday: currentWeekDay)
         }
         
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            filterTrackersInCategoriesBy(searchText)
+        }
+        
         if filter != .all {
             filterButton.layer.borderWidth = 4
         } else {
